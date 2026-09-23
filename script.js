@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 880) closeMenu();
+      if (window.innerWidth > 1120) closeMenu();
     });
   }
 

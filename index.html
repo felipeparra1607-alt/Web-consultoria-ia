@@ -12,11 +12,6 @@
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header">
     <div class="container header-inner">
-      <!-- Sustituir por logo oficial de Grindlane -->
-      <a class="brand" href="index.html" aria-label="Grindlane Consulting, inicio">
-        <span class="brand-name">Grindlane</span>
-        <span class="brand-tag">CONSULTING</span>
-      </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Abrir menú"><span></span></button>
       <nav class="site-nav" id="site-navigation" aria-label="Navegación principal">
         <div class="nav-links">
@@ -28,6 +23,9 @@
         </div>
         <a class="button header-cta" href="contacto.html">Cuéntanos tu proceso</a>
       </nav>
+      <a class="brand" href="index.html" aria-label="Grindlane Consulting, inicio">
+        <img class="brand-logo" src="images/grindlane-logo.png" alt="Grindlane Consulting">
+      </a>
     </div>
   </header>
 
@@ -36,7 +34,6 @@
       <!-- La imagen definitiva del hero se añadirá como background-image en la regla .hero de styles.css -->
       <span class="hero-background-label" aria-hidden="true">Aquí va imagen de fondo</span>
       <div class="container hero-content reveal">
-        <p class="eyebrow">Automatización e IA para empresas</p>
         <h1>Convertimos procesos complejos en sistemas más eficientes.</h1>
         <p class="hero-summary">Analizamos cómo trabaja cada empresa y diseñamos soluciones de automatización adaptadas a sus procesos.</p>
         <div class="button-row">
@@ -46,37 +43,29 @@
       </div>
     </section>
 
-    <section class="section section--light">
-      <div class="container split">
-        <div class="reveal">
-          <p class="eyebrow">El punto de partida</p>
+    <section class="section section--light problem-section">
+      <div class="container">
+        <div class="problem-intro reveal">
           <h2>Hay trabajo que sigue haciéndose manualmente porque siempre se ha hecho así.</h2>
           <p class="lead">No ocurre igual en todas las empresas, pero hay situaciones que se repiten y que conviene revisar con calma.</p>
         </div>
-        <div class="editorial-intro reveal">
-          <ul class="situations">
-            <li>Copiar y pegar información entre herramientas.</li>
-            <li>Revisar y clasificar datos de forma manual.</li>
-            <li>Introducir varias veces la misma información.</li>
-            <li>Repetir tareas administrativas de poco valor.</li>
-            <li>Gestionar consultas o citas sin un flujo claro.</li>
-            <li>Depender demasiado de una persona concreta.</li>
-            <li>Trabajar con herramientas que no están conectadas.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="container">
+        <ol class="situations reveal">
+          <li>Copiar y pegar información entre herramientas.</li>
+          <li>Revisar y clasificar datos de forma manual.</li>
+          <li>Introducir varias veces la misma información.</li>
+          <li>Repetir tareas administrativas de poco valor.</li>
+          <li>Gestionar consultas o citas sin un flujo claro.</li>
+          <li>Depender demasiado de una persona concreta.</li>
+          <li>Trabajar con herramientas que no están conectadas.</li>
+        </ol>
         <p class="statement reveal">Antes de automatizar, hay que entender qué merece la pena cambiar.</p>
       </div>
     </section>
 
     <section class="section" id="areas">
       <div class="container">
-        <div class="section-heading reveal">
-          <div>
-            <p class="eyebrow">Posibles áreas</p>
-            <h2>Qué podemos ayudar a automatizar</h2>
-          </div>
+        <div class="section-heading section-heading--center reveal">
+          <div><h2>Qué podemos ayudar a automatizar</h2></div>
           <p class="lead">Cada empresa funciona de forma distinta. Estas son algunas áreas donde la automatización puede tener sentido.</p>
         </div>
         <div class="areas-grid reveal">
@@ -99,7 +88,7 @@
     <section class="section section--dark">
       <div class="container">
         <div class="section-heading reveal">
-          <div><p class="eyebrow">Nuestro método</p><h2>De un proceso real a una solución útil.</h2></div>
+          <div><h2>De un proceso real a una solución útil.</h2></div>
           <a class="text-link" href="como-trabajamos.html">Conoce nuestro proceso</a>
         </div>
         <div class="steps-grid reveal">
@@ -113,43 +102,15 @@
 
     <section class="section section--dark principle">
       <div class="container reveal">
-        <p class="eyebrow">Un principio de Grindlane</p>
         <p class="display-quote">No todo necesita inteligencia artificial.</p>
         <p class="lead">La mejor solución no es necesariamente la que utiliza más tecnología. Analizamos cada proceso y utilizamos automatización, software e inteligencia artificial únicamente cuando aportan valor real.</p>
-      </div>
-    </section>
-
-    <section class="section section--light">
-      <div class="container">
-        <div class="section-heading reveal">
-          <div><p class="eyebrow">El equipo</p><h2>Negocio y tecnología en el mismo equipo.</h2></div>
-          <p class="lead">Grindlane combina análisis empresarial, desarrollo comercial y construcción de automatizaciones.</p>
-        </div>
-        <div class="team-preview">
-          <article class="person-card reveal">
-            <div class="visual-placeholder visual-placeholder--small" role="img" aria-label="Espacio reservado para la foto de Felipe"><span class="visual-placeholder__label">Aquí irá la foto de Felipe</span></div>
-            <h3>Felipe Parra</h3><p class="person-role">Automatización e Inteligencia Artificial</p>
-            <p>Diseña y desarrolla las soluciones técnicas de Grindlane, diferenciando qué debe resolverse con software, automatización tradicional o inteligencia artificial.</p>
-          </article>
-          <article class="person-card reveal">
-            <div class="visual-placeholder visual-placeholder--small" role="img" aria-label="Espacio reservado para la foto de Alejandro"><span class="visual-placeholder__label">Aquí irá la foto de Alejandro</span></div>
-            <h3>Alejandro Relancio</h3><p class="person-role">Análisis de negocio y desarrollo comercial</p>
-            <p>Analiza el funcionamiento del negocio y ayuda a identificar dónde una automatización puede aportar un retorno real.</p>
-          </article>
-          <article class="person-card reveal">
-            <div class="visual-placeholder visual-placeholder--small" role="img" aria-label="Espacio reservado para la foto de Francisco"><span class="visual-placeholder__label">Aquí irá la foto de Francisco</span></div>
-            <h3>Francisco Arias</h3><p class="person-role">Desarrollo comercial</p>
-            <p>Descripción pendiente.</p>
-          </article>
-        </div>
-        <div class="button-row reveal"><a class="text-link" href="nosotros.html">Conoce al equipo</a></div>
       </div>
     </section>
 
     <section class="section">
       <div class="narrow">
         <div class="section-heading reveal">
-          <div><p class="eyebrow">Preguntas habituales</p><h2>Antes de empezar</h2></div>
+          <div><h2>Antes de empezar</h2></div>
         </div>
         <div class="faq-list">
           <div class="faq-item reveal">
@@ -182,7 +143,7 @@
 
     <section class="section section--dark">
       <div class="container cta-band reveal">
-        <div><p class="eyebrow">Hablemos del proceso</p><h2>¿Hay algún proceso en tu empresa que te quite demasiado tiempo?</h2><p>Cuéntanos cómo funciona actualmente. Analizaremos si tiene sentido automatizarlo y qué enfoque podría encajar mejor.</p></div>
+        <div><h2>¿Hay algún proceso en tu empresa que te quite demasiado tiempo?</h2><p>Cuéntanos cómo funciona actualmente. Analizaremos si tiene sentido automatizarlo y qué enfoque podría encajar mejor.</p></div>
         <a class="button" href="contacto.html">Cuéntanos tu proceso</a>
       </div>
     </section>
@@ -191,7 +152,7 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand"><a class="brand" href="index.html"><span class="brand-name">Grindlane</span><span class="brand-tag">CONSULTING</span></a><p>Automatización e inteligencia artificial aplicada a procesos empresariales.</p></div>
+        <div class="footer-brand"><a class="brand" href="index.html"><img class="brand-logo" src="images/grindlane-logo.png" alt="Grindlane Consulting"></a><p>Automatización e inteligencia artificial aplicada a procesos empresariales.</p></div>
         <div><p class="footer-heading">Navegación</p><div class="footer-links"><a href="index.html">Inicio</a><a href="soluciones.html">Qué podemos automatizar</a><a href="como-trabajamos.html">Cómo trabajamos</a><a href="nosotros.html">Nosotros</a><a href="contacto.html">Contacto</a></div></div>
         <div><p class="footer-heading">Legal</p><div class="footer-links"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Privacidad</a><a href="cookies.html">Cookies</a></div></div>
       </div>
