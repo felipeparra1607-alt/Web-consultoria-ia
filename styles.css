@@ -373,8 +373,8 @@ h3 {
   overflow: hidden;
   padding: clamp(88px, 13vh, 145px) 0;
   background-color: #6f8276;
-  /* Fotografía: Matheus Bertelli / Pexels. Fuente documentada en images/IMAGE-SOURCES.md. */
-  background-image: url("images/home-consulting-meeting.jpg");
+  /* Fotografía seleccionada: Kampus Production / Pexels 6829537. */
+  background-image: url("images/grindlane-home-team.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -847,7 +847,8 @@ h3 {
 }
 
 .page-hero--method {
-  padding: clamp(92px, 11vw, 150px) 0 clamp(80px, 9vw, 122px);
+  padding: clamp(84px, 9vw, 128px) 0 clamp(52px, 5.5vw, 76px);
+  border-bottom: 0;
 }
 
 .page-hero--method h1 {
@@ -943,9 +944,24 @@ h3 {
   max-width: 690px;
 }
 
+.solution-back-bar {
+  position: sticky;
+  z-index: 90;
+  top: var(--header-height);
+  border-bottom: 1px solid rgba(31, 61, 51, 0.1);
+  background: rgba(242, 236, 225, 0.94);
+  backdrop-filter: blur(12px);
+}
+
+.solution-back-bar__inner {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+}
+
 .back-link {
   display: inline-block;
-  margin-bottom: 30px;
+  padding: 11px 0;
   color: var(--terracotta);
   font-size: 0.78rem;
   font-weight: 750;
@@ -1083,8 +1099,12 @@ h3 {
 }
 
 .process-list {
-  margin-top: 54px;
-  border-top: 1px solid var(--border);
+  margin-top: 0;
+  border-top: 0;
+}
+
+.process-section {
+  padding-top: clamp(34px, 4.5vw, 58px);
 }
 
 .process-item {
@@ -1718,6 +1738,23 @@ h3 {
   .page-hero--editorial,
   .solution-page-hero {
     padding: 64px 0;
+  }
+
+  .page-hero--method {
+    padding: 58px 0 42px;
+  }
+
+  .process-section {
+    padding-top: 28px;
+  }
+
+  .solution-back-bar__inner {
+    min-height: 40px;
+  }
+
+  .back-link {
+    padding: 8px 0;
+    font-size: 0.72rem;
   }
 
   .page-hero--method h1,
