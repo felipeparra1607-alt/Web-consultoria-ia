@@ -1,14 +1,17 @@
 :root {
   --cream: #f3efe7;
   --cream-light: #fbf9f5;
+  --graphite: #222523;
+  --graphite-dark: #171a18;
+  --graphite-secondary: #3a3f3c;
   --green: #1f3d33;
-  --text: #222a28;
-  --muted: #626864;
+  --text: var(--graphite);
+  --muted: #666a67;
   --terracotta: #91482d;
   --terracotta-dark: #743822;
-  --terracotta-light: #b86b4b;
+  --terracotta-light: #bc704f;
   --warm-gray: #e3ddd2;
-  --border: #d9d2c6;
+  --border: #d8d1c5;
   --serif: Georgia, "Times New Roman", serif;
   --sans: Inter, Aptos, "Segoe UI", Arial, sans-serif;
   --container: 1320px;
@@ -105,7 +108,7 @@ a {
 }
 
 .section--dark {
-  background: var(--green);
+  background: var(--graphite);
   color: var(--cream);
 }
 
@@ -235,7 +238,7 @@ h3 {
 .section--dark .button--ghost:hover {
   border-color: var(--cream);
   background: var(--cream);
-  color: var(--green);
+  color: var(--graphite);
 }
 
 /* Header */
@@ -372,7 +375,7 @@ h3 {
   align-items: center;
   overflow: hidden;
   padding: clamp(88px, 13vh, 145px) 0;
-  background-color: #6f8276;
+  background-color: var(--graphite-secondary);
   /* Fotografía seleccionada: Kampus Production / Pexels 6829537. */
   background-image: url("images/grindlane-home-team.webp");
   background-position: center;
@@ -385,7 +388,7 @@ h3 {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: rgba(18, 42, 34, 0.78);
+  background: rgba(23, 26, 24, 0.78);
   content: "";
 }
 
@@ -431,7 +434,7 @@ h3 {
 .hero .button--ghost:hover {
   border-color: var(--cream-light);
   background: var(--cream-light);
-  color: var(--green);
+  color: var(--graphite);
 }
 
 .hero .button-row {
@@ -905,7 +908,7 @@ h3 {
 .editorial-image::after {
   position: absolute;
   inset: 0;
-  background: linear-gradient(145deg, rgba(31, 61, 51, 0.05), rgba(31, 61, 51, 0.24));
+  background: linear-gradient(145deg, rgba(34, 37, 35, 0.04), rgba(34, 37, 35, 0.2));
   content: "";
   pointer-events: none;
 }
@@ -1116,7 +1119,7 @@ h3 {
 .criterion,
 .value {
   padding: 30px;
-  background: var(--green);
+  background: var(--graphite-secondary);
 }
 
 .criterion span,
@@ -1349,7 +1352,7 @@ h3 {
 /* Footer */
 .site-footer {
   padding: 70px 0 26px;
-  background: #183128;
+  background: var(--graphite-dark);
   color: var(--cream);
 }
 
@@ -1396,7 +1399,7 @@ h3 {
 }
 
 .footer-links a:hover {
-  color: var(--cream);
+  color: var(--terracotta-light);
   text-decoration: underline;
 }
 
@@ -1646,7 +1649,7 @@ h3 {
   }
 
   .hero::before {
-    background: rgba(18, 42, 34, 0.84);
+    background: rgba(23, 26, 24, 0.84);
   }
 
   .hero h1 {
