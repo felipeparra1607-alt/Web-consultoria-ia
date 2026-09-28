@@ -6,16 +6,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeMenu = () => {
     if (!menuToggle || !navigation) return;
     menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menú");
     navigation.classList.remove("is-open");
     document.body.classList.remove("menu-open");
+  };
+
+  const openMenu = () => {
+    if (!menuToggle || !navigation) return;
+    menuToggle.setAttribute("aria-expanded", "true");
+    menuToggle.setAttribute("aria-label", "Cerrar menú");
+    navigation.classList.add("is-open");
+    document.body.classList.add("menu-open");
   };
 
   if (menuToggle && navigation) {
     menuToggle.addEventListener("click", () => {
       const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-      menuToggle.setAttribute("aria-expanded", String(!isOpen));
-      navigation.classList.toggle("is-open", !isOpen);
-      document.body.classList.toggle("menu-open", !isOpen);
+      if (isOpen) closeMenu();
+      else openMenu();
     });
 
     navigation.querySelectorAll("a").forEach((link) => {
@@ -23,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
         closeMenu();
         menuToggle.focus();
       }
