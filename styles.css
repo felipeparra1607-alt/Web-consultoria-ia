@@ -281,6 +281,7 @@ h3 {
   overflow: visible;
   background: transparent;
   text-decoration: none;
+  order: 1;
 }
 
 .brand-logo {
@@ -297,7 +298,9 @@ h3 {
   display: flex;
   flex: 1 1 auto;
   align-items: center;
+  justify-content: flex-end;
   gap: 24px;
+  order: 2;
 }
 
 .nav-links {
@@ -867,8 +870,13 @@ h3 {
 }
 
 .page-hero--about h1 {
-  max-width: 1160px;
+  max-width: 920px;
   color: var(--green);
+}
+
+.page-hero--about .lead {
+  max-width: 760px;
+  margin-top: 24px;
 }
 
 .page-hero--split .container {
@@ -1239,6 +1247,47 @@ h3 {
   color: var(--terracotta);
 }
 
+.profile-detailed--featured {
+  column-gap: clamp(34px, 6vw, 82px);
+  grid-template-areas:
+    "photo heading"
+    "photo body";
+  grid-template-rows: auto 1fr;
+  row-gap: 0;
+}
+
+.profile-detailed--featured .profile-photo {
+  grid-area: photo;
+}
+
+.profile-heading {
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  grid-area: heading;
+}
+
+.profile-heading h2 {
+  margin-bottom: 10px;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+}
+
+.profile-heading .person-role {
+  max-width: 620px;
+  margin-bottom: 18px;
+  color: var(--terracotta);
+}
+
+.profile-copy--featured {
+  padding-top: 0;
+  border-top: 0;
+  grid-area: body;
+}
+
+.profile-contact-cta {
+  width: fit-content;
+  margin-top: 8px;
+}
+
 .principles-list {
   display: grid;
   gap: 1px;
@@ -1543,6 +1592,7 @@ h3 {
     pointer-events: none;
     visibility: hidden;
     transition: max-height 260ms ease, opacity 180ms ease, padding 260ms ease, visibility 0s linear 260ms;
+    justify-content: stretch;
     order: 4;
   }
 
@@ -1633,6 +1683,12 @@ h3 {
 
   .profile-detailed {
     grid-template-columns: 0.72fr 1fr;
+  }
+
+  .profile-detailed--featured {
+    grid-template-areas:
+      "photo heading"
+      "photo body";
   }
 
   .profile-detailed:nth-child(even) .profile-photo {
@@ -1914,6 +1970,30 @@ h3 {
   .process-item,
   .profile-detailed {
     grid-template-columns: 1fr;
+  }
+
+  .profile-detailed--featured {
+    grid-template-areas:
+      "heading"
+      "photo"
+      "body";
+    row-gap: 26px;
+  }
+
+  .profile-detailed--featured .profile-heading {
+    padding-top: 18px;
+  }
+
+  .profile-detailed--featured .profile-heading .person-role {
+    margin-bottom: 0;
+  }
+
+  .profile-detailed--featured .profile-copy {
+    padding-top: 0;
+  }
+
+  .profile-detailed--featured .profile-contact-cta {
+    width: 100%;
   }
 
   .process-item p {
