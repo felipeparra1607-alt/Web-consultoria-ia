@@ -53,15 +53,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const form = document.querySelector("[data-contact-form]");
-  const formMessage = document.querySelector("[data-form-message]");
+  document.querySelectorAll("[data-contact-form]").forEach((form) => {
+    const formMessage = form.querySelector("[data-form-message]");
+    if (!formMessage) return;
 
-  if (form && formMessage) {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       // Integrar aquí el envío real cuando exista backend o proveedor de formularios.
       formMessage.hidden = false;
       formMessage.focus();
+    });
+  });
+
+  const contactModal = document.querySelector("[data-contact-modal]");
+  const contactModalOpeners = document.querySelectorAll("[data-contact-modal-open]");
+
+  if (contactModal && contactModalOpeners.length) {
+    let activeOpener = null;
+    const closeButton = contactModal.querySelector("[data-contact-modal-close]");
+
+    const closeContactModal = () => {
+      if (contactModal.open) contactModal.close();
+    };
+
+    contactModalOpeners.forEach((opener) => {
+      opener.addEventListener("click", () => {
+        activeOpener = opener;
+        contactModal.showModal();
+        document.body.classList.add("modal-open");
+      });
+    });
+
+    closeButton?.addEventListener("click", closeContactModal);
+
+    contactModal.addEventListener("click", (event) => {
+      if (event.target === contactModal) closeContactModal();
+    });
+
+    contactModal.addEventListener("close", () => {
+      document.body.classList.remove("modal-open");
+      activeOpener?.focus();
+      activeOpener = null;
     });
   }
 
