@@ -1205,6 +1205,22 @@ h3 {
   order: 2;
 }
 
+.profile-photo--real {
+  width: 100%;
+  height: 680px;
+  margin: 0;
+  overflow: hidden;
+  background: var(--warm-gray);
+}
+
+.profile-photo--real img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
 .profile-copy {
   padding-top: 22px;
   border-top: 1px solid var(--border);
@@ -1623,6 +1639,10 @@ h3 {
     order: initial;
   }
 
+  .profile-photo--real {
+    height: 500px;
+  }
+
   .contact-aside {
     position: static;
   }
@@ -1948,6 +1968,13 @@ h3 {
 
   .profiles-detailed {
     gap: 65px;
+  }
+
+  .profile-photo--real {
+    width: min(100%, 340px);
+    height: 460px;
+    min-height: 0;
+    margin-inline: auto;
   }
 
   .form-grid {
