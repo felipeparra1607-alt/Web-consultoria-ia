@@ -71,6 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (contactModal && contactModalOpeners.length) {
     let activeOpener = null;
     const closeButton = contactModal.querySelector("[data-contact-modal-close]");
+    const modalPanel = contactModal.querySelector(".contact-modal__panel");
+    const modalTitle = contactModal.querySelector("[data-contact-modal-title]");
+    const modalForm = contactModal.querySelector("[data-contact-form]");
+    const modalMessage = contactModal.querySelector("[data-form-message]");
+    const sourceField = contactModal.querySelector("[data-contact-source-field]");
 
     const closeContactModal = () => {
       if (contactModal.open) contactModal.close();
@@ -79,6 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
     contactModalOpeners.forEach((opener) => {
       opener.addEventListener("click", () => {
         activeOpener = opener;
+        modalForm?.reset();
+        if (modalMessage) modalMessage.hidden = true;
+        if (modalTitle) modalTitle.textContent = `Contactar con ${opener.dataset.contactName}`;
+        if (sourceField) sourceField.value = opener.dataset.contactSource || "general";
+        if (modalPanel) modalPanel.scrollTop = 0;
         contactModal.showModal();
         document.body.classList.add("modal-open");
       });

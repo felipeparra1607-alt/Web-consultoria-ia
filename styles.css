@@ -1209,10 +1209,6 @@ h3 {
   grid-template-columns: minmax(280px, 0.72fr) 1fr;
 }
 
-.profile-detailed:nth-child(even) .profile-photo {
-  order: 2;
-}
-
 .profile-photo--real {
   width: 100%;
   height: auto;
@@ -1256,7 +1252,7 @@ h3 {
   color: var(--terracotta);
 }
 
-.profile-detailed--featured {
+.profile-detailed--person {
   column-gap: clamp(34px, 6vw, 82px);
   grid-template-areas:
     "photo ."
@@ -1267,7 +1263,16 @@ h3 {
   row-gap: 0;
 }
 
-.profile-detailed--featured .profile-photo {
+.profile-detailed--person:nth-child(even) {
+  grid-template-areas:
+    ". photo"
+    "heading photo"
+    "body photo"
+    ". photo";
+  grid-template-columns: 1fr minmax(280px, 0.72fr);
+}
+
+.profile-detailed--person .profile-photo {
   grid-area: photo;
 }
 
@@ -1289,7 +1294,7 @@ h3 {
   font-weight: 700;
 }
 
-.profile-copy--featured {
+.profile-copy--person {
   padding-top: 0;
   border-top: 0;
   grid-area: body;
@@ -1426,8 +1431,18 @@ body.modal-open {
 }
 
 .direct-email strong {
+  display: block;
   color: var(--terracotta);
   font-size: 1.08rem;
+}
+
+.direct-email a {
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.direct-email a:hover {
+  text-decoration: underline;
 }
 
 .contact-form {
@@ -1771,19 +1786,6 @@ body.modal-open {
     grid-template-columns: 0.72fr 1fr;
   }
 
-  .profile-detailed--featured {
-    grid-template-areas:
-      "photo ."
-      "photo heading"
-      "photo body"
-      "photo .";
-    grid-template-rows: 1fr auto auto 1fr;
-  }
-
-  .profile-detailed:nth-child(even) .profile-photo {
-    order: initial;
-  }
-
   .profile-photo--real {
     height: 500px;
   }
@@ -2061,28 +2063,30 @@ body.modal-open {
     grid-template-columns: 1fr;
   }
 
-  .profile-detailed--featured {
+  .profile-detailed--person,
+  .profile-detailed--person:nth-child(even) {
     grid-template-areas:
       "heading"
       "photo"
       "body";
+    grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
     row-gap: 26px;
   }
 
-  .profile-detailed--featured .profile-heading {
+  .profile-detailed--person .profile-heading {
     padding-top: 18px;
   }
 
-  .profile-detailed--featured .profile-heading .person-role {
+  .profile-detailed--person .profile-heading .person-role {
     margin-bottom: 0;
   }
 
-  .profile-detailed--featured .profile-copy {
+  .profile-detailed--person .profile-copy {
     padding-top: 0;
   }
 
-  .profile-detailed--featured .profile-contact-cta {
+  .profile-detailed--person .profile-contact-cta {
     width: 100%;
   }
 
