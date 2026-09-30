@@ -8,8 +8,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <link rel="stylesheet" href="styles.css?v=20260930b">
-  <script src="script.js?v=20260930d" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260930e">
+  <script src="script.js?v=20260930g" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -75,15 +75,17 @@
       <div class="contact-modal__heading"><h2 id="profile-modal-title" data-contact-modal-title>Contactar con Felipe</h2><p id="profile-modal-description">Cuéntanos brevemente qué quieres mejorar o qué proceso te gustaría revisar.</p></div>
       <form class="contact-form contact-form--modal" data-contact-form>
         <input type="hidden" name="source" value="felipe" data-contact-source-field>
+        <input type="hidden" name="contact_person" value="Felipe" data-contact-person-field>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="form-honeypot">
         <div class="form-grid">
-          <div class="form-field"><label for="modal-nombre">Nombre</label><input id="modal-nombre" name="nombre" type="text" autocomplete="name" required autofocus></div>
-          <div class="form-field"><label for="modal-empresa">Empresa</label><input id="modal-empresa" name="empresa" type="text" autocomplete="organization" required></div>
-          <div class="form-field form-field--full"><label for="modal-email">Email</label><input id="modal-email" name="email" type="email" autocomplete="email" required></div>
-          <div class="form-field form-field--full"><label for="modal-mensaje">Mensaje</label><textarea id="modal-mensaje" name="mensaje" required></textarea></div>
+          <div class="form-field"><label for="modal-nombre">Nombre</label><input id="modal-nombre" name="nombre" type="text" autocomplete="name" maxlength="120" required autofocus></div>
+          <div class="form-field"><label for="modal-empresa">Empresa</label><input id="modal-empresa" name="empresa" type="text" autocomplete="organization" maxlength="160" required></div>
+          <div class="form-field form-field--full"><label for="modal-email">Email</label><input id="modal-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+          <div class="form-field form-field--full"><label for="modal-mensaje">Mensaje</label><textarea id="modal-mensaje" name="mensaje" maxlength="5000" required></textarea></div>
         </div>
+        <label class="privacy-consent"><input type="checkbox" name="privacy" required><span>He leído y acepto la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>.</span></label>
         <div class="button-row"><button class="button" type="submit">Enviar</button></div>
-        <p class="form-note">Este formulario es provisional y todavía no envía información.</p>
-        <div class="form-message" data-form-message tabindex="-1" role="status" hidden>El formulario todavía no realiza envíos. Mientras tanto, puedes escribirnos a <a href="mailto:partners@grindlaneconsulting.com">partners@grindlaneconsulting.com</a>.</div>
+        <p class="form-status" data-form-status role="status" aria-live="polite"></p>
       </form>
     </div>
   </dialog>

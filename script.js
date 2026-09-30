@@ -1,3 +1,5 @@
+const FORM_ENDPOINT = "https://grindlane-form.felipe-parra1607.workers.dev";
+
 document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.querySelector(".menu-toggle");
   const navigation = document.querySelector(".site-nav");
@@ -65,14 +67,77 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelectorAll("[data-contact-form]").forEach((form) => {
-    const formMessage = form.querySelector("[data-form-message]");
-    if (!formMessage) return;
+    const formStatus = form.querySelector("[data-form-status]");
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (!formStatus || !submitButton) return;
 
-    form.addEventListener("submit", (event) => {
+    const updateStatus = (message, state = "") => {
+      formStatus.textContent = message;
+      formStatus.classList.toggle("form-status--success", state === "success");
+      formStatus.classList.toggle("form-status--error", state === "error");
+    };
+
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      // Integrar aquí el envío real cuando exista backend o proveedor de formularios.
-      formMessage.hidden = false;
-      formMessage.focus();
+      if (form.dataset.submitting === "true") return;
+
+      const formData = new FormData(form);
+      const source = String(formData.get("source") || "general");
+      const contactPerson = String(formData.get("contact_person") || "");
+      const payload = {
+        name: String(formData.get("nombre") || "").trim(),
+        company: String(formData.get("empresa") || "").trim(),
+        email: String(formData.get("email") || "").trim(),
+        message: String(formData.get("mensaje") || "").trim(),
+        source,
+        contact_person: contactPerson,
+        page_url: window.location.href,
+        website: String(formData.get("website") || "").trim(),
+      };
+      const originalButtonText = submitButton.textContent;
+      const contextIsCurrent = () =>
+        form.elements.source?.value === source &&
+        form.elements.contact_person?.value === contactPerson;
+
+      form.dataset.submitting = "true";
+      form.setAttribute("aria-busy", "true");
+      submitButton.disabled = true;
+      submitButton.textContent = "Enviando…";
+      updateStatus("Enviando el mensaje…");
+
+      try {
+        const response = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => null);
+
+        if (!response.ok || result?.ok !== true) {
+          throw new Error("El servicio de formularios ha rechazado el envío.");
+        }
+
+        if (contextIsCurrent()) {
+          form.reset();
+          form.elements.source.value = source;
+          form.elements.contact_person.value = contactPerson;
+          updateStatus("Mensaje enviado. Nos pondremos en contacto contigo pronto.", "success");
+        }
+      } catch (error) {
+        if (contextIsCurrent()) {
+          updateStatus(
+            "No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos a partners@grindlaneconsulting.com.",
+            "error",
+          );
+        }
+      } finally {
+        form.dataset.submitting = "false";
+        form.removeAttribute("aria-busy");
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
     });
   });
 
@@ -85,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalPanel = contactModal.querySelector(".contact-modal__panel");
     const modalTitle = contactModal.querySelector("[data-contact-modal-title]");
     const modalForm = contactModal.querySelector("[data-contact-form]");
-    const modalMessage = contactModal.querySelector("[data-form-message]");
+    const modalStatus = contactModal.querySelector("[data-form-status]");
 
     const closeContactModal = () => {
       if (contactModal.open) contactModal.close();
@@ -95,15 +160,24 @@ document.addEventListener("DOMContentLoaded", () => {
       opener.addEventListener("click", () => {
         activeOpener = opener;
         modalForm?.reset();
-        if (modalMessage) modalMessage.hidden = true;
+        if (modalStatus) {
+          modalStatus.textContent = "";
+          modalStatus.classList.remove("form-status--success", "form-status--error");
+        }
         if (modalTitle) modalTitle.textContent = `Contactar con ${opener.dataset.contactName}`;
         if (modalPanel) modalPanel.scrollTop = 0;
         contactModal.showModal();
         const sourceField = contactModal.querySelector("[data-contact-source-field]");
+        const contactPersonField = contactModal.querySelector("[data-contact-person-field]");
         if (sourceField) {
           const source = opener.dataset.contactSource || "general";
           sourceField.setAttribute("value", source);
           sourceField.value = source;
+        }
+        if (contactPersonField) {
+          const contactPerson = opener.dataset.contactName || "";
+          contactPersonField.setAttribute("value", contactPerson);
+          contactPersonField.value = contactPerson;
         }
         document.body.classList.add("modal-open");
       });

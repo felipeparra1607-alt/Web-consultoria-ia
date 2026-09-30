@@ -8,8 +8,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <link rel="stylesheet" href="styles.css?v=20260930d">
-  <script src="script.js?v=20260930f" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260930e">
+  <script src="script.js?v=20260930g" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -25,16 +25,17 @@
       <div class="contact-intro reveal"><h1>Cuéntanos qué proceso quieres mejorar.</h1><p class="lead">No necesitas saber qué tecnología necesitas. Cuéntanos cómo trabajas hoy y qué proceso te gustaría mejorar.</p></div>
       <div class="contact-form-wrap reveal" id="formulario-contacto"><form class="contact-form" data-contact-form>
         <input type="hidden" name="source" value="general">
+        <input type="hidden" name="contact_person" value="">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="form-honeypot">
         <div class="form-grid">
-          <div class="form-field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" autocomplete="name" required></div>
-          <div class="form-field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" type="text" autocomplete="organization" required></div>
-          <div class="form-field form-field--full"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-          <div class="form-field form-field--full"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" required></textarea></div>
+          <div class="form-field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" autocomplete="name" maxlength="120" required></div>
+          <div class="form-field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" type="text" autocomplete="organization" maxlength="160" required></div>
+          <div class="form-field form-field--full"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+          <div class="form-field form-field--full"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" maxlength="5000" required></textarea></div>
         </div>
-        <!-- Integrar aquí el envío real cuando exista backend o proveedor de formularios. -->
+        <label class="privacy-consent"><input type="checkbox" name="privacy" required><span>He leído y acepto la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>.</span></label>
         <div class="button-row"><button class="button" type="submit">Enviar</button></div>
-        <p class="form-note">Este formulario es provisional y todavía no envía información.</p>
-        <div class="form-message" data-form-message tabindex="-1" role="status" hidden>El formulario todavía no realiza envíos. Mientras tanto, puedes escribirnos a <a href="mailto:partners@grindlaneconsulting.com">partners@grindlaneconsulting.com</a>.</div>
+        <p class="form-status" data-form-status role="status" aria-live="polite"></p>
       </form></div>
       <div class="contact-meta reveal"><div class="direct-email"><span>También puedes escribirnos directamente.</span><strong><a href="mailto:partners@grindlaneconsulting.com">partners@grindlaneconsulting.com</a></strong></div><p class="contact-trust">Revisaremos el contexto antes de plantear cualquier solución.</p></div>
     </div></section>
