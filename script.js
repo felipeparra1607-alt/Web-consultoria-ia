@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalTitle = contactModal.querySelector("[data-contact-modal-title]");
     const modalForm = contactModal.querySelector("[data-contact-form]");
     const modalMessage = contactModal.querySelector("[data-form-message]");
-    const sourceField = contactModal.querySelector("[data-contact-source-field]");
 
     const closeContactModal = () => {
       if (contactModal.open) contactModal.close();
@@ -87,9 +86,14 @@ document.addEventListener("DOMContentLoaded", () => {
         modalForm?.reset();
         if (modalMessage) modalMessage.hidden = true;
         if (modalTitle) modalTitle.textContent = `Contactar con ${opener.dataset.contactName}`;
-        if (sourceField) sourceField.value = opener.dataset.contactSource || "general";
         if (modalPanel) modalPanel.scrollTop = 0;
         contactModal.showModal();
+        const sourceField = contactModal.querySelector("[data-contact-source-field]");
+        if (sourceField) {
+          const source = opener.dataset.contactSource || "general";
+          sourceField.setAttribute("value", source);
+          sourceField.value = source;
+        }
         document.body.classList.add("modal-open");
       });
     });
@@ -105,6 +109,65 @@ document.addEventListener("DOMContentLoaded", () => {
       activeOpener?.focus();
       activeOpener = null;
     });
+  }
+
+  const countupItems = document.querySelectorAll("[data-countup], [data-countup-start]");
+
+  if (countupItems.length && !reduceMotion && "IntersectionObserver" in window) {
+    const formatNumber = (value, decimals = 0) =>
+      new Intl.NumberFormat("es-ES", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      }).format(value);
+
+    const renderCount = (item, progress) => {
+      const suffix = item.dataset.suffix || "";
+      const decimals = Number(item.dataset.decimals || 0);
+
+      if (item.dataset.countupStart !== undefined) {
+        const lower = Number(item.dataset.countupStart);
+        const upper = Number(item.dataset.countupEnd);
+        item.textContent = `${formatNumber(lower * progress, decimals)}–${formatNumber(upper * progress, decimals)}${suffix}`;
+        return;
+      }
+
+      const target = Number(item.dataset.countup);
+      item.textContent = `${formatNumber(target * progress, decimals)}${suffix}`;
+    };
+
+    const animateCount = (item) => {
+      if (item.dataset.counted === "true") return;
+      item.dataset.counted = "true";
+      const duration = 1050;
+      const startTime = performance.now();
+
+      const update = (currentTime) => {
+        const elapsed = Math.min((currentTime - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - elapsed, 3);
+        renderCount(item, eased);
+        if (elapsed < 1) requestAnimationFrame(update);
+      };
+
+      requestAnimationFrame(update);
+    };
+
+    countupItems.forEach((item) => {
+      item.setAttribute("aria-label", item.textContent.trim());
+      renderCount(item, 0);
+    });
+
+    const countupObserver = new IntersectionObserver(
+      (entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          animateCount(entry.target);
+          currentObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    countupItems.forEach((item) => countupObserver.observe(item));
   }
 
   const revealItems = document.querySelectorAll(".reveal");

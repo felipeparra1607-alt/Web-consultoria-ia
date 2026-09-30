@@ -497,7 +497,7 @@ h3 {
 .sector-stat strong,
 .impact-stat {
   display: block;
-  color: var(--green);
+  color: var(--graphite);
   font-family: var(--serif);
   font-weight: 400;
   letter-spacing: -0.055em;
@@ -519,7 +519,8 @@ h3 {
 .source-note {
   margin: 18px 0 0;
   color: var(--muted);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
 }
 
 .commercial-reminder,
@@ -527,7 +528,7 @@ h3 {
 .friction-closing {
   max-width: 880px;
   margin: 42px 0 0;
-  color: var(--green);
+  color: var(--graphite);
   font-family: var(--serif);
   font-size: clamp(1.45rem, 2.8vw, 2.25rem);
   line-height: 1.3;
@@ -580,10 +581,6 @@ h3 {
   margin-top: 42px;
 }
 
-.section-actions--left {
-  justify-content: flex-start;
-}
-
 .impact-grid {
   display: grid;
   gap: 18px;
@@ -595,7 +592,7 @@ h3 {
   min-width: 0;
   flex-direction: column;
   padding: clamp(28px, 3vw, 42px);
-  border-top: 3px solid var(--green);
+  border-top: 3px solid var(--graphite-secondary);
   background: var(--cream-light);
 }
 
@@ -603,27 +600,24 @@ h3 {
   border-top-color: var(--terracotta);
 }
 
-.impact-label {
-  margin-bottom: 28px;
-  color: var(--terracotta);
-  font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-
 .impact-card h3 {
-  min-height: 3.3em;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   font-size: clamp(1.65rem, 2.4vw, 2.35rem);
 }
 
-.impact-card > p:not(.impact-label):not(.source-note):not(.impact-closing) {
+.impact-card > p:not(.source-note):not(.impact-closing) {
   color: var(--muted);
 }
 
+.impact-tagline {
+  min-height: 3.2em;
+  margin-bottom: 0;
+  color: var(--graphite-secondary) !important;
+  font-weight: 650;
+}
+
 .impact-stat {
-  margin: 28px 0 18px;
+  margin: 26px 0 18px;
   font-size: clamp(3.8rem, 6vw, 6.5rem);
 }
 
@@ -635,45 +629,45 @@ h3 {
   margin-top: 4px;
 }
 
-.impact-closing {
+.impact-card__footer {
   margin-top: auto;
-  padding-top: 28px;
-  border-top: 1px solid var(--border);
-  color: var(--green);
-  font-weight: 650;
+  padding-top: 24px;
 }
 
-.business-bridge .cta-band {
-  align-items: center;
+.impact-closing {
+  margin: 18px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  color: var(--graphite-secondary);
+  font-weight: 650;
 }
 
 .friction-list {
   display: grid;
-  margin: 0;
+  max-width: 1040px;
+  margin: 0 auto;
   padding: 0;
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
+  gap: 14px;
   grid-template-columns: repeat(2, 1fr);
   list-style: none;
 }
 
 .friction-list li {
-  padding: 28px 32px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  display: flex;
+  min-height: 112px;
+  align-items: center;
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+  background: var(--cream-light);
   color: var(--text);
   font-family: var(--serif);
   font-size: clamp(1.25rem, 2vw, 1.75rem);
 }
 
-.flow-number {
-  display: block;
-  margin-bottom: 18px;
-  color: var(--terracotta);
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.12em;
+.friction-closing {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .areas-grid--compact .area-item {
@@ -835,18 +829,25 @@ h3 {
 
 .area-item {
   position: relative;
-  display: block;
+  display: flex;
   min-height: 215px;
-  padding: 27px 62px 27px 27px;
+  flex-direction: column;
+  padding: 27px;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   color: var(--text);
+  cursor: pointer;
   text-decoration: none;
-  transition: background 180ms ease, color 180ms ease;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
-.area-item:hover {
+.area-item:hover,
+.area-item:focus-visible {
+  z-index: 1;
+  border-color: rgba(145, 72, 45, 0.45);
   background: var(--cream-light);
+  box-shadow: 0 14px 30px rgba(34, 37, 35, 0.08);
+  transform: translateY(-3px);
 }
 
 .area-number {
@@ -859,23 +860,18 @@ h3 {
 }
 
 .area-item p {
-  margin-bottom: 0;
+  margin-bottom: 22px;
   color: var(--muted);
   font-size: 0.94rem;
 }
 
-.area-arrow {
-  position: absolute;
-  right: 27px;
-  bottom: 25px;
+.area-action {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: auto;
   color: var(--terracotta);
-  font-size: 1.15rem;
-  transition: transform 180ms ease;
-}
-
-.area-item:hover .area-arrow,
-.area-item:focus-visible .area-arrow {
-  transform: translateX(5px);
+  font-size: 0.82rem;
+  font-weight: 750;
 }
 
 .areas-closing {
@@ -903,6 +899,21 @@ h3 {
 
 .process-summary .process-flow {
   margin-top: 0;
+}
+
+.process-summary .process-flow--four {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.process-summary .process-flow--four .flow-step {
+  justify-content: center;
+  border-left: 1px solid var(--border);
+  text-align: center;
+}
+
+.process-summary .process-flow--four .flow-step:first-child {
+  border-left: 0;
 }
 
 .flow-step {
@@ -1451,6 +1462,10 @@ h3 {
   object-position: center 20%;
 }
 
+.profile-photo--alejandro img {
+  object-position: center 42%;
+}
+
 .profile-photo--francisco img {
   object-position: center 35%;
 }
@@ -1886,13 +1901,6 @@ body.modal-open {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .impact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .impact-card h3 {
-    min-height: 0;
-  }
 }
 
 @media (max-width: 1120px) {
@@ -2062,6 +2070,14 @@ body.modal-open {
 }
 
 @media (max-width: 860px) {
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-tagline {
+    min-height: 0;
+  }
+
   .sector-grid {
     grid-template-columns: 1fr;
   }
@@ -2072,6 +2088,20 @@ body.modal-open {
 
   .process-flow {
     flex-direction: column;
+  }
+
+  .process-summary .process-flow--four {
+    grid-template-columns: 1fr;
+  }
+
+  .process-summary .process-flow--four .flow-step,
+  .process-summary .process-flow--four .flow-step:first-child {
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+
+  .process-summary .process-flow--four .flow-step:first-child {
+    border-top: 0;
   }
 
   .flow-step {
@@ -2230,8 +2260,7 @@ body.modal-open {
     margin-top: 34px;
   }
 
-  .section-actions,
-  .section-actions--left {
+  .section-actions {
     align-items: stretch;
     justify-content: stretch;
   }
