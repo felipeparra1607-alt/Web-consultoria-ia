@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const animateCount = (item) => {
       if (item.dataset.counted === "true") return;
       item.dataset.counted = "true";
-      const duration = 1050;
+      const duration = 2000;
       const startTime = performance.now();
 
       const update = (currentTime) => {
