@@ -42,6 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const scrollToHashTarget = () => {
+    if (!window.location.hash) return;
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+  };
+
+  scrollToHashTarget();
+  window.addEventListener("hashchange", scrollToHashTarget);
+
   document.querySelectorAll(".faq-question").forEach((button) => {
     button.addEventListener("click", () => {
       const answerId = button.getAttribute("aria-controls");
