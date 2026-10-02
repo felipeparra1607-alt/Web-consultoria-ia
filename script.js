@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {
         if (contextIsCurrent()) {
           updateStatus(
-            "No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos a partners@grindlaneconsulting.com.",
+            "No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos a contacto@grindlaneconsulting.com.",
             "error",
           );
         }
