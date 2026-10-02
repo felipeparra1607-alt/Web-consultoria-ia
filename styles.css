@@ -1622,7 +1622,12 @@ h3 {
 }
 
 .team-back {
-  padding-top: 38px;
+  position: sticky;
+  z-index: 90;
+  top: calc(var(--header-height) + 1px);
+  padding-block: 12px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
 }
 
 .privacy-notice {
@@ -2052,9 +2057,16 @@ body.modal-open {
   accent-color: var(--terracotta);
 }
 
-.privacy-consent a {
+.privacy-link {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
   color: var(--green);
   font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
   text-underline-offset: 3px;
 }
 
@@ -2085,6 +2097,57 @@ body.modal-open {
 .legal-content {
   min-height: 50vh;
 }
+
+.legal-hero { padding-block: clamp(44px, 7vw, 80px); }
+.legal-hero h1 { font-size: clamp(2.6rem, 5vw, 4.3rem); }
+.legal-updated { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.legal-body { padding-bottom: clamp(60px, 8vw, 104px); }
+.legal-summary, .legal-toc, .legal-card {
+  padding: clamp(22px, 4vw, 38px);
+  border: 1px solid var(--border);
+  background: var(--cream-light);
+  overflow-wrap: anywhere;
+}
+.legal-summary { border-top: 3px solid var(--terracotta); }
+.legal-summary h2, .legal-toc h2, .legal-card h2 {
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  line-height: 1.2;
+  margin-bottom: 22px;
+}
+.legal-summary p:last-child, .legal-card > :last-child { margin-bottom: 0; }
+.legal-toc { margin-block: 24px 40px; background: transparent; }
+.legal-toc ol { padding-left: 0; margin-bottom: 0; list-style: none; }
+.legal-toc li + li { margin-top: 10px; }
+.legal-toc a { color: var(--terracotta); }
+.legal-sections { display: grid; gap: 24px; }
+.legal-card { scroll-margin-top: calc(var(--header-height) + 24px); line-height: 1.8; }
+.legal-card ul, .legal-summary ul { padding-left: 22px; }
+.legal-card li + li, .legal-summary li + li { margin-top: 8px; }
+
+/* Shared quick privacy view: native dialog also works above the contact dialog. */
+.privacy-modal { width: min(calc(100% - 24px), 960px); max-height: calc(100dvh - 24px); }
+.privacy-modal::backdrop { background: rgba(23, 26, 24, 0.55); }
+.privacy-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px clamp(20px, 4vw, 40px);
+  border-bottom: 1px solid var(--border);
+}
+.privacy-modal__header h2 { margin: 0; font-size: clamp(1.65rem, 3vw, 2.5rem); }
+.privacy-modal__header .contact-modal__close { position: static; flex: 0 0 44px; }
+.privacy-modal__body {
+  max-height: calc(100dvh - 150px);
+  padding: clamp(24px, 4vw, 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  overflow-wrap: anywhere;
+  line-height: 1.75;
+}
+.privacy-modal__body section + section { margin-top: 28px; }
+.privacy-modal__body h3 { font-size: 1.5rem; }
+.privacy-modal__body > p:last-child { padding-top: 24px; border-top: 1px solid var(--border); }
 
 .legal-notice {
   margin: 40px 0;

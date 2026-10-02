@@ -190,9 +190,68 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     contactModal.addEventListener("close", () => {
-      document.body.classList.remove("modal-open");
+      document.body.classList.toggle("modal-open", !!document.querySelector("dialog[open]"));
       activeOpener?.focus();
       activeOpener = null;
+    });
+  }
+
+  const privacyOpeners = document.querySelectorAll("[data-privacy-open]");
+  if (privacyOpeners.length) {
+    const privacyModal = document.createElement("dialog");
+    privacyModal.id = "privacy-modal";
+    privacyModal.className = "contact-modal privacy-modal";
+    privacyModal.setAttribute("role", "dialog");
+    privacyModal.setAttribute("aria-modal", "true");
+    privacyModal.setAttribute("aria-labelledby", "privacy-modal-title");
+    privacyModal.innerHTML = `
+      <div class="privacy-modal__header"><h2 id="privacy-modal-title">Política de Privacidad</h2><button class="contact-modal__close" type="button" data-privacy-close aria-label="Cerrar política de privacidad" autofocus>×</button></div>
+      <div class="privacy-modal__body" tabindex="0" role="region" aria-label="Resumen de la política de privacidad">
+        <p>Esta es una consulta rápida de nuestra política, para que puedas revisarla sin salir del formulario.</p>
+        <section><h3>Responsables y contacto</h3><p>Felipe Parra y Francisco Arias son corresponsables del tratamiento en Grindlane Consulting. Puedes contactar con cualquiera de ellos a través de <a href="mailto:contacto@grindlaneconsulting.com">contacto@grindlaneconsulting.com</a>.</p></section>
+        <section><h3>Para qué utilizamos tus datos</h3><p>Para responder a tu consulta, analizar las necesidades que nos comunicas, valorar posibles proyectos y mantener comunicaciones relacionadas con tu solicitud o una posible relación comercial. También para garantizar la seguridad del servicio.</p></section>
+        <section><h3>Datos que tratamos</h3><p>Nombre, empresa, email y mensaje; persona o área de contacto, página de origen y datos técnicos estrictamente necesarios para la seguridad y el funcionamiento. No incluyas información sensible innecesaria.</p></section>
+        <section><h3>Base jurídica y conservación</h3><p>Medidas precontractuales solicitadas por ti al contactar y, cuando corresponda, tu consentimiento o el cumplimiento de obligaciones legales. Conservamos los datos durante el tiempo necesario para atender la solicitud y gestionar la relación, sin perjuicio de los plazos necesarios para posibles responsabilidades legales.</p></section>
+        <section><h3>Proveedores tecnológicos</h3><p>GitHub Pages aloja la web; Cloudflare presta servicios de infraestructura, seguridad y procesamiento del formulario; Resend transmite los mensajes y Zoho gestiona el correo corporativo. Solo intervienen en la medida necesaria para prestar sus servicios. No vendemos datos personales. Las transferencias internacionales, cuando existan, estarán sujetas a las garantías exigibles.</p></section>
+        <section><h3>Tus derechos</h3><p>Puedes solicitar acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, y retirar tu consentimiento cuando el tratamiento se base en él. Escribe a <a href="mailto:contacto@grindlaneconsulting.com">contacto@grindlaneconsulting.com</a> indicando el derecho que deseas ejercer. También puedes reclamar ante la Agencia Española de Protección de Datos.</p></section>
+        <section><h3>Seguridad</h3><p>Aplicamos medidas técnicas y organizativas razonables, HTTPS, validación de formularios y protección frente a envíos automatizados. Los formularios no toman decisiones automatizadas con efectos jurídicos o significativamente similares.</p></section>
+        <p>Puedes consultar la versión completa en la <a href="/privacidad/">Política de Privacidad</a>.</p>
+      </div>`;
+    document.body.append(privacyModal);
+    let privacyOpener = null;
+    privacyOpeners.forEach((opener) => opener.addEventListener("click", (event) => {
+      // Prevent the surrounding consent label from checking the checkbox.
+      event.preventDefault();
+      event.stopPropagation();
+      privacyOpener = opener;
+      privacyModal.showModal();
+      privacyModal.querySelector(".privacy-modal__body").scrollTop = 0;
+      privacyModal.querySelector("[data-privacy-close]").focus();
+      document.body.classList.add("modal-open");
+    }));
+    privacyModal.querySelector("[data-privacy-close]").addEventListener("click", () => privacyModal.close());
+    privacyModal.addEventListener("click", (event) => {
+      if (event.target === privacyModal) privacyModal.close();
+    });
+    // Keep Tab inside the panel (including at browser chrome boundaries).
+    privacyModal.addEventListener("keydown", (event) => {
+      if (event.key !== "Tab") return;
+      const stops = [...privacyModal.querySelectorAll('button, a[href], [tabindex="0"]')];
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+    // Native Escape closes only the top dialog, preserving the underlying form.
+    privacyModal.addEventListener("close", () => {
+      document.body.classList.toggle("modal-open", !!document.querySelector("dialog[open]"));
+      privacyOpener?.focus();
+      privacyOpener = null;
     });
   }
 
