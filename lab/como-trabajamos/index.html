@@ -23,7 +23,33 @@
     <div class="journey" id="journey">
       <div class="stage" id="stage">
         <div class="room" aria-hidden="true">
-          <div class="architecture"><div class="wall-line wall-line--left"></div><div class="wall-line wall-line--right"></div><div class="light-slot"></div><div class="wall-caption">PROCESOS PRIMERO.<br>TECNOLOGÍA DESPUÉS.</div></div>
+          <div class="architecture">
+            <!-- Espacio de trabajo dibujado con vectores; ninguna referencia se usa como asset. -->
+            <svg class="room-backdrop" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+              <defs>
+                <linearGradient id="window-night" x2="0" y2="1"><stop stop-color="#0c294d"/><stop offset="1" stop-color="#226491"/></linearGradient>
+                <linearGradient id="shelf-wood"><stop stop-color="#151c22"/><stop offset=".55" stop-color="#41403b"/><stop offset="1" stop-color="#17212d"/></linearGradient>
+                <pattern id="city-lights" width="36" height="30" patternUnits="userSpaceOnUse"><rect x="5" y="7" width="5" height="8" fill="#7bbadc" opacity=".42"/><rect x="21" y="7" width="5" height="8" fill="#e4b987" opacity=".28"/></pattern>
+                <linearGradient id="room-leaf"><stop stop-color="#273e3b"/><stop offset=".6" stop-color="#44776c"/><stop offset="1" stop-color="#102f30"/></linearGradient>
+              </defs>
+              <path d="M0 0H1440V790H0Z" fill="#131d28"/><path d="M850 0H1440V795L1000 700Z" fill="#142b43"/>
+              <path d="M980 50 1370 0V693L980 630Z" fill="url(#window-night)" stroke="#45637d" stroke-width="9"/>
+              <path d="M986 447V375H1040V438H1060V298H1120V432H1140V340H1205V433H1225V240H1290V427H1315V348H1368V685Z" fill="#0a2036"/>
+              <path d="M986 447V375H1040V438H1060V298H1120V432H1140V340H1205V433H1225V240H1290V427H1315V348H1368V685Z" fill="url(#city-lights)"/>
+              <path d="M1108 32V650M1240 13V671M980 247 1370 230M980 440 1370 474" stroke="#0b1520" stroke-width="12"/>
+              <path d="M1000 55 1280 12 1060 648 1000 630Z" fill="#9ad9ef" opacity=".045"/>
+              <path d="M63 132H320V670H63Z" fill="#0a1119" stroke="#4a4b43" stroke-width="5"/>
+              <path d="M63 272H320V284H63ZM63 424H320V436H63ZM63 576H320V588H63Z" fill="url(#shelf-wood)"/>
+              <g stroke="#5b645f" stroke-width="2"><path d="M83 175H105V270H83Z" fill="#253b46"/><path d="M110 192H127V270H110Z" fill="#795c46"/><path d="M136 179H151V270H136Z" fill="#303f4e"/><path d="M160 190H179V270H160Z" fill="#6b756d"/><path d="M204 364H231V423H204Z" fill="#254154"/><path d="M233 348H245V423H233Z" fill="#8c7359"/><path d="M80 505H130V575H80Z" fill="#1e3342"/></g>
+              <path d="M264 215V177M264 215C215 196 231 154 264 177M264 191C291 157 308 167 264 200" stroke="#507767" stroke-width="4"/>
+              <path d="M243 210H283L276 270H250Z" fill="#787b72"/><ellipse cx="263" cy="212" rx="20" ry="5" fill="#a5a18a"/>
+              <path d="M281 536C280 494 230 492 229 536V560H281Z" fill="#244251" stroke="#587981"/><path d="M242 560V541H267V560" stroke="#7a99a2"/>
+              <path d="M466 130H565V245H466Z" stroke="#636961" stroke-width="5" fill="#0e1a27"/><path d="M480 220 508 175 535 205 550 155" stroke="#8ea6a6" stroke-width="2"/>
+              <g fill="url(#room-leaf)"><path d="M1340 750C1180 620 1170 590 1210 615C1280 640 1295 685 1340 750Z"/><path d="M1340 740C1270 530 1305 520 1330 600Z"/><path d="M1340 740C1435 520 1480 550 1410 630Z"/><path d="M1340 760C1450 675 1535 670 1450 725Z"/><path d="M1335 765C1210 705 1170 714 1270 755Z"/></g>
+              <path d="M1290 750H1410L1390 880H1310Z" fill="#293f4c"/><ellipse cx="1350" cy="751" rx="60" ry="13" fill="#40575f"/>
+            </svg>
+            <div class="wall-caption">PROCESOS PRIMERO.<br>TECNOLOGÍA DESPUÉS.</div>
+          </div>
           <div class="ambient-light"></div>
           <div class="floor"></div>
           <div class="desk"><div class="desk-edge"></div></div>
@@ -31,17 +57,27 @@
           <div class="keyboard"></div>
           <div class="desk-object"></div>
           <div class="foreground-book"></div>
+          <div class="desk-lamp"><i></i><span></span></div><div class="warm-light"></div>
+          <div class="coffee-cup"></div>
+          <svg class="desk-plant" viewBox="0 0 120 220" fill="none"><path d="M60 158V65M60 126 32 84M60 112 87 64M60 98 40 40" stroke="#567b64" stroke-width="3"/><g fill="#426e61"><path d="M60 70C29 25 75 11 60 70Z"/><path d="M41 45C-1 17 1 77 41 45Z"/><path d="M34 86C-7 60 3 122 34 86Z"/><path d="M83 70C120 18 130 84 83 70Z"/><path d="M60 139C98 80 126 133 60 139Z"/></g><path d="M27 154H95L86 217H36Z" fill="#7e8b8d"/><ellipse cx="61" cy="154" rx="34" ry="9" fill="#303d3b"/></svg>
+          <div class="foreground-silhouette"></div>
         </div>
 
         <div class="system" aria-hidden="true">
           <div class="system-grid"></div>
           <div class="system-light"></div>
+          <div class="depth-floor"></div><div class="depth-wall depth-wall--left"></div><div class="depth-wall depth-wall--right"></div>
+          <div class="portal"><i></i><i></i><i></i><i></i></div>
+          <div class="near-plane"><i></i><i></i><i></i></div>
           <div class="world" id="world">
-            <svg class="circuit" viewBox="0 0 3200 1100" width="3200" height="1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="circuit" viewBox="0 0 6600 1400" width="6600" height="1400" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" stroke="#8ab5e8" stroke-opacity=".035"/></pattern>
-                <radialGradient id="node-light"><stop stop-color="#397bd0" stop-opacity=".26"/><stop offset="1" stop-color="#12396b" stop-opacity="0"/></radialGradient>
-                <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#203b59" stop-opacity=".96"/><stop offset=".55" stop-color="#0c1b30" stop-opacity=".98"/><stop offset="1" stop-color="#102b43" stop-opacity=".96"/></linearGradient>
+                <radialGradient id="node-light"><stop stop-color="#54cdff" stop-opacity=".38"/><stop offset=".4" stop-color="#176fac" stop-opacity=".16"/><stop offset="1" stop-color="#12396b" stop-opacity="0"/></radialGradient>
+                <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#268dcb" stop-opacity=".86"/><stop offset=".45" stop-color="#0e3861" stop-opacity=".96"/><stop offset="1" stop-color="#082947" stop-opacity=".96"/></linearGradient>
+                <linearGradient id="platform-top" x2="0" y2="1"><stop stop-color="#134d72"/><stop offset="1" stop-color="#051c32"/></linearGradient>
+                <g id="platform"><ellipse cx="0" cy="104" rx="284" ry="93" fill="#031324" opacity=".7"/><path d="M-266 76 0 166 267 74V99L0 192-266 101Z" fill="#061c30" stroke="#286486"/><path d="M-266 76 0-16 267 74 0 166Z" fill="url(#platform-top)" stroke="#78ddff" stroke-opacity=".45"/><path d="M-231 76 0-3 232 75 0 153Z" stroke="#3c8cbd"/><path d="M-160 75 0 20 161 75 0 131Z" stroke="#5fcdeb" stroke-opacity=".3"/><path d="M-266 87 0 178 267 87M0 167V190" stroke="#77dafa" stroke-opacity=".65"/></g>
+                <g id="core"><path d="M-64-21 0-45 65-20 0 5Z" fill="#54bde4" stroke="#b3efff"/><path d="M-64-21V39L0 64V5Z" fill="#0b3960" stroke="#3b89ba"/><path d="M0 5V64L65 39V-20Z" fill="#13577f" stroke="#54bde4"/><path d="M-52 28-10 44M12 42 52 27M-53 7-13 23M13 21 52 7" stroke="#68cce9" stroke-width="2"/></g>
+                <g id="distant-panel"><path d="M0 0H104V146H0Z" fill="#0a3654" stroke="#429ac3" stroke-opacity=".4"/><path d="M14 20H67M14 29H88M14 56H41M14 65H87M14 75H60M14 99H38M46 99H83M14 125H91" stroke="#7fc4e7" stroke-opacity=".35" stroke-width="2"/></g>
                 <linearGradient id="scan-light"><stop stop-color="#66bacd" stop-opacity="0"/><stop offset=".5" stop-color="#66bacd" stop-opacity=".4"/><stop offset="1" stop-color="#66bacd" stop-opacity="0"/></linearGradient>
                 <linearGradient id="chart-area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#397ed0" stop-opacity=".28"/><stop offset="1" stop-color="#397ed0" stop-opacity="0"/></linearGradient>
                 <!-- Una misma arquitectura se construye en Diseño y se activa en Implementación. -->
@@ -70,74 +106,97 @@
                 </g>
                 <path id="event-route" d="M-105-175H105V-120H0V15H105V75"/>
               </defs>
-              <rect width="3200" height="1100" fill="url(#grid)"/>
-              <g class="ghost-routes" id="far-layer" stroke="#6e94b7" stroke-opacity=".12" stroke-width="1">
-                <path d="M150 185H600Q640 185 640 225V750H1000M830 950H1730V900H2600M1550 160H2250V220H3020M2050 880H2910V760"/>
-                <path d="M120 870V680H210M1230 150V260H1360M2830 280H3070V520"/>
-              </g>
-              <path id="route" d="M180 540H650Q700 540 700 490V380Q700 330 750 330H1120Q1170 330 1170 380V600Q1170 650 1220 650H1790Q1840 650 1840 600V440Q1840 390 1890 390H2380Q2430 390 2430 440V510Q2430 560 2480 560H2950"/>
-              <use class="route-base" href="#route"/>
+              <g id="far-layer"></g><g id="transit-layer"></g>
+              <!-- Una autopista continua con superficie, cantos, carriles y paquetes. -->
+              <path id="route" d="M80 650H420C860 650 820 390 1300 390S1740 780 2190 780S2660 430 3100 430S3590 800 4040 800S4540 460 5060 460S5510 710 5940 710H6440"/>
+              <use class="route-under" href="#route" transform="translate(0 20)"/><use class="route-bed" href="#route"/>
+              <use class="route-base" href="#route" transform="translate(0 -22)"/><use class="route-base" href="#route" transform="translate(0 22)"/>
+              <use class="route-lane" href="#route" transform="translate(0 -12)"/><use class="route-lane" href="#route" transform="translate(0 12)"/>
+              <use class="route-glow" href="#route"/>
               <use class="route-light" href="#route" id="route-light"/>
-              <path id="cycle-route" class="cycle-route" d="M2950 560C3120 560 3130 925 2900 925H380C100 925 90 540 180 540"/>
+              <path id="cycle-route" class="cycle-route" d="M6440 710C6700 710 6720 1260 6300 1260H370C-120 1260-130 650 80 650"/>
+              <g id="stream-packets"></g>
 
-              <g class="method-node intake-scene" data-node="0" transform="translate(400 540)">
-                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
+              <g class="method-node intake-scene" data-node="0" transform="translate(420 650)">
+                <ellipse class="node-aura" rx="480" ry="390" fill="url(#node-light)"/>
+                <use class="scene-platform" href="#platform"/>
                 <g class="scene-content">
-                  <path class="scene-connectors" d="M-220-117H-156V-85H-122M220-162H158V-132H123M220 12H154V-35H123M0-22V0"/>
+                  <path class="scene-connectors" d="M-220-117C-178-117-150-85-122-85M220-162C180-162 155-132 123-132M220 12C160 12 140-35 123-35M0-22V0M-229 20C-175 20-176-35-122-35M-208-222C-170-222-150-171-122-171M216-265C153-265 164-201 121-201"/>
                   <g class="source-chip" style="--delay:.3"><rect x="-263" y="-140" width="105" height="42" rx="8"/><path d="M-248-126H-232V-113H-248ZM-248-125-240-119-232-125"/><text x="-221" y="-115">Email</text></g>
                   <g class="source-chip" style="--delay:.45"><rect x="157" y="-186" width="113" height="42" rx="8"/><text x="179" y="-160">Formulario</text></g>
                   <g class="source-chip" style="--delay:.6"><rect x="166" y="-11" width="100" height="42" rx="8"/><text x="187" y="15">CRM</text></g>
+                  <g class="source-chip" style="--delay:.12"><rect x="-279" y="-6" width="112" height="42" rx="8"/><text x="-261" y="20">Conversación</text></g>
+                  <g class="source-chip" style="--delay:.25"><rect x="-274" y="-245" width="112" height="42" rx="8"/><text x="-258" y="-219">Documentos</text></g>
+                  <g class="source-chip" style="--delay:.4"><rect x="163" y="-286" width="112" height="42" rx="8"/><text x="182" y="-260">Reunión</text></g>
                   <g class="lead-card">
                     <rect class="glass-back" x="-114" y="-224" width="242" height="204" rx="13"/><rect class="glass-face" x="-122" y="-232" width="242" height="204" rx="13"/>
-                    <text class="ui-heading" x="-98" y="-200">Nuevo lead</text><path class="ui-rule" d="M-98-184H96"/>
-                    <text class="ui-muted" x="-98" y="-161">Nombre</text><text class="ui-muted" x="-98" y="-134">Empresa</text><text class="ui-muted" x="-98" y="-107">Email</text><text class="ui-muted" x="-98" y="-80">Necesidad</text>
+                    <text class="ui-heading" x="-98" y="-200">Nuevo proceso</text><path class="ui-rule" d="M-98-184H96"/>
+                    <text class="ui-muted" x="-98" y="-161">Cliente</text><text class="ui-muted" x="-98" y="-134">Equipo</text><text class="ui-muted" x="-98" y="-107">Objetivo</text><text class="ui-muted" x="-98" y="-80">Contexto</text>
                     <path class="field-bars" d="M-12-164H84M-12-137H66M-12-110H84M-12-83H74"/>
                     <path class="received-check" d="m-97-48 4 4 8-9"/><text class="ui-status" x="-76" y="-44">Contexto recibido</text>
                   </g>
                 </g>
-                <text class="node-label" x="0" y="100" text-anchor="middle">DE LA SOLICITUD AL CONTEXTO</text>
               </g>
 
-              <g class="method-node analysis-scene" data-node="1" transform="translate(950 330)">
-                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
+              <g class="method-node analysis-scene" data-node="1" transform="translate(1300 390)">
+                <ellipse class="node-aura" rx="480" ry="390" fill="url(#node-light)"/><use class="scene-platform" href="#platform"/>
                 <g class="scene-content">
                   <g class="analysis-input"><rect class="glass-face" x="-220" y="-126" width="78" height="78" rx="12"/><path class="packet-lines" d="M-198-103H-163M-198-87H-175M-198-71H-168"/></g>
                   <path class="analysis-branches" d="M-142-87H-74V-181H25M-74-87V-59H25M-74-59V63H25"/>
                   <path class="priority-route" d="M-142-87H-74V-59H25"/>
-                  <g class="process-row rejected-row" style="--delay:.12"><rect class="glass-face" x="25" y="-207" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="-176">Manual</text><path class="friction-mark" d="m200-188 12 12m0-12-12 12"/></g>
-                  <g class="process-row priority-row" style="--delay:.3"><rect class="glass-face" x="25" y="-85" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="-54">Repetitivo</text><path class="priority-arrow" d="M186-59H212M204-66 212-59 204-52"/></g>
-                  <g class="process-row friction-row" style="--delay:.48"><rect class="glass-face" x="25" y="37" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="68">Error / seguimiento</text><circle class="friction-dot" cx="205" cy="63" r="4"/></g>
+                  <g class="process-row rejected-row" style="--delay:.12"><rect class="glass-face" x="25" y="-207" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="-176">Tarea manual</text><path class="friction-mark" d="m200-188 12 12m0-12-12 12"/></g>
+                  <g class="process-row priority-row" style="--delay:.3"><rect class="glass-face" x="25" y="-85" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="-54">Dependencias</text><path class="priority-arrow" d="M186-59H212M204-66 212-59 204-52"/></g>
+                  <g class="process-row friction-row" style="--delay:.48"><rect class="glass-face" x="25" y="37" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="68">Cuello de botella</text><circle class="friction-dot" cx="205" cy="63" r="4"/></g>
                   <rect class="scan-sweep" x="-240" y="-230" width="490" height="8" fill="url(#scan-light)"/>
                 </g>
-                <text class="node-label" x="0" y="153" text-anchor="middle">IDENTIFICAMOS LA FRICCIÓN. PRIORIZAMOS LA RUTA.</text>
               </g>
 
-              <g class="method-node design-scene" data-node="2" transform="translate(1520 650)">
-                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
-                <g class="scene-content design-architecture"><use href="#workflow"/></g>
-                <text class="node-label" x="0" y="168" text-anchor="middle">UNA ARQUITECTURA ADAPTADA AL PROCESO</text>
-              </g>
-
-              <g class="method-node implementation-scene" data-node="3" transform="translate(2160 390)">
-                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
-                <g class="scene-content implementation-architecture"><use href="#workflow"/><g class="event-token"><circle r="11" fill="#72bacc" fill-opacity=".18"/><rect x="-4" y="-4" width="8" height="8" rx="2" fill="#d5eef0"/></g></g>
-                <text class="node-label" x="0" y="168" text-anchor="middle">CONECTAMOS. PROBAMOS. VALIDAMOS.</text>
-              </g>
-
-              <g class="method-node improvement-scene" data-node="4" transform="translate(2730 560)">
-                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
+              <g class="method-node priority-scene" data-node="2" transform="translate(2190 780)">
+                <ellipse class="node-aura" rx="480" ry="390" fill="url(#node-light)"/><use class="scene-platform" href="#platform"/>
                 <g class="scene-content">
-                  <path class="feedback-base" d="M-161-110C-280-110-250 105-70 105H105C263 105 253-210 90-225"/>
-                  <path class="feedback-flow" d="M-161-110C-280-110-250 105-70 105H105C263 105 253-210 90-225"/>
+                  <path class="choice-route choice-route--active" d="M-255 0H-150C-88 0-121-206 0-206H220"/><path class="choice-route choice-route--neutral" d="M-150 0C-88 0-98-100 0-100H220"/><path class="choice-route choice-route--warm" d="M-150 0C-80 0-80 55 0 55H220"/>
+                  <g class="choice-panel" style="--delay:.1" transform="translate(8 -247)"><rect class="glass-face" width="220" height="64" rx="10"/><text class="ui-heading" x="22" y="38">Automatizar</text><path class="received-check" d="m183 32 5 5 10-12"/></g>
+                  <g class="choice-panel" style="--delay:.3" transform="translate(8 -133)"><rect class="glass-face" width="220" height="64" rx="10"/><text class="ui-label" x="22" y="28">Revisar</text><text class="ui-muted" x="22" y="47">Control humano</text></g>
+                  <g class="choice-panel choice-panel--warm" style="--delay:.5" transform="translate(8 22)"><rect class="glass-face" width="220" height="64" rx="10"/><text class="ui-label" x="22" y="38">Mantener manual</text></g>
+                  <use href="#core" transform="translate(-153 0) scale(.58)"/>
+                </g>
+              </g>
+
+              <g class="method-node design-scene" data-node="3" transform="translate(3100 430)">
+                <ellipse class="node-aura" rx="480" ry="390" fill="url(#node-light)"/><use class="scene-platform" href="#platform"/>
+                <g class="scene-content design-architecture"><use href="#core"/><use href="#workflow"/></g>
+              </g>
+
+              <g class="method-node testing-scene" data-node="4" transform="translate(4040 800)">
+                <ellipse class="node-aura" rx="480" ry="390" fill="url(#node-light)"/><use class="scene-platform" href="#platform"/>
+                <g class="scene-content">
+                  <path class="testing-rail" d="M-245 100 252-68M-245 116 252-52M-245 138 252-30"/>
+                  <g class="test-unit" style="--delay:0" transform="translate(-190 50)"><use href="#core"/><path class="module-check" d="m-35 0 9 9 18-22"/><text class="ui-muted" x="-45" y="85">Desarrollo</text></g>
+                  <g class="test-unit test-unit--repair" style="--delay:.22" transform="translate(-40 -3)"><use href="#core"/><path class="test-error" d="M-33-9-12 12M-12-9-33 12"/><path class="module-check" d="m-35 0 9 9 18-22"/><text class="ui-muted" x="-38" y="85">Escenarios</text></g>
+                  <g class="test-unit" style="--delay:.44" transform="translate(110 -54)"><use href="#core"/><path class="module-check" d="m-35 0 9 9 18-22"/><text class="ui-muted" x="-28" y="85">Pruebas</text></g>
+                  <g class="validation-panel"><rect class="glass-face" x="-230" y="-240" width="280" height="102" rx="12"/><text class="ui-heading" x="-205" y="-207">Validación</text><path class="validation-check" d="m-204-176 7 7 13-17"/><text class="ui-muted" x="-168" y="-171">Ajustado y validado</text><path class="ui-rule" d="M-207-192H26"/></g>
+                </g>
+              </g>
+
+              <g class="method-node implementation-scene" data-node="5" transform="translate(5060 460)">
+                <ellipse class="node-aura" rx="480" ry="390" fill="url(#node-light)"/><use class="scene-platform" href="#platform"/>
+                <g class="scene-content implementation-architecture"><use href="#core"/><use href="#workflow"/><g class="event-token"><circle r="11" fill="#72bacc" fill-opacity=".18"/><rect x="-4" y="-4" width="8" height="8" rx="2" fill="#d5eef0"/></g><g class="team-panel"><rect class="glass-face" x="203" y="-93" width="108" height="82" rx="10"/><circle cx="239" cy="-65" r="7" stroke="#b8ebff"/><path d="M226-36C226-56 251-56 251-36M256-67C270-76 276-54 264-51M270-35C270-49 259-49 256-45" stroke="#b8ebff"/><text class="ui-muted" x="226" y="-19">Equipo</text><path class="scene-connectors" d="M183-174H255V-94"/></g></g>
+              </g>
+
+              <g class="method-node improvement-scene" data-node="6" transform="translate(5940 710)">
+                <ellipse class="node-aura" rx="480" ry="390" fill="url(#node-light)"/><use class="scene-platform" href="#platform"/>
+                <g class="scene-content">
+                  <ellipse class="feedback-base" cx="0" cy="0" rx="288" ry="142"/><ellipse class="feedback-flow" cx="0" cy="0" rx="288" ry="142"/>
+                  <path class="loop-arrows" d="M-226-92l35-2-15 22zM239 79l-35 10 8-24zM-30 142l28-16-3 27z"/>
                   <g class="metric-plane"><rect class="glass-back" x="-153" y="-205" width="320" height="169" rx="12"/><rect class="glass-face" x="-161" y="-213" width="320" height="169" rx="12"/>
                     <text class="ui-heading" x="-137" y="-183">Evolución del proceso</text><path class="chart-grid" d="M-134-151H130M-134-116H130M-134-81H130"/>
                     <path class="chart-fill" d="M-134-85-93-91-59-111-22-108 15-137 56-141 91-160 131-171V-65H-134Z"/>
                     <path class="chart-line" d="M-134-85-93-91-59-111-22-108 15-137 56-141 91-160 131-171"/>
                   </g>
-                  <g class="metric-labels"><text class="ui-muted" x="-128" y="85">Tiempo</text><text class="ui-muted" x="-22" y="85">Pasos</text><text class="ui-muted" x="80" y="85">Fricción</text><path class="metric-bars" d="M-128 103H-72M-22 103H31M80 103H127"/></g>
-                  <text class="ui-status feedback-label" x="0" y="137" text-anchor="middle">Feedback → ajuste → mejora</text>
+                  <g class="review-satellite" transform="translate(-355 -125)"><rect class="glass-face" width="126" height="80" rx="8"/><text class="ui-label" x="16" y="27">Uso real</text><path class="chart-line" d="M16 63 35 51 52 55 78 39 107 42"/></g>
+                  <g class="review-satellite" transform="translate(226 -125)"><rect class="glass-face" width="126" height="80" rx="8"/><text class="ui-label" x="16" y="27">Ajustes</text><path class="ui-rule" d="M17 45H106M17 59H106"/><circle cx="48" cy="45" r="4" stroke="#7bddfa"/><circle cx="81" cy="59" r="4" stroke="#7bddfa"/></g>
+                  <g class="review-satellite" transform="translate(-66 77)"><rect class="glass-face" width="132" height="50" rx="8"/><text class="ui-label" x="26" y="30">Feedback</text></g>
                 </g>
-                <text class="node-label" x="0" y="190" text-anchor="middle">MEJORA CONTINUA · REPRESENTACIÓN CONCEPTUAL</text>
               </g>
 
               <g id="carrier"><ellipse class="carrier-halo" rx="62" ry="42"/><rect class="carrier-body" id="carrier-body" x="-27" y="-19" width="54" height="38" rx="7"/><path class="carrier-glyph" id="carrier-glyph" d="M-16-8H16V8H-16Z"/><text class="carrier-label" id="carrier-label" y="38" text-anchor="middle">CONTEXTO</text></g>
@@ -145,21 +204,23 @@
           </div>
         </div>
 
-        <div class="monitor" id="monitor"><div class="monitor-screen"><div class="screen-grid"></div><div class="screen-intro"><span class="screen-kicker">DENTRO DE GRINDLANE</span><h1>Cómo<br><em>trabajamos</em></h1><p>Haz scroll para vivir la experiencia <span aria-hidden="true">↓</span></p></div><div class="screen-corner">G / MÉTODO</div></div><span class="power-light"></span></div>
+        <div class="monitor" id="monitor"><div class="monitor-screen"><div class="screen-grid"></div><svg class="screen-traces" viewBox="0 0 800 400" fill="none"><path d="M0 340C160 340 200 140 400 200S620 360 800 80M0 360C160 360 200 160 400 220S620 380 800 100M0 320C160 320 200 120 400 180S620 340 800 60M0 380C160 380 200 180 400 240S620 400 800 120"/></svg><div class="screen-intro"><span class="screen-kicker">DENTRO DE GRINDLANE</span><h1>Cómo<br><em>trabajamos</em></h1><p>Del problema al sistema.</p><small>Haz scroll para entrar <span aria-hidden="true">↓</span></small></div><div class="screen-corner">G / MÉTODO</div></div><span class="power-light"></span></div>
 
         <div class="room-note" aria-hidden="true"><span>UN PROCESO. UN SISTEMA.</span><span>Mueve el ratón. Cambia la perspectiva.</span></div>
 
-        <div class="system-hud" aria-hidden="true"><span><i></i> DENTRO DEL SISTEMA</span><span id="stage-count">01 / 05</span></div>
+        <div class="system-hud" aria-hidden="true"><span><i></i> DENTRO DEL SISTEMA</span><span id="stage-count">01 / 07</span></div>
         <div class="narrative" aria-label="El método Grindlane">
           <h1 class="static-title">Cómo trabajamos</h1>
-          <article class="step-copy" data-step="0"><span class="eyebrow">01 · ENTENDEMOS</span><h2>Entendemos</h2><p>Antes de automatizar, entendemos cómo funciona tu negocio.</p></article>
-          <article class="step-copy" data-step="1"><span class="eyebrow">02 · ANALIZAMOS</span><h2>Analizamos</h2><p>Detectamos tareas repetitivas, fricciones y oportunidades reales de mejora.</p></article>
-          <article class="step-copy" data-step="2"><span class="eyebrow">03 · DISEÑAMOS</span><h2>Diseñamos</h2><p>Definimos una solución que encaja con el proceso, no al revés.</p></article>
-          <article class="step-copy" data-step="3"><span class="eyebrow">04 · IMPLEMENTAMOS</span><h2>Implementamos</h2><p>Construimos, conectamos y probamos hasta que el sistema funciona de verdad.</p></article>
-          <article class="step-copy" data-step="4"><span class="eyebrow">05 · MEJORAMOS</span><h2>Mejoramos</h2><p>Medimos resultados, corregimos fricciones y seguimos optimizando.</p></article>
+          <article class="step-copy" data-step="0"><span class="eyebrow">01 · ENTENDER</span><h2>Entender</h2><p>Empezamos con una conversación para comprender el problema, quién interviene, qué resultado se busca y cómo encaja el proceso en el negocio.</p></article>
+          <article class="step-copy" data-step="1"><span class="eyebrow">02 · ANALIZAR</span><h2>Analizar</h2><p>Revisamos el flujo actual, las herramientas, las tareas manuales, las dependencias y los posibles cuellos de botella.</p></article>
+          <article class="step-copy" data-step="2"><span class="eyebrow">03 · PRIORIZAR</span><h2>Priorizar</h2><p>Valoramos qué merece la pena automatizar, qué debe seguir siendo manual y dónde conviene mantener control humano.</p></article>
+          <article class="step-copy" data-step="3"><span class="eyebrow">04 · DISEÑAR</span><h2>Diseñar</h2><p>Definimos el nuevo flujo, las integraciones, las reglas y el papel que tendrá cada herramienta antes de construir.</p></article>
+          <article class="step-copy" data-step="4"><span class="eyebrow">05 · CONSTRUIR Y PROBAR</span><h2>Construir<br>y probar</h2><p>Desarrollamos la solución de forma progresiva, probamos escenarios reales y validamos que responda a lo acordado.</p></article>
+          <article class="step-copy" data-step="5"><span class="eyebrow">06 · IMPLEMENTAR</span><h2>Implementar</h2><p>Integramos la solución en el trabajo cotidiano, cuidando la adopción, el control y la continuidad del proceso.</p></article>
+          <article class="step-copy" data-step="6"><span class="eyebrow">07 · REVISAR</span><h2>Revisar</h2><p>Observamos el funcionamiento y planteamos ajustes cuando el uso real o la evolución del proceso lo hacen necesario.</p></article>
         </div>
 
-        <ol class="waypoints" aria-label="Etapas del recorrido"><li>Entendemos</li><li>Analizamos</li><li>Diseñamos</li><li>Implementamos</li><li>Mejoramos</li></ol>
+        <ol class="waypoints" aria-label="Etapas del recorrido"><li>Entender</li><li>Analizar</li><li>Priorizar</li><li>Diseñar</li><li>Construir y probar</li><li>Implementar</li><li>Revisar</li></ol>
 
         <section class="closing" id="closing" aria-labelledby="closing-title">
           <span class="eyebrow"><i></i> UN PROCESO QUE SIGUE MEJORANDO.</span>
@@ -173,7 +234,7 @@
   </main>
 
   <!-- Sin JS y con movimiento reducido, el mismo contenido conserva su lectura secuencial. -->
-  <noscript><style>.journey{height:auto}.stage{position:relative;height:auto}.room,.monitor,.system,.room-note,.system-hud,.waypoints,.scroll-meter{display:none}.narrative{position:static;width:auto;opacity:1;padding:160px 8% 40px}.static-title{display:block}.step-copy{position:static;opacity:1;visibility:visible;transform:none;margin-bottom:70px}.closing{position:static;opacity:1;visibility:visible;transform:none;padding:70px 8%;pointer-events:auto}</style></noscript>
+  <noscript><style>.journey{height:auto}.stage{position:relative;height:auto}.room,.monitor,.system,.room-note,.system-hud,.waypoints,.scroll-meter{display:none}.narrative{position:static;width:auto;opacity:1;padding:160px 8% 40px}.static-title{display:block}.step-copy[data-step]{position:static;width:auto;text-align:left;opacity:1;visibility:visible;transform:none;margin-bottom:70px}.step-copy h2,.step-copy p,.step-copy .eyebrow{opacity:1;transform:none}.step-copy[data-step] p{margin-inline:0}.closing{position:static;opacity:1;visibility:visible;transform:none;padding:70px 8%;pointer-events:auto}</style></noscript>
   <script type="module">
     // La experiencia de escritorio ni siquiera se descarga en pantallas pequeñas.
     const desktop = matchMedia('(min-width: 900px)');
