@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#171a18">
+  <meta name="theme-color" content="#09121f">
   <title>Dentro del sistema · Laboratorio | Grindlane Consulting</title>
   <link rel="icon" href="/images/favicon-32x32.png">
   <link rel="stylesheet" href="./style.css">
@@ -30,86 +30,117 @@
           <div class="monitor-stand"></div>
           <div class="keyboard"></div>
           <div class="desk-object"></div>
+          <div class="foreground-book"></div>
         </div>
 
         <div class="system" aria-hidden="true">
           <div class="system-grid"></div>
+          <div class="system-light"></div>
           <div class="world" id="world">
             <svg class="circuit" viewBox="0 0 3200 1100" width="3200" height="1100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" stroke="#f3efe7" stroke-opacity=".035"/></pattern>
-                <radialGradient id="node-light"><stop stop-color="#36584a" stop-opacity=".45"/><stop offset="1" stop-color="#1f3d33" stop-opacity="0"/></radialGradient>
+                <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" stroke="#8ab5e8" stroke-opacity=".035"/></pattern>
+                <radialGradient id="node-light"><stop stop-color="#397bd0" stop-opacity=".26"/><stop offset="1" stop-color="#12396b" stop-opacity="0"/></radialGradient>
+                <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#203b59" stop-opacity=".96"/><stop offset=".55" stop-color="#0c1b30" stop-opacity=".98"/><stop offset="1" stop-color="#102b43" stop-opacity=".96"/></linearGradient>
+                <linearGradient id="scan-light"><stop stop-color="#66bacd" stop-opacity="0"/><stop offset=".5" stop-color="#66bacd" stop-opacity=".4"/><stop offset="1" stop-color="#66bacd" stop-opacity="0"/></linearGradient>
+                <linearGradient id="chart-area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#397ed0" stop-opacity=".28"/><stop offset="1" stop-color="#397ed0" stop-opacity="0"/></linearGradient>
+                <!-- Una misma arquitectura se construye en Diseño y se activa en Implementación. -->
+                <g id="workflow">
+                  <path class="module-links" d="M-30-175H40M105-145V-120H0V-100M0-38V15H105V45M0 15H-105V45"/>
+                  <g class="module-unit" style="--delay:0">
+                    <rect class="module-back" x="-179" y="-199" width="140" height="62" rx="9"/><rect class="module-face" x="-175" y="-205" width="140" height="62" rx="9"/><rect class="module-live" x="-175" y="-205" width="140" height="62" rx="9"/>
+                    <path class="module-icon" d="M-155-187H-143V-171H-155ZM-152-182H-146M-152-178H-146"/><text class="ui-label" x="-131" y="-175">Formulario</text><path class="module-check" d="m-162-153 4 4 7-8"/>
+                  </g>
+                  <g class="module-unit" style="--delay:.16">
+                    <rect class="module-back" x="44" y="-199" width="140" height="62" rx="9"/><rect class="module-face" x="40" y="-205" width="140" height="62" rx="9"/><rect class="module-live" x="40" y="-205" width="140" height="62" rx="9"/>
+                    <path class="module-icon" d="M59-185H76V-171H59ZM59-180H76M65-185V-171"/><text class="ui-label" x="86" y="-175">CRM</text><path class="module-check" d="m53-153 4 4 7-8"/>
+                  </g>
+                  <g class="module-unit" style="--delay:.32">
+                    <rect class="module-back" x="-61" y="-94" width="130" height="62" rx="9"/><rect class="module-face" x="-65" y="-100" width="130" height="62" rx="9"/><rect class="module-live" x="-65" y="-100" width="130" height="62" rx="9"/>
+                    <path class="module-icon" d="m-41-85 8 8-8 8-8-8ZM-41-89V-85M-41-69V-65M-53-77H-49M-33-77H-29"/><text class="ui-label" x="-21" y="-69">IA</text><path class="module-check" d="m-52-48 4 4 7-8"/>
+                  </g>
+                  <g class="module-unit" style="--delay:.48">
+                    <rect class="module-back" x="-179" y="51" width="140" height="62" rx="9"/><rect class="module-face" x="-175" y="45" width="140" height="62" rx="9"/><rect class="module-live" x="-175" y="45" width="140" height="62" rx="9"/>
+                    <path class="module-icon" d="M-157 63H-139V76H-157ZM-157 64-148 70-139 64"/><text class="ui-label" x="-128" y="75">Email</text><path class="module-check" d="m-162 97 4 4 7-8"/>
+                  </g>
+                  <g class="module-unit" style="--delay:.64">
+                    <rect class="module-back" x="44" y="51" width="140" height="62" rx="9"/><rect class="module-face" x="40" y="45" width="140" height="62" rx="9"/><rect class="module-live" x="40" y="45" width="140" height="62" rx="9"/>
+                    <path class="module-icon" d="M59 64H76V78H59ZM59 68H76M63 61V66M72 61V66"/><text class="ui-label" x="86" y="75">Agenda</text><path class="module-check" d="m53 97 4 4 7-8"/>
+                  </g>
+                </g>
+                <path id="event-route" d="M-105-175H105V-120H0V15H105V75"/>
               </defs>
               <rect width="3200" height="1100" fill="url(#grid)"/>
-              <g class="ghost-routes" stroke="#759183" stroke-opacity=".13" stroke-width="1">
+              <g class="ghost-routes" id="far-layer" stroke="#6e94b7" stroke-opacity=".12" stroke-width="1">
                 <path d="M150 185H600Q640 185 640 225V750H1000M830 950H1730V900H2600M1550 160H2250V220H3020M2050 880H2910V760"/>
                 <path d="M120 870V680H210M1230 150V260H1360M2830 280H3070V520"/>
               </g>
               <path id="route" d="M180 540H650Q700 540 700 490V380Q700 330 750 330H1120Q1170 330 1170 380V600Q1170 650 1220 650H1790Q1840 650 1840 600V440Q1840 390 1890 390H2380Q2430 390 2430 440V510Q2430 560 2480 560H2950"/>
               <use class="route-base" href="#route"/>
               <use class="route-light" href="#route" id="route-light"/>
+              <path id="cycle-route" class="cycle-route" d="M2950 560C3120 560 3130 925 2900 925H380C100 925 90 540 180 540"/>
 
-              <g class="method-node" data-node="0" transform="translate(400 540)">
-                <circle class="node-aura" r="190" fill="url(#node-light)"/><circle class="node-disc" r="116"/><circle class="node-ring" r="116"/>
-                <g class="node-art" stroke="currentColor" stroke-width="1.5">
-                  <path class="detail-line" d="M-67-38H38L66-10V57H-67Z"/><path d="M38-38V-10H66M-43-10H12M-43 8H40M-43 26H24"/>
-                  <path class="intake" d="M-168 0H-97M-111-11-97 0-111 11"/>
-                  <rect class="data-packet" x="-140" y="-6" width="12" height="12" rx="2"/>
+              <g class="method-node intake-scene" data-node="0" transform="translate(400 540)">
+                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
+                <g class="scene-content">
+                  <path class="scene-connectors" d="M-220-117H-156V-85H-122M220-162H158V-132H123M220 12H154V-35H123M0-22V0"/>
+                  <g class="source-chip" style="--delay:.3"><rect x="-263" y="-140" width="105" height="42" rx="8"/><path d="M-248-126H-232V-113H-248ZM-248-125-240-119-232-125"/><text x="-221" y="-115">Email</text></g>
+                  <g class="source-chip" style="--delay:.45"><rect x="157" y="-186" width="113" height="42" rx="8"/><text x="179" y="-160">Formulario</text></g>
+                  <g class="source-chip" style="--delay:.6"><rect x="166" y="-11" width="100" height="42" rx="8"/><text x="187" y="15">CRM</text></g>
+                  <g class="lead-card">
+                    <rect class="glass-back" x="-114" y="-224" width="242" height="204" rx="13"/><rect class="glass-face" x="-122" y="-232" width="242" height="204" rx="13"/>
+                    <text class="ui-heading" x="-98" y="-200">Nuevo lead</text><path class="ui-rule" d="M-98-184H96"/>
+                    <text class="ui-muted" x="-98" y="-161">Nombre</text><text class="ui-muted" x="-98" y="-134">Empresa</text><text class="ui-muted" x="-98" y="-107">Email</text><text class="ui-muted" x="-98" y="-80">Necesidad</text>
+                    <path class="field-bars" d="M-12-164H84M-12-137H66M-12-110H84M-12-83H74"/>
+                    <path class="received-check" d="m-97-48 4 4 8-9"/><text class="ui-status" x="-76" y="-44">Contexto recibido</text>
+                  </g>
                 </g>
-                <text class="node-number" x="-102" y="-157">01</text><text class="node-label" x="0" y="186" text-anchor="middle">CONTEXTO / ENTRADA</text>
-                <circle class="complete-dot" cx="104" cy="-80" r="7"/>
+                <text class="node-label" x="0" y="100" text-anchor="middle">DE LA SOLICITUD AL CONTEXTO</text>
               </g>
 
-              <g class="method-node" data-node="1" transform="translate(950 330)">
-                <circle class="node-aura" r="205" fill="url(#node-light)"/><circle class="node-disc" r="116"/><circle class="node-ring" r="116"/>
-                <g class="node-art" stroke="currentColor" stroke-width="1.5">
-                  <path class="detail-line" d="M-79 0H-38V-47H39M-38 0H62M-38 0V47H39"/>
-                  <circle cx="-79" r="5"/><circle cx="39" cy="-47" r="7"/><circle class="friction" cx="39" cy="47" r="7"/>
-                  <path class="priority" d="M-79 0H62"/><circle class="priority-point" cx="62" r="10"/>
-                  <path class="rejected" d="m32 40 14 14m0-14-14 14"/>
+              <g class="method-node analysis-scene" data-node="1" transform="translate(950 330)">
+                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
+                <g class="scene-content">
+                  <g class="analysis-input"><rect class="glass-face" x="-220" y="-126" width="78" height="78" rx="12"/><path class="packet-lines" d="M-198-103H-163M-198-87H-175M-198-71H-168"/></g>
+                  <path class="analysis-branches" d="M-142-87H-74V-181H25M-74-87V-59H25M-74-59V63H25"/>
+                  <path class="priority-route" d="M-142-87H-74V-59H25"/>
+                  <g class="process-row rejected-row" style="--delay:.12"><rect class="glass-face" x="25" y="-207" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="-176">Manual</text><path class="friction-mark" d="m200-188 12 12m0-12-12 12"/></g>
+                  <g class="process-row priority-row" style="--delay:.3"><rect class="glass-face" x="25" y="-85" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="-54">Repetitivo</text><path class="priority-arrow" d="M186-59H212M204-66 212-59 204-52"/></g>
+                  <g class="process-row friction-row" style="--delay:.48"><rect class="glass-face" x="25" y="37" width="206" height="52" rx="9"/><text class="ui-label" x="45" y="68">Error / seguimiento</text><circle class="friction-dot" cx="205" cy="63" r="4"/></g>
+                  <rect class="scan-sweep" x="-240" y="-230" width="490" height="8" fill="url(#scan-light)"/>
                 </g>
-                <text class="node-number" x="-102" y="-157">02</text><text class="node-label" x="0" y="186" text-anchor="middle">FRICCIÓN / PRIORIDAD</text>
-                <circle class="complete-dot" cx="104" cy="-80" r="7"/>
+                <text class="node-label" x="0" y="153" text-anchor="middle">IDENTIFICAMOS LA FRICCIÓN. PRIORIZAMOS LA RUTA.</text>
               </g>
 
-              <g class="method-node" data-node="2" transform="translate(1520 650)">
-                <circle class="node-aura" r="205" fill="url(#node-light)"/><circle class="node-disc" r="116"/><circle class="node-ring" r="116"/>
-                <g class="node-art" stroke="currentColor" stroke-width="1.5">
-                  <path class="detail-line" d="M-46-36H4V36H44M-46-36V36H-4M4-36H44"/>
-                  <rect class="module module--one" x="-82" y="-54" width="36" height="36" rx="4"/>
-                  <rect class="module module--two" x="44" y="-54" width="36" height="36" rx="4"/>
-                  <rect class="module module--three" x="44" y="18" width="36" height="36" rx="4"/>
-                  <rect class="module module--four" x="-40" y="18" width="36" height="36" rx="4"/>
-                  <circle cx="4" cy="-36" r="4"/>
-                </g>
-                <text class="node-number" x="-102" y="-157">03</text><text class="node-label" x="0" y="186" text-anchor="middle">ARQUITECTURA / SOLUCIÓN</text>
-                <circle class="complete-dot" cx="104" cy="-80" r="7"/>
+              <g class="method-node design-scene" data-node="2" transform="translate(1520 650)">
+                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
+                <g class="scene-content design-architecture"><use href="#workflow"/></g>
+                <text class="node-label" x="0" y="168" text-anchor="middle">UNA ARQUITECTURA ADAPTADA AL PROCESO</text>
               </g>
 
-              <g class="method-node" data-node="3" transform="translate(2160 390)">
-                <circle class="node-aura" r="205" fill="url(#node-light)"/><circle class="node-disc" r="116"/><circle class="node-ring" r="116"/>
-                <g class="node-art" stroke="currentColor" stroke-width="1.5">
-                  <path class="detail-line" d="M-78 0H-25M25 0H78M0-64V-25M0 25V64"/>
-                  <rect class="live-module" x="-25" y="-25" width="50" height="50" rx="6"/>
-                  <path class="check" d="m-11 0 8 8 15-17"/>
-                  <circle class="port" cx="-78" r="7"/><circle class="port" cx="78" r="7"/><circle class="port" cy="-64" r="7"/><circle class="port" cy="64" r="7"/>
-                  <circle class="signal" cx="-52" r="3"/><circle class="signal" cx="52" r="3"/>
-                </g>
-                <text class="node-number" x="-102" y="-157">04</text><text class="node-label" x="0" y="186" text-anchor="middle">CONEXIÓN / VALIDACIÓN</text>
-                <circle class="complete-dot" cx="104" cy="-80" r="7"/>
+              <g class="method-node implementation-scene" data-node="3" transform="translate(2160 390)">
+                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
+                <g class="scene-content implementation-architecture"><use href="#workflow"/><g class="event-token"><circle r="11" fill="#72bacc" fill-opacity=".18"/><rect x="-4" y="-4" width="8" height="8" rx="2" fill="#d5eef0"/></g></g>
+                <text class="node-label" x="0" y="168" text-anchor="middle">CONECTAMOS. PROBAMOS. VALIDAMOS.</text>
               </g>
 
-              <g class="method-node" data-node="4" transform="translate(2730 560)">
-                <circle class="node-aura" r="205" fill="url(#node-light)"/><circle class="node-disc" r="116"/><circle class="node-ring" r="116"/>
-                <g class="node-art" stroke="currentColor" stroke-width="1.5">
-                  <path class="detail-line feedback" d="M-64-30A71 71 0 1 1-66 24M-76-12-64-30-47-19"/>
-                  <path d="M-35 34V-6M-12 34V-24M12 34V-10M36 34V-40"/><path class="trend" d="M-35-18-12-38 24-31 48-52"/>
+              <g class="method-node improvement-scene" data-node="4" transform="translate(2730 560)">
+                <ellipse class="node-aura" rx="340" ry="290" fill="url(#node-light)"/>
+                <g class="scene-content">
+                  <path class="feedback-base" d="M-161-110C-280-110-250 105-70 105H105C263 105 253-210 90-225"/>
+                  <path class="feedback-flow" d="M-161-110C-280-110-250 105-70 105H105C263 105 253-210 90-225"/>
+                  <g class="metric-plane"><rect class="glass-back" x="-153" y="-205" width="320" height="169" rx="12"/><rect class="glass-face" x="-161" y="-213" width="320" height="169" rx="12"/>
+                    <text class="ui-heading" x="-137" y="-183">Evolución del proceso</text><path class="chart-grid" d="M-134-151H130M-134-116H130M-134-81H130"/>
+                    <path class="chart-fill" d="M-134-85-93-91-59-111-22-108 15-137 56-141 91-160 131-171V-65H-134Z"/>
+                    <path class="chart-line" d="M-134-85-93-91-59-111-22-108 15-137 56-141 91-160 131-171"/>
+                  </g>
+                  <g class="metric-labels"><text class="ui-muted" x="-128" y="85">Tiempo</text><text class="ui-muted" x="-22" y="85">Pasos</text><text class="ui-muted" x="80" y="85">Fricción</text><path class="metric-bars" d="M-128 103H-72M-22 103H31M80 103H127"/></g>
+                  <text class="ui-status feedback-label" x="0" y="137" text-anchor="middle">Feedback → ajuste → mejora</text>
                 </g>
-                <text class="node-number" x="-102" y="-157">05</text><text class="node-label" x="0" y="186" text-anchor="middle">MEDICIÓN / EVOLUCIÓN</text>
-                <circle class="complete-dot" cx="104" cy="-80" r="7"/>
+                <text class="node-label" x="0" y="190" text-anchor="middle">MEJORA CONTINUA · REPRESENTACIÓN CONCEPTUAL</text>
               </g>
 
-              <g id="carrier"><circle class="carrier-halo" r="20"/><rect x="-6" y="-6" width="12" height="12" rx="3" fill="#f3efe7"/><circle r="2" fill="#91482d"/></g>
+              <g id="carrier"><ellipse class="carrier-halo" rx="62" ry="42"/><rect class="carrier-body" id="carrier-body" x="-27" y="-19" width="54" height="38" rx="7"/><path class="carrier-glyph" id="carrier-glyph" d="M-16-8H16V8H-16Z"/><text class="carrier-label" id="carrier-label" y="38" text-anchor="middle">CONTEXTO</text></g>
             </svg>
           </div>
         </div>
@@ -121,17 +152,17 @@
         <div class="system-hud" aria-hidden="true"><span><i></i> DENTRO DEL SISTEMA</span><span id="stage-count">01 / 05</span></div>
         <div class="narrative" aria-label="El método Grindlane">
           <h1 class="static-title">Cómo trabajamos</h1>
-          <article class="step-copy" data-step="0"><span class="eyebrow">01 · ENTENDEMOS</span><h2>Entendemos</h2><p>Antes de automatizar, entendemos cómo funciona tu negocio.</p><span class="micro-label">EL PROCESO ES EL PUNTO DE PARTIDA</span></article>
-          <article class="step-copy" data-step="1"><span class="eyebrow">02 · ANALIZAMOS</span><h2>Analizamos</h2><p>Detectamos tareas repetitivas, fricciones y oportunidades reales de mejora.</p><span class="micro-label">SEPARAMOS LO URGENTE DE LO IMPORTANTE</span></article>
-          <article class="step-copy" data-step="2"><span class="eyebrow">03 · DISEÑAMOS</span><h2>Diseñamos</h2><p>Definimos una solución que encaja con el proceso, no al revés.</p><span class="micro-label">CADA PIEZA TIENE UN PROPÓSITO</span></article>
-          <article class="step-copy" data-step="3"><span class="eyebrow">04 · IMPLEMENTAMOS</span><h2>Implementamos</h2><p>Construimos, conectamos y probamos hasta que el sistema funciona de verdad.</p><span class="micro-label">DE LA ARQUITECTURA AL TRABAJO REAL</span></article>
-          <article class="step-copy" data-step="4"><span class="eyebrow">05 · MEJORAMOS</span><h2>Mejoramos</h2><p>Medimos resultados, corregimos fricciones y seguimos optimizando.</p><span class="micro-label">UN SISTEMA QUE SIGUE EVOLUCIONANDO</span></article>
+          <article class="step-copy" data-step="0"><span class="eyebrow">01 · ENTENDEMOS</span><h2>Entendemos</h2><p>Antes de automatizar, entendemos cómo funciona tu negocio.</p></article>
+          <article class="step-copy" data-step="1"><span class="eyebrow">02 · ANALIZAMOS</span><h2>Analizamos</h2><p>Detectamos tareas repetitivas, fricciones y oportunidades reales de mejora.</p></article>
+          <article class="step-copy" data-step="2"><span class="eyebrow">03 · DISEÑAMOS</span><h2>Diseñamos</h2><p>Definimos una solución que encaja con el proceso, no al revés.</p></article>
+          <article class="step-copy" data-step="3"><span class="eyebrow">04 · IMPLEMENTAMOS</span><h2>Implementamos</h2><p>Construimos, conectamos y probamos hasta que el sistema funciona de verdad.</p></article>
+          <article class="step-copy" data-step="4"><span class="eyebrow">05 · MEJORAMOS</span><h2>Mejoramos</h2><p>Medimos resultados, corregimos fricciones y seguimos optimizando.</p></article>
         </div>
 
         <ol class="waypoints" aria-label="Etapas del recorrido"><li>Entendemos</li><li>Analizamos</li><li>Diseñamos</li><li>Implementamos</li><li>Mejoramos</li></ol>
 
         <section class="closing" id="closing" aria-labelledby="closing-title">
-          <span class="eyebrow"><i></i> EL SISTEMA YA ESTÁ TRABAJANDO.</span>
+          <span class="eyebrow"><i></i> UN PROCESO QUE SIGUE MEJORANDO.</span>
           <h2 id="closing-title">¿Qué proceso<br>quieres <em>mejorar?</em></h2>
           <a class="button" href="/contacto/">Cuéntanos tu proceso <span aria-hidden="true">↗</span></a>
           <a class="return-link" href="/">Volver a Grindlane</a>
