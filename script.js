@@ -33,6 +33,139 @@ document.addEventListener("DOMContentLoaded", () => {
   const navigation = document.querySelector(".site-nav");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Time journey: observe the native scroller, never consume wheel/touch/key events.
+  (() => {
+    const root = document.querySelector("[data-time-experience]");
+    if (!root) return;
+    const scenes = [...root.querySelectorAll("[data-time-scene]")];
+    if (scenes.length !== 6) return;
+    const page = document.body;
+    const footer = root.querySelector("[data-time-footer]");
+    const sand = [
+      [.96, .04, .2],
+      [.77, .23, .7],
+      [.5, .5, .7],
+      [.23, .77, .55],
+      [.04, .96, .35],
+      [0, 1, 0],
+    ];
+    let observer = null;
+    let footerObserver = null;
+    let frame = 0;
+
+    const updateFooter = () => {
+      if (!footer) return;
+      const bounds = footer.getBoundingClientRect();
+      const viewport = root.getBoundingClientRect();
+      page.classList.toggle("is-footer-visible",
+        bounds.top < viewport.bottom && bounds.bottom > viewport.top);
+    };
+    const setScene = (scene) => {
+      const index = scenes.indexOf(scene);
+      if (index < 0) return;
+      page.dataset.scene = String(index + 1);
+      page.style.setProperty("--sand-top", String(sand[index][0]));
+      page.style.setProperty("--sand-bottom", String(sand[index][1]));
+      page.style.setProperty("--sand-stream", String(sand[index][2]));
+    };
+    const updateScene = () => {
+      frame = 0;
+      const rect = root.getBoundingClientRect();
+      const centre = rect.top + root.clientHeight / 2;
+      const current = scenes.find((scene) => {
+        const bounds = scene.getBoundingClientRect();
+        return bounds.top <= centre && bounds.bottom > centre;
+      });
+      if (current) setScene(current);
+      updateFooter();
+    };
+    const requestUpdate = () => {
+      if (!frame) frame = requestAnimationFrame(updateScene);
+    };
+    const observeScenes = () => {
+      observer?.disconnect();
+      footerObserver?.disconnect();
+      if ("IntersectionObserver" in window && root.clientHeight > 0) {
+        // Use pixel margins: IntersectionObserver percentages are relative to width.
+        // A narrow strip at viewport centre also works for taller mobile scenes.
+        const inset = Math.max(0, Math.floor(root.clientHeight / 2) - 1);
+        observer = new IntersectionObserver(updateScene, {
+          root, rootMargin: `-${inset}px 0px -${inset}px 0px`, threshold: 0,
+        });
+        scenes.forEach((scene) => observer.observe(scene));
+        if (footer) {
+          footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.target === footer)
+                page.classList.toggle("is-footer-visible", entry.isIntersecting);
+            });
+          }, { root, rootMargin: "0px 0px -1px 0px", threshold: 0 });
+          footerObserver.observe(footer);
+        }
+      }
+      requestUpdate();
+    };
+    setScene(scenes[0]);
+    page.classList.add("has-time-scenes");
+    observeScenes();
+    root.addEventListener("scroll", () => {
+      if (!observer) requestUpdate();
+    }, { passive: true });
+    root.addEventListener("focusin", (event) => {
+      const scene = event.target.closest("[data-time-scene]");
+      if (scene) setScene(scene);
+      updateFooter();
+    });
+    window.addEventListener("resize", observeScenes, { passive: true });
+    window.addEventListener("pagehide", () => {
+      observer?.disconnect();
+      footerObserver?.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+    });
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) observeScenes();
+    });
+  })();
+
+  // Progressive enhancement only for the three benefit visuals. No scroll hijacking.
+  (() => {
+    const visuals = [...document.querySelectorAll(".benefit-page [data-benefit-motion]")];
+    if (!visuals.length) return;
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const showFinalState = () => visuals.forEach((visual) => {
+      visual.classList.remove("motion-ready");
+      visual.classList.add("is-active");
+    });
+    if (motionPreference.matches || !("IntersectionObserver" in window)) {
+      showFinalState();
+      return;
+    }
+    const visualObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-active");
+        visualObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+    visuals.forEach((visual) => {
+      visual.classList.add("motion-ready");
+      visualObserver.observe(visual);
+    });
+    motionPreference.addEventListener("change", (event) => {
+      if (!event.matches) return;
+      visualObserver.disconnect();
+      showFinalState();
+    });
+    window.addEventListener("pagehide", () => visualObserver.disconnect(), { once: true });
+    // Restore pending observations when returning through the browser back/forward cache.
+    window.addEventListener("pageshow", (event) => {
+      if (!event.persisted || motionPreference.matches) return;
+      visuals.filter((visual) => !visual.classList.contains("is-active"))
+        .forEach((visual) => visualObserver.observe(visual));
+    });
+  })();
+
   const closeMenu = () => {
     if (!menuToggle || !navigation) return;
     menuToggle.setAttribute("aria-expanded", "false");
@@ -72,18 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Existing area routes double as individual fichas; the hash selects the person.
-  document.querySelectorAll("[data-profile-pages]").forEach((profiles) => {
-    const people = [...profiles.querySelectorAll(".profile-detailed")];
-    const selectProfile = () => {
-      const requested = window.location.hash.slice(1) || profiles.dataset.profileDefault;
-      const selected = people.find((person) => person.id === requested) || people.find((person) => person.id === profiles.dataset.profileDefault) || people[0];
-      profiles.classList.add("is-enhanced");
-      people.forEach((person) => person.classList.toggle("is-selected", person === selected));
-    };
-    selectProfile();
-    window.addEventListener("hashchange", selectProfile);
-  });
 
   const scrollToHashTarget = () => {
     if (!window.location.hash) return;

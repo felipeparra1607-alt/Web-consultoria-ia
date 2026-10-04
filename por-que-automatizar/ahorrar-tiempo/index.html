@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Un recorrido por el tiempo que se escapa en tareas repetidas, los procesos que pueden ordenarse y la evidencia de ahorro de tiempo con IA.">
+  <meta name="theme-color" content="#050706">
+  <link rel="canonical" href="https://grindlaneconsulting.com/por-que-automatizar/ahorrar-tiempo/">
+  <title>Ahorrar tiempo | Grindlane Consulting</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="/styles.css?v=20261004-tiempo-pulido">
+  <script src="/script.js?v=20261004-tiempo-pulido" defer></script>
+</head>
+<body class="time-journey" data-scene="1">
+  <a class="skip-link" href="#contenido">Saltar al recorrido</a>
+
+  <!-- Decorative persistent stage; each scene retains its full semantic content below. -->
+  <div class="time-stage" aria-hidden="true">
+    <svg class="time-hourglass" viewBox="0 0 400 600" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="time-glass" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#b6cdbd" stop-opacity=".08"/><stop offset=".28" stop-color="#d9e4d6" stop-opacity=".015"/><stop offset=".75" stop-color="#b6cdbd" stop-opacity=".035"/><stop offset="1" stop-color="#b6cdbd" stop-opacity=".10"/></linearGradient>
+        <linearGradient id="time-sand" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e0b184" stop-opacity=".8"/><stop offset=".25" stop-color="#b97855"/><stop offset="1" stop-color="#8e6045"/></linearGradient>
+        <linearGradient id="time-sand-shadow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2a1c14" stop-opacity="0"/><stop offset="1" stop-color="#2a1c14" stop-opacity=".38"/></linearGradient>
+        <linearGradient id="time-metal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#2a1c14"/><stop offset=".24" stop-color="#3a251a"/><stop offset=".52" stop-color="#91482d" stop-opacity=".65"/><stop offset=".78" stop-color="#3a251a"/><stop offset="1" stop-color="#2a1c14"/></linearGradient>
+        <clipPath id="time-upper-bowl"><path d="M86 116 H314 C314 200 282 244 216 287 Q207 294 207 299 H193 Q193 294 184 287 C118 244 86 200 86 116Z"/></clipPath>
+        <clipPath id="time-lower-bowl"><path d="M193 301 H207 Q207 306 216 313 C282 356 314 400 314 492 H86 C86 400 118 356 184 313 Q193 306 193 301Z"/></clipPath>
+      </defs>
+      <ellipse class="time-hourglass__shadow" cx="200" cy="541" rx="160" ry="15"/>
+      <ellipse class="time-hourglass__ground-glow" cx="200" cy="539" rx="122" ry="6"/>
+      <path class="time-hourglass__frame" d="M64 103 V499 M336 103 V499"/>
+      <path class="time-hourglass__glass" d="M82 108 H318 C318 202 287 245 220 287 C207 295 207 305 220 313 C287 355 318 403 318 492 H82 C82 403 113 355 180 313 C193 305 193 295 180 287 C113 245 82 202 82 108Z"/>
+      <path class="time-hourglass__glass-inner" d="M94 119 H306 C306 200 278 243 212 288 C201 296 201 304 212 312 C278 357 306 401 306 481 H94 C94 401 122 357 188 312 C199 304 199 296 188 288 C122 243 94 200 94 119Z"/>
+      <g clip-path="url(#time-upper-bowl)"><path class="time-hourglass__sand time-hourglass__sand--top" d="M82 130 C127 118 164 133 200 127 C239 121 279 119 318 130 V298 H82Z"/></g>
+      <g clip-path="url(#time-lower-bowl)"><g class="time-hourglass__sand time-hourglass__sand--bottom">
+        <path d="M82 492 V405 C118 394 145 365 167 348 C183 336 193 333 200 333 C220 333 246 355 269 375 C291 394 306 402 318 405 V492Z"/>
+        <path class="time-hourglass__sand-shade" d="M82 492 V405 C118 394 145 365 167 348 C183 336 193 333 200 333 C220 333 246 355 269 375 C291 394 306 402 318 405 V492Z"/>
+        <path class="time-hourglass__sand-crest" d="M146 367 C171 345 188 334 200 334 C219 334 239 349 258 366"/>
+      </g></g>
+      <path class="time-hourglass__stream" d="M200 297 V477"/>
+      <g class="time-hourglass__particles"><circle cx="200" cy="329" r=".65"/><circle cx="200.4" cy="382" r=".8"/><circle cx="199.8" cy="432" r=".55"/></g>
+      <path class="time-hourglass__reflection" d="M100 136 C100 200 131 242 169 271"/>
+      <path class="time-hourglass__highlight" d="M118 126 Q145 121 171 127 M292 426 Q300 453 291 475"/>
+      <rect class="time-hourglass__cap-shadow" x="62" y="99" width="276" height="13" rx="7"/>
+      <rect class="time-hourglass__cap" x="54" y="82" width="292" height="24" rx="9"/>
+      <path class="time-hourglass__cap-shine" d="M66 87 H334"/>
+      <rect class="time-hourglass__cap-shadow" x="62" y="513" width="276" height="10" rx="6"/>
+      <rect class="time-hourglass__cap" x="54" y="497" width="292" height="24" rx="9"/>
+      <path class="time-hourglass__cap-shine" d="M66 502 H334"/>
+      <path class="time-hourglass__base" d="M52 533 H348"/>
+    </svg>
+    <div class="time-cloud">
+      <div class="time-cloud__task" style="--task: 0"><span class="time-cloud__leak">Revisar emails</span><span class="time-cloud__ordered">Entrada</span></div>
+      <div class="time-cloud__task" style="--task: 1"><span class="time-cloud__leak">Copiar datos</span><span class="time-cloud__ordered">Clasificación</span></div>
+      <div class="time-cloud__task" style="--task: 2"><span class="time-cloud__leak">Actualizar CRM</span><span class="time-cloud__ordered">Respuesta</span></div>
+      <div class="time-cloud__task" style="--task: 3"><span class="time-cloud__leak">Preparar informes</span><span class="time-cloud__ordered">Seguimiento</span></div>
+      <div class="time-cloud__task" style="--task: 4"><span class="time-cloud__leak">Perseguir respuestas</span><span class="time-cloud__ordered">Registro</span></div>
+      <div class="time-cloud__task" style="--task: 5"><span class="time-cloud__leak">Repetir mensajes</span></div>
+      <div class="time-cloud__task" style="--task: 6"><span class="time-cloud__leak">Buscar información</span></div>
+      <div class="time-cloud__task" style="--task: 7"><span class="time-cloud__leak">Reordenar agenda</span></div>
+    </div>
+  </div>
+
+  <main id="contenido" class="time-experience" data-time-experience tabindex="0" aria-label="Recorrido de seis escenas. Usa scroll, desliza o utiliza las teclas de navegación.">
+    <a class="time-back" href="/por-que-automatizar/#beneficios">← Volver a los beneficios</a>
+    <section class="time-scene time-scene--opening" id="escena-1" data-time-scene="1" aria-labelledby="tiempo-inicial">
+      <div class="time-scene__content">
+        <h1 id="tiempo-inicial">El tiempo no se pierde de golpe.</h1>
+        <p class="time-scene__statement">Se escapa en tareas pequeñas.</p>
+      </div>
+    </section>
+    <section class="time-scene time-scene--leaks" id="escena-2" data-time-scene="2" aria-labelledby="tiempo-fugas">
+      <div class="time-scene__content">
+        <h2 id="tiempo-fugas">Una tarea aislada parece pequeña.</h2>
+        <p class="time-scene__statement">Repetida cada día, se convierte en una fuga de horas.</p>
+        <ul class="time-task-list" aria-label="Pequeñas tareas repetidas">
+          <li>Revisar emails</li>
+          <li>Copiar datos</li>
+          <li>Actualizar CRM</li>
+          <li>Preparar informes</li>
+          <li>Perseguir respuestas</li>
+          <li>Repetir mensajes</li>
+          <li>Buscar información</li>
+          <li>Reordenar agenda</li>
+        </ul>
+      </div>
+    </section>
+    <section class="time-scene time-scene--system" id="escena-3" data-time-scene="3" aria-labelledby="tiempo-sistema">
+      <div class="time-scene__content">
+        <h2 id="tiempo-sistema">Automatizar no consiste en correr más.</h2>
+        <p class="time-scene__statement">Consiste en quitar pasos manuales que no necesitan depender de una persona.</p>
+        <ol class="time-flow" aria-label="Flujo de trabajo ordenado">
+          <li>Entrada</li>
+          <li>Clasificación</li>
+          <li>Respuesta</li>
+          <li>Seguimiento</li>
+          <li>Registro</li>
+        </ol>
+      </div>
+    </section>
+    <section class="time-scene time-scene--team" id="escena-4" data-time-scene="4" aria-labelledby="tiempo-equipo">
+      <div class="time-scene__content">
+        <h2 id="tiempo-equipo">La atención vuelve al equipo.</h2>
+        <p class="time-scene__text">Cuando el equipo deja de perseguir tareas repetidas, puede dedicar más atención a clientes, ventas y decisiones de mayor valor.</p>
+        <div class="time-team">
+          <div class="time-team__before"><h3>Antes</h3><ul><li>Revisar</li><li>Copiar</li><li>Perseguir</li><li>Repetir</li><li>Corregir</li></ul></div>
+          <div class="time-team__after"><h3>Después</h3><ul><li>Avisar</li><li>Ordenar</li><li>Registrar</li><li>Priorizar</li><li>Preparar</li></ul></div>
+        </div>
+      </div>
+    </section>
+    <section class="time-scene time-scene--research" id="escena-5" data-time-scene="5" aria-labelledby="tiempo-evidencia">
+      <div class="time-scene__content">
+        <h2 id="tiempo-evidencia">El ahorro también se puede medir.</h2>
+        <figure class="time-research" aria-labelledby="tiempo-evidencia" aria-description="Conversión orientativa de 30 minutos diarios, con cinco días de trabajo por semana y cuatro semanas por mes. No es un ahorro garantizado.">
+          <ol class="time-research__conversion">
+            <li><strong>30</strong><span>min/día recuperados</span><div class="time-research__units" aria-hidden="true"><i></i></div></li>
+            <li><strong>2,5</strong><span>h/semana</span><div class="time-research__units" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></li>
+            <li><strong>10</strong><span>h/mes por persona</span><div class="time-research__units" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></li>
+          </ol>
+        </figure>
+        <div class="time-evidence">
+          <article><h3>Tareas profesionales de escritura</h3><p class="time-evidence__number">−40% <span>tiempo medio</span></p><p>En el experimento, ChatGPT redujo el tiempo medio de ejecución un 40% y elevó la calidad un 18%.</p><a href="https://pubmed.ncbi.nlm.nih.gov/37440646/">Fuente: Noy y Zhang · Science, 2023</a></article>
+          <article><h3>Atención al cliente</h3><p class="time-evidence__number">+14% <span>productividad media</span></p><p>Un asistente de IA generativa aumentó las incidencias resueltas por hora. Resultado del working paper de 2023.</p><a href="https://www.nber.org/papers/w31161">Fuente: Brynjolfsson, Li y Raymond · NBER, 2023</a></article>
+          <article><h3>Usuarios avanzados de IA</h3><p class="time-evidence__number">&gt;30 <span>minutos al día</span></p><p>Microsoft y LinkedIn reportan más de 30 minutos de ahorro diario entre usuarios avanzados de IA.</p><a href="https://news.microsoft.com/source/2024/05/08/microsoft-and-linkedin-release-the-2024-work-trend-index-on-the-state-of-ai-at-work/">Fuente: Work Trend Index, 2024</a></article>
+        </div>
+      </div>
+    </section>
+    <section class="time-scene time-scene--closing" id="escena-6" data-time-scene="6" aria-labelledby="tiempo-cierre">
+      <div class="time-scene__content">
+        <h2 id="tiempo-cierre">El primer paso no es automatizar todo.</h2>
+        <p class="time-scene__statement">Es detectar dónde se está escapando el tiempo.</p>
+        <p class="time-scene__text">Revisamos tu proceso y señalamos dónde puede recuperarse tiempo sin rehacer toda la empresa.</p>
+        <a class="button time-final-cta" href="/contacto/">Revisar un proceso</a>
+      </div>
+    </section>
+    <div class="time-footer-zone" data-time-footer>
+      <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/"><img class="brand-logo" src="/images/grindlane-logo-transparent.png" alt="Grindlane Consulting" loading="lazy"></a><p>Automatización e inteligencia artificial aplicada a procesos empresariales.</p></div><div><p class="footer-heading">Navegación</p><div class="footer-links"><a href="/">Inicio</a><a href="/soluciones/">Qué podemos automatizar</a><a href="/como-trabajamos/">Cómo trabajamos</a><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a></div></div><div><p class="footer-heading">Legal</p><div class="footer-links"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="/cookies/">Cookies</a></div></div></div><div class="footer-bottom"><span>© 2026 Grindlane Consulting</span><span>Procesos primero. Tecnología después.</span></div></div></footer>
+    </div>
+  </main>
+</body>
+</html>
