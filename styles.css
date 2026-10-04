@@ -2632,6 +2632,19 @@ body.modal-open {
   grid-template-columns: 0.65fr 1fr;
 }
 
+/* Contacto reuses Home's audit component and experience.css responsive rules.
+   Its page title is an h1, with the same appearance as Home's audit h2. */
+.contact-audit-page .audit-intro h1 {
+  margin-bottom: 24px;
+  font-size: clamp(2.6rem, 4.7vw, 4.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+.contact-audit-page .audit-intro h1 span { color: var(--terracotta); }
+@media (max-width: 700px) {
+  .contact-audit-page .audit-intro h1 { font-size: clamp(2.25rem, 9vw, 3rem); }
+}
+
 .contact-layout--direct {
   column-gap: clamp(50px, 9vw, 120px);
   grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);

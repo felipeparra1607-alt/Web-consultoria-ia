@@ -3,10 +3,12 @@ const FORM_ENDPOINT = "https://grindlane-form.felipe-parra1607.workers.dev";
 // Keep the existing Worker contract: audit context travels in the email's message.
 function buildContactPayload(formData, pageUrl) {
   let message = String(formData.get("mensaje") || "").trim();
-  if (formData.get("lead_origin") === "home_auditoria") {
+  const leadOrigin = formData.get("lead_origin");
+  if (leadOrigin === "home_auditoria" || leadOrigin === "contacto_auditoria") {
+    const isHome = leadOrigin === "home_auditoria";
     message = [
-      "Solicitud de auditoría gratuita — Home",
-      "Origen: home_auditoria",
+      `Solicitud de auditoría gratuita — ${isHome ? "Home" : "Contacto"}`,
+      `Origen: ${leadOrigin}`,
       `Teléfono: ${String(formData.get("telefono") || "").trim() || "No indicado"}`,
       `Tipo de empresa: ${formData.get("tipo_empresa") || "No indicado"}`,
       `Conoce automatización: ${formData.get("conoce_automatizacion") || "No indicado"}`,

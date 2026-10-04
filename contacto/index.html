@@ -9,10 +9,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=20261003b">
-  <script src="/script.js?v=20261003b" defer></script>
+  <link rel="stylesheet" href="/styles.css?v=20261004-contacto-auditoria">
+  <script src="/script.js?v=20261004-contacto-auditoria" defer></script>
+  <link rel="stylesheet" href="/experience.css?v=20261003c">
 </head>
-<body>
+<body class="experience contact-audit-page">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header"><div class="container header-inner">
     <a class="brand" href="/" aria-label="Grindlane Consulting, inicio"><img class="brand-logo" src="/images/grindlane-logo-transparent.png" alt="Grindlane Consulting"></a>
@@ -22,25 +23,26 @@
   </div></header>
 
   <main id="contenido">
-    <section class="contact-page"><div class="container contact-layout contact-layout--direct">
-      <div class="contact-intro reveal"><h1>Cuéntanos qué proceso quieres mejorar.</h1><p class="lead">No necesitas saber qué tecnología necesitas. Cuéntanos cómo trabajas hoy y qué proceso te gustaría mejorar.</p></div>
-      <div class="contact-form-wrap reveal" id="formulario-contacto"><form class="contact-form" data-contact-form>
-        <input type="hidden" name="source" value="general">
-        <input type="hidden" name="contact_person" value="">
+    <section class="experience-section audit-section" id="formulario-contacto" aria-labelledby="audit-title"><div class="container audit-layout"><div class="audit-intro"><h1 id="audit-title">Pide tu<br>auditoría gratis<span aria-hidden="true">.</span></h1><p>Revisamos tu proceso, detectamos oportunidades y te damos una propuesta clara de mejora.</p><a href="mailto:contacto@grindlaneconsulting.com">contacto@grindlaneconsulting.com</a></div><form class="contact-form" data-contact-form data-audit-form>
+        <input type="hidden" name="source" value="contacto">
+        <input type="hidden" name="contact_person" value="General">
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="form-honeypot">
+        <input type="hidden" name="lead_origin" value="contacto_auditoria">
+        <p class="audit-form-note">Nombre, email, empresa y mensaje son obligatorios. El resto nos ayuda a preparar la revisión.</p>
         <div class="form-grid">
           <div class="form-field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" autocomplete="name" maxlength="120" required></div>
           <div class="form-field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" type="text" autocomplete="organization" maxlength="160" required></div>
-          <div class="form-field form-field--full"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
-          <div class="form-field form-field--full"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" maxlength="5000" required></textarea></div>
+          <div class="form-field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+          <div class="form-field"><label for="telefono">Teléfono <span>(opcional)</span></label><input id="telefono" name="telefono" type="tel" autocomplete="tel" maxlength="40"></div>
+<div class="form-field"><label for="tipo_empresa">Tipo de empresa</label><select id="tipo_empresa" name="tipo_empresa"><option value="">Selecciona una opción (opcional)</option><option>Autónomo / profesional independiente</option><option>Startup</option><option>Pyme</option><option>Empresa consolidada</option><option>Agencia / consultora</option><option>Otro</option></select></div>
+<div class="form-field"><label for="conoce_automatizacion">¿Conoces la automatización?</label><select id="conoce_automatizacion" name="conoce_automatizacion"><option value="">Selecciona una opción (opcional)</option><option>Sí</option><option>Algo</option><option>No, quiero que me orientéis</option></select></div>
+<div class="form-field"><label for="conoce_geo">¿Conoces qué es GEO?</label><select id="conoce_geo" name="conoce_geo"><option value="">Selecciona una opción (opcional)</option><option>Sí</option><option>He oído hablar de ello</option><option>No</option></select></div>
+<div class="form-field form-field--full"><label for="mensaje">¿Qué proceso quieres mejorar?</label><textarea id="mensaje" name="mensaje" maxlength="4200" required></textarea></div>
         </div>
-        <p class="privacy-notice"><strong>Protección de datos:</strong> Felipe Parra y Francisco Arias tratarán tus datos para responder a tu consulta y valorar una posible relación comercial. Puedes ejercer tus derechos escribiendo a <a href="mailto:contacto@grindlaneconsulting.com">contacto@grindlaneconsulting.com</a>. Más información en nuestra <button class="privacy-link" type="button" data-privacy-open aria-haspopup="dialog" aria-controls="privacy-modal">Política de Privacidad</button>.</p>
         <label class="privacy-consent"><input type="checkbox" name="privacy" required><span>He leído y acepto la <button class="privacy-link" type="button" data-privacy-open aria-haspopup="dialog" aria-controls="privacy-modal">Política de Privacidad</button>.</span></label>
-        <div class="button-row"><button class="button" type="submit">Enviar</button></div>
+        <div class="button-row"><button class="button" type="submit">Pide tu auditoría gratis</button></div>
         <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-      </form></div>
-      <div class="contact-meta reveal"><div class="direct-email"><span>También puedes escribirnos directamente.</span><strong><a href="mailto:contacto@grindlaneconsulting.com">contacto@grindlaneconsulting.com</a></strong></div><p class="contact-trust">Revisaremos el contexto antes de plantear cualquier solución.</p></div>
-    </div></section>
+      </form></div></section>
   </main>
 
   <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/"><img class="brand-logo" src="/images/grindlane-logo-transparent.png" alt="Grindlane Consulting" loading="lazy"></a><p>Automatización e inteligencia artificial aplicada a procesos empresariales.</p></div><div><p class="footer-heading">Navegación</p><div class="footer-links"><a href="/">Inicio</a><a href="/soluciones/">Qué podemos automatizar</a><a href="/como-trabajamos/">Cómo trabajamos</a><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a></div></div><div><p class="footer-heading">Legal</p><div class="footer-links"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="/cookies/">Cookies</a></div></div></div><div class="footer-bottom"><span>© 2026 Grindlane Consulting</span><span>Procesos primero. Tecnología después.</span></div></div></footer>
