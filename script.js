@@ -72,6 +72,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Existing area routes double as individual fichas; the hash selects the person.
+  document.querySelectorAll("[data-profile-pages]").forEach((profiles) => {
+    const people = [...profiles.querySelectorAll(".profile-detailed")];
+    const selectProfile = () => {
+      const requested = window.location.hash.slice(1) || profiles.dataset.profileDefault;
+      const selected = people.find((person) => person.id === requested) || people.find((person) => person.id === profiles.dataset.profileDefault) || people[0];
+      profiles.classList.add("is-enhanced");
+      people.forEach((person) => person.classList.toggle("is-selected", person === selected));
+    };
+    selectProfile();
+    window.addEventListener("hashchange", selectProfile);
+  });
+
   const scrollToHashTarget = () => {
     if (!window.location.hash) return;
     const targetId = decodeURIComponent(window.location.hash.slice(1));
@@ -82,6 +95,119 @@ document.addEventListener("DOMContentLoaded", () => {
 
   scrollToHashTarget();
   window.addEventListener("hashchange", scrollToHashTarget);
+
+  // All three people remain visible. Navigation changes their position, not their visibility.
+  document.querySelectorAll("[data-team-showcase]").forEach((showcase) => {
+    const members = [...showcase.querySelectorAll("[data-team-member]")];
+    const controls = showcase.querySelector("[data-team-controls]");
+    const help = showcase.querySelector(".team-showcase__help");
+    const desktop = matchMedia("(min-width: 861px)");
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+    let active = 0, pointerFrame = 0;
+    let rotationTimer = 0, pointerInside = false;
+    let inView = !("IntersectionObserver" in window);
+    const rotationDelay = 5500;
+
+    const stopRotation = () => {
+      clearTimeout(rotationTimer);
+      rotationTimer = 0;
+    };
+    const scheduleRotation = () => {
+      stopRotation();
+      if (!desktop.matches || motion.matches || document.hidden || !inView ||
+          pointerInside || showcase.contains(document.activeElement)) return;
+      // One idle timer only: never queue advances or catch up after returning to the tab.
+      rotationTimer = setTimeout(() => show(active + 1), rotationDelay);
+    };
+
+    const resetPointer = () => {
+      cancelAnimationFrame(pointerFrame);
+      pointerFrame = 0;
+      members.forEach((member) => {
+        member.style.removeProperty("--team-x");
+        member.style.removeProperty("--team-y");
+      });
+    };
+    const render = () => {
+      resetPointer();
+      showcase.classList.toggle("is-enhanced", desktop.matches);
+      controls.hidden = help.hidden = !desktop.matches;
+      members.forEach((member, index) => {
+        member.classList.toggle("is-active", desktop.matches && index === active);
+        member.classList.toggle("is-right", desktop.matches && index === (active + 1) % members.length);
+        member.classList.toggle("is-left", desktop.matches && index === (active + 2) % members.length);
+      });
+      if (desktop.matches) {
+        showcase.tabIndex = 0;
+        showcase.setAttribute("aria-roledescription", "carrusel");
+        showcase.setAttribute("aria-describedby", help.id);
+      } else {
+        showcase.removeAttribute("tabindex");
+        showcase.removeAttribute("aria-roledescription");
+        showcase.removeAttribute("aria-describedby");
+      }
+      scheduleRotation();
+    };
+    const show = (index) => {
+      if (!desktop.matches) return;
+      active = (index + members.length) % members.length;
+      render();
+    };
+    showcase.querySelector("[data-team-previous]").addEventListener("click", () => show(active - 1));
+    showcase.querySelector("[data-team-next]").addEventListener("click", () => show(active + 1));
+    showcase.addEventListener("pointerenter", (event) => {
+      if (event.pointerType === "touch") return;
+      pointerInside = true;
+      stopRotation();
+    });
+    showcase.addEventListener("pointerleave", () => {
+      pointerInside = false;
+      scheduleRotation();
+    });
+    showcase.addEventListener("focusin", stopRotation);
+    showcase.addEventListener("focusout", () => requestAnimationFrame(scheduleRotation));
+    showcase.addEventListener("pointerdown", stopRotation);
+    showcase.addEventListener("click", scheduleRotation);
+    showcase.addEventListener("keydown", stopRotation);
+    document.addEventListener("visibilitychange", scheduleRotation);
+    showcase.addEventListener("keydown", (event) => {
+      if (!desktop.matches || event.altKey || event.ctrlKey || event.metaKey) return;
+      const destinations = { ArrowLeft: active - 1, ArrowRight: active + 1, Home: 0, End: members.length - 1 };
+      if (!(event.key in destinations)) return;
+      event.preventDefault();
+      show(destinations[event.key]);
+    });
+    members.forEach((member) => {
+      member.addEventListener("click", (event) => {
+        if (!event.target.closest("a, button") && window.getSelection().isCollapsed) member.querySelector("a").click();
+      });
+      member.addEventListener("pointermove", (event) => {
+        if (!desktop.matches || motion.matches || !finePointer.matches || event.pointerType === "touch") return;
+        const rect = member.getBoundingClientRect();
+        const x = Math.max(-3, Math.min(3, ((event.clientX - rect.left) / rect.width - 0.5) * 6));
+        const y = Math.max(-2, Math.min(2, ((event.clientY - rect.top) / rect.height - 0.5) * 4));
+        cancelAnimationFrame(pointerFrame);
+        pointerFrame = requestAnimationFrame(() => {
+          member.style.setProperty("--team-x", `${x.toFixed(2)}px`);
+          member.style.setProperty("--team-y", `${y.toFixed(2)}px`);
+          pointerFrame = 0;
+        });
+      }, { passive: true });
+      member.addEventListener("pointerleave", resetPointer);
+    });
+    desktop.addEventListener("change", render);
+    motion.addEventListener("change", render);
+    finePointer.addEventListener("change", resetPointer);
+    if ("IntersectionObserver" in window) {
+      const visibilityObserver = new IntersectionObserver((entries) => {
+        inView = entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.25);
+        scheduleRotation();
+      }, { threshold: 0.25 });
+      visibilityObserver.observe(showcase);
+    }
+    render();
+  });
 
   document.querySelectorAll(".faq-question").forEach((button) => {
     button.addEventListener("click", () => {
