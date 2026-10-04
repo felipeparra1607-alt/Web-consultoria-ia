@@ -35,14 +35,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Benefit journeys: observe the native scroller, never consume wheel/touch/key events.
   (() => {
-    const root = document.querySelector("[data-time-experience], [data-cost-experience]");
+    const root = document.querySelector("[data-time-experience], [data-cost-experience], [data-growth-experience]");
     if (!root) return;
-    const isCostJourney = root.hasAttribute("data-cost-experience");
-    const sceneSelector = isCostJourney ? "[data-cost-scene]" : "[data-time-scene]";
+    const journey = root.hasAttribute("data-growth-experience") ? "growth"
+      : root.hasAttribute("data-cost-experience") ? "cost" : "time";
+    const sceneSelector = `[data-${journey}-scene]`;
     const scenes = [...root.querySelectorAll(sceneSelector)];
     if (scenes.length !== 6) return;
     const page = document.body;
-    const footer = root.querySelector(isCostJourney ? "[data-cost-footer]" : "[data-time-footer]");
+    const footer = root.querySelector(`[data-${journey}-footer]`);
+    const growthMotion = journey === "growth"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
     const sand = [
       [.96, .04, .2],
       [.77, .23, .7],
@@ -53,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     let observer = null;
     let footerObserver = null;
+    let revealObserver = null;
     let frame = 0;
 
     const updateFooter = () => {
@@ -66,7 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const index = scenes.indexOf(scene);
       if (index < 0) return;
       page.dataset.scene = String(index + 1);
-      if (isCostJourney) return;
+      if (journey === "growth") scene.classList.add("is-entered");
+      if (journey !== "time") return;
       page.style.setProperty("--sand-top", String(sand[index][0]));
       page.style.setProperty("--sand-bottom", String(sand[index][1]));
       page.style.setProperty("--sand-stream", String(sand[index][2]));
@@ -88,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const observeScenes = () => {
       observer?.disconnect();
       footerObserver?.disconnect();
+      revealObserver?.disconnect();
       if ("IntersectionObserver" in window && root.clientHeight > 0) {
         // Use pixel margins: IntersectionObserver percentages are relative to width.
         // A narrow strip at viewport centre also works for taller mobile scenes.
@@ -96,6 +102,19 @@ document.addEventListener("DOMContentLoaded", () => {
           root, rootMargin: `-${inset}px 0px -${inset}px 0px`, threshold: 0,
         });
         scenes.forEach((scene) => observer.observe(scene));
+        if (journey === "growth") {
+          // Reveal when a scene starts entering, not only at its midpoint.
+          // This keeps taller mobile scenes readable; no JS means visible text.
+          revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-entered");
+              revealObserver.unobserve(entry.target);
+            });
+          }, { root, rootMargin: "0px 0px -24px 0px", threshold: 0 });
+          scenes.filter((scene) => !scene.classList.contains("is-entered"))
+            .forEach((scene) => revealObserver.observe(scene));
+        }
         if (footer) {
           footerObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -108,8 +127,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       requestUpdate();
     };
+    if (growthMotion) {
+      const updateMotion = () => page.classList.toggle("has-growth-motion",
+        !growthMotion.matches && "IntersectionObserver" in window);
+      updateMotion();
+      growthMotion.addEventListener("change", updateMotion);
+    }
     setScene(scenes[0]);
-    page.classList.add(isCostJourney ? "has-cost-scenes" : "has-time-scenes");
+    page.classList.add(`has-${journey}-scenes`);
     observeScenes();
     root.addEventListener("scroll", () => {
       if (!observer) requestUpdate();
@@ -123,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("pagehide", () => {
       observer?.disconnect();
       footerObserver?.disconnect();
+      revealObserver?.disconnect();
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
     });
