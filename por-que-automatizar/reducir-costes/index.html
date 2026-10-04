@@ -3,48 +3,112 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Analiza trabajo manual, errores y retrabajo para identificar costes operativos ocultos y fricciones evitables.">
+  <meta name="description" content="Una radiografía del coste operativo: identifica fricción, duplicidades, errores y retrabajo para simplificar los procesos de tu empresa.">
+  <meta name="theme-color" content="#050706">
   <link rel="canonical" href="https://grindlaneconsulting.com/por-que-automatizar/reducir-costes/">
   <title>Reducir costes | Grindlane Consulting</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=20261004-beneficios">
-  <script src="/script.js?v=20261004-beneficios" defer></script>
+  <link rel="stylesheet" href="/styles.css?v=20261004-coste-escenas">
+  <script src="/script.js?v=20261004-coste-escenas" defer></script>
 </head>
-<body class="benefit-page benefit-page--cost">
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+<body class="cost-journey" data-scene="1">
+  <a class="skip-link" href="#contenido">Saltar al recorrido</a>
   <header class="site-header"><div class="container header-inner">
     <a class="brand" href="/" aria-label="Grindlane Consulting, inicio"><img class="brand-logo" src="/images/grindlane-logo-transparent.png" alt="Grindlane Consulting"></a>
-    <nav class="site-nav" id="site-navigation" aria-label="Navegación principal"><div class="nav-links"><a class="nav-link" href="/nosotros/">Nosotros</a><a class="nav-link" href="/por-que-automatizar/" aria-current="true">Por qué automatizar</a><a class="nav-link" href="/soluciones/">Qué podemos automatizar</a><a class="nav-link" href="/como-trabajamos/">Cómo trabajamos</a><a class="nav-link" href="/contacto/">Contacto</a></div></nav>
+    <nav class="site-nav" id="site-navigation" aria-label="Navegación principal"><div class="nav-links"><a class="nav-link" href="/nosotros/">Nosotros</a><a class="nav-link" href="/por-que-automatizar/" aria-current="page">Por qué automatizar</a><a class="nav-link" href="/soluciones/">Qué podemos automatizar</a><a class="nav-link" href="/como-trabajamos/">Cómo trabajamos</a><a class="nav-link" href="/contacto/">Contacto</a></div></nav>
     <a class="header-mail" href="/contacto/" aria-label="Ir a Contacto" title="Contacto"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Abrir menú"><span></span></button>
   </div></header>
-  <main id="contenido">
-    <section class="benefit-cover benefit-cost__cover"><div class="container">
-      <a class="benefit-back" href="/por-que-automatizar/">← Por qué automatizar</a>
-      <div class="benefit-cost__opening"><p class="benefit-eyebrow">Reducir costes</p><h1>Reducir costes no siempre consiste en recortar.</h1><p class="benefit-subtitle">Muchas veces consiste en eliminar fricción.</p><p class="benefit-support">El coste operativo también aparece en pasos duplicados, errores, esperas, retrabajo y tareas que dependen demasiado de intervención manual. Automatizar ayuda a simplificar el flujo sin romper la forma de trabajar del negocio.</p><a class="button" href="/contacto/">Revisar un proceso</a></div>
-    </div></section>
-    <section class="section benefit-cost__analysis"><div class="container">
-      <div class="benefit-visual-heading"><div><p class="benefit-eyebrow">Mismo trabajo. Menos fricción.</p><h2>Antes / Después.</h2></div><p>La diferencia no es quitar criterio. Es quitar pasos que no aportan valor.</p></div>
-      <div class="cost-split">
-        <section class="cost-split__panel cost-split__panel--before" aria-labelledby="coste-antes">
-          <header><h3 id="coste-antes">Antes</h3><p>El proceso avanza a base de intervención.</p></header>
-          <svg class="cost-split__route" viewBox="0 0 500 420" preserveAspectRatio="none" aria-hidden="true"><path d="M30 20 L430 95 L65 180 L460 255 L40 345 L400 400 M120 0 L380 180 L110 300 L480 420"></path></svg>
-          <ul class="cost-split__items"><li>Datos duplicados</li><li>Error manual</li><li>Espera interna</li><li>Revisión repetida</li><li>Retrabajo</li><li>Herramientas desconectadas</li></ul>
-          <div class="cost-split__states" aria-label="Estados del proceso actual"><span>Manual</span><span>Repetido</span><span>Error</span><span>Espera</span></div>
+  <a class="cost-back" href="/por-que-automatizar/#beneficios">← Volver a los beneficios</a>
+
+  <!-- Decorative diagnostic field; all meaningful process labels remain in HTML. -->
+  <div class="cost-stage" aria-hidden="true">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" focusable="false" aria-hidden="true">
+      <defs><pattern id="cost-grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0 H0 V80" fill="none" stroke="#b1c8b8" stroke-opacity=".08"/></pattern></defs>
+      <rect width="1200" height="800" fill="url(#cost-grid)"/>
+      <g class="cost-stage__tangled" fill="none" stroke="#ac5b4b" stroke-width="1">
+        <path d="M500 110 H1020 V285 H670 V465 H1080 V620 H540 M580 190 L980 460 L620 560 L1020 285 M830 110 V700"/>
+        <circle cx="1020" cy="285" r="12"/><circle cx="670" cy="465" r="10"/><circle cx="980" cy="460" r="8"/><circle cx="620" cy="560" r="10"/>
+      </g>
+      <g class="cost-stage__clean" fill="none" stroke="#94bba2" stroke-width="1">
+        <path d="M550 250 H720 Q740 250 740 270 V450 Q740 470 760 470 H1030 M740 350 H970"/>
+        <circle cx="550" cy="250" r="10"/><circle cx="740" cy="350" r="10"/><circle cx="970" cy="350" r="10"/><circle cx="1030" cy="470" r="10"/>
+      </g>
+    </svg>
+  </div>
+
+  <main class="cost-experience" id="contenido" data-cost-experience tabindex="0" aria-label="Recorrido sobre coste operativo">
+    <section class="cost-scene cost-scene--opening" data-cost-scene="1" aria-labelledby="coste-impacto">
+      <div class="cost-scene__copy">
+        <h1 id="coste-impacto">El coste no siempre aparece en una factura.</h1>
+        <p class="cost-statement">A veces está en repetir, corregir y esperar.</p>
+      </div>
+    </section>
+
+    <section class="cost-scene cost-scene--accumulation" data-cost-scene="2" aria-labelledby="coste-acumulacion">
+      <div class="cost-scene__copy">
+        <h2 id="coste-acumulacion">Cada paso manual añade una pequeña carga.</h2>
+        <p class="cost-text">Un error, una espera o un dato duplicado rara vez parecen graves por separado. Juntos, se convierten en coste operativo.</p>
+      </div>
+      <figure class="cost-panel cost-panel--before cost-accumulation" aria-labelledby="coste-indice">
+        <div class="cost-panel__heading"><h3 id="coste-indice">Índice de fricción</h3><span class="cost-state">Alta</span></div>
+        <div class="cost-meter" aria-hidden="true"><span></span></div>
+        <p class="cost-panel__legend">Lectura conceptual del proceso, no una medición.</p>
+        <div class="cost-map cost-map--long">
+          <svg class="cost-map__wires" viewBox="0 0 600 360" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M300 35 L125 120 H475 L125 210 H475 L125 300 H475 M125 120 L475 210 L125 300 M475 120 L125 210"/></svg>
+          <ol class="cost-map__nodes">
+            <li>Entrada<span>manual</span></li><li>Copiar datos<span>duplicado</span></li><li>Revisar manualmente<span>manual</span></li><li>Corregir error<span>error</span></li><li>Volver a enviar<span>retrabajo</span></li><li>Esperar respuesta<span>espera</span></li><li>Actualizar otra herramienta<span>duplicado</span></li>
+          </ol>
+        </div>
+      </figure>
+    </section>
+
+    <section class="cost-scene cost-scene--comparison" data-cost-scene="3" aria-labelledby="coste-comparacion">
+      <h2 class="cost-sr-only" id="coste-comparacion">El mismo trabajo, con menos fricción.</h2>
+      <div class="cost-comparison">
+        <section class="cost-panel cost-panel--before" aria-labelledby="coste-antes">
+          <div class="cost-panel__heading"><h3 id="coste-antes">Antes</h3><span class="cost-state">Intervención repetida</span></div>
+          <p class="cost-panel__intro">El proceso avanza. La carga también.</p>
+          <div class="cost-map cost-map--tangled">
+            <svg class="cost-map__wires" viewBox="0 0 600 360" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M120 60 L480 160 L120 275 H480 L120 160 L480 60 M120 60 L480 275 M480 60 V275"/></svg>
+            <ul class="cost-map__nodes"><li>Dato duplicado<span>duplicado</span></li><li>Error manual<span>error</span></li><li>Revisión repetida<span>manual</span></li><li>Espera interna<span>espera</span></li><li>Retrabajo<span>repetido</span></li><li>Herramientas desconectadas<span>aislado</span></li></ul>
+          </div>
         </section>
-        <section class="cost-split__panel cost-split__panel--after" aria-labelledby="coste-despues" data-benefit-motion>
-          <header><h3 id="coste-despues">Después</h3><p>Un flujo definido, conectado y verificable.</p></header>
-          <ul class="cost-split__items"><li style="--step: 0">Dato único</li><li style="--step: 1">Validación automática</li><li style="--step: 2">Aviso en tiempo real</li><li style="--step: 3">Flujo simplificado</li><li style="--step: 4">Menos intervención manual</li><li style="--step: 5">Sistemas conectados</li></ul>
-          <div class="cost-split__states" aria-label="Estados del proceso mejorado"><span>Automático</span><span>Integrado</span><span>Validado</span><span>Aviso</span></div>
+        <section class="cost-panel cost-panel--after" aria-labelledby="coste-despues">
+          <div class="cost-panel__heading"><h3 id="coste-despues">Después</h3><span class="cost-state">Flujo conectado</span></div>
+          <p class="cost-panel__intro">Menos pasos. Más claridad sobre el siguiente.</p>
+          <ol class="cost-clean-flow"><li>Dato único<span>integrado</span></li><li>Validación automática<span>validado</span></li><li>Aviso en tiempo real<span>avisado</span></li><li>Flujo integrado<span>conectado</span></li></ol>
+          <p class="cost-panel__outcome">Menos intervención manual.<br>Sistemas conectados.</p>
         </section>
       </div>
-      <p class="benefit-visual-note">Transformación conceptual de un proceso. No representa un ahorro garantizado ni elimina la revisión humana cuando es necesaria.</p>
-      <div class="benefit-cost__decision"><h3>No todo lo manual merece automatizarse.</h3><p>Comparamos el esfuerzo actual con el coste de desarrollar, mantener y revisar la solución. La mejora tiene que tener sentido para tu operación.</p></div>
-    </div></section>
-    <section class="section benefit-cost__closing"><div class="container benefit-detail-cta"><div><h2>Veamos dónde se está acumulando coste oculto.</h2><p>Revisamos un proceso concreto antes de proponer cambios.</p></div><a class="button" href="/contacto/">Revisar un proceso</a></div></section>
+    </section>
+
+    <section class="cost-scene cost-scene--transformation" data-cost-scene="4" aria-labelledby="coste-transformacion">
+      <div class="cost-scene__copy"><h2 id="coste-transformacion">Reducir costes no es solo gastar menos.</h2><p class="cost-statement">Es evitar que el trabajo se repita dos veces.</p></div>
+      <figure class="cost-panel cost-transformation" aria-labelledby="coste-estados">
+        <h3 class="cost-sr-only" id="coste-estados">De la carga acumulada a un flujo resuelto</h3>
+        <div class="cost-balance">
+          <div class="cost-balance__row cost-balance__row--load"><span>Coste operativo acumulado</span><div class="cost-balance__track" aria-hidden="true"><i></i></div></div>
+          <div class="cost-balance__row cost-balance__row--resolved"><span>Fricción reducida</span><div class="cost-balance__track" aria-hidden="true"><i></i></div></div>
+        </div>
+        <ul class="cost-transform-list"><li><span>manual</span><i aria-hidden="true"></i><strong>automático</strong></li><li><span>duplicado</span><i aria-hidden="true"></i><strong>integrado</strong></li><li><span>error</span><i aria-hidden="true"></i><strong>validado</strong></li><li><span>espera</span><i aria-hidden="true"></i><strong>aviso</strong></li><li><span>retrabajo</span><i aria-hidden="true"></i><strong>resuelto</strong></li></ul>
+        <figcaption>Representación conceptual. El resultado depende de cada proceso.</figcaption>
+      </figure>
+    </section>
+
+    <section class="cost-scene cost-scene--outcomes" data-cost-scene="5" aria-labelledby="coste-resultados">
+      <div class="cost-scene__copy"><h2 id="coste-resultados">Menos coste operativo significa menos fricción acumulada.</h2></div>
+      <ul class="cost-outcomes"><li><h3>Menos trabajo manual</h3><p>Más foco</p></li><li><h3>Menos errores</h3><p>Más calidad</p></li><li><h3>Menos retrabajo</h3><p>Más velocidad</p></li><li><h3>Menos esperas</h3><p>Más control</p></li></ul>
+    </section>
+
+    <section class="cost-scene cost-scene--final" data-cost-scene="6" aria-labelledby="coste-final">
+      <div class="cost-scene__copy"><h2 id="coste-final">El primer ahorro suele estar en lo que se repite sin aportar valor.</h2><p class="cost-text">Revisamos tu proceso y detectamos dónde hay fricción, duplicidades o retrabajo que puede reducirse sin rehacer toda la empresa.</p><a class="button cost-final-cta" href="/contacto/">Revisar un proceso</a></div>
+    </section>
+    <div class="cost-footer-zone" data-cost-footer>
+      <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/"><img class="brand-logo" src="/images/grindlane-logo-transparent.png" alt="Grindlane Consulting" loading="lazy"></a><p>Automatización e inteligencia artificial aplicada a procesos empresariales.</p></div><div><p class="footer-heading">Navegación</p><div class="footer-links"><a href="/">Inicio</a><a href="/soluciones/">Qué podemos automatizar</a><a href="/como-trabajamos/">Cómo trabajamos</a><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a></div></div><div><p class="footer-heading">Legal</p><div class="footer-links"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="/cookies/">Cookies</a></div></div></div><div class="footer-bottom"><span>© 2026 Grindlane Consulting</span><span>Procesos primero. Tecnología después.</span></div></div></footer>
+    </div>
   </main>
-  <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/"><img class="brand-logo" src="/images/grindlane-logo-transparent.png" alt="Grindlane Consulting" loading="lazy"></a><p>Automatización e inteligencia artificial aplicada a procesos empresariales.</p></div><div><p class="footer-heading">Navegación</p><div class="footer-links"><a href="/">Inicio</a><a href="/soluciones/">Qué podemos automatizar</a><a href="/como-trabajamos/">Cómo trabajamos</a><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a></div></div><div><p class="footer-heading">Legal</p><div class="footer-links"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="/cookies/">Cookies</a></div></div></div><div class="footer-bottom"><span>© 2026 Grindlane Consulting</span><span>Procesos primero. Tecnología después.</span></div></div></footer>
 </body>
 </html>

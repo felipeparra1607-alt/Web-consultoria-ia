@@ -33,14 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const navigation = document.querySelector(".site-nav");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Time journey: observe the native scroller, never consume wheel/touch/key events.
+  // Benefit journeys: observe the native scroller, never consume wheel/touch/key events.
   (() => {
-    const root = document.querySelector("[data-time-experience]");
+    const root = document.querySelector("[data-time-experience], [data-cost-experience]");
     if (!root) return;
-    const scenes = [...root.querySelectorAll("[data-time-scene]")];
+    const isCostJourney = root.hasAttribute("data-cost-experience");
+    const sceneSelector = isCostJourney ? "[data-cost-scene]" : "[data-time-scene]";
+    const scenes = [...root.querySelectorAll(sceneSelector)];
     if (scenes.length !== 6) return;
     const page = document.body;
-    const footer = root.querySelector("[data-time-footer]");
+    const footer = root.querySelector(isCostJourney ? "[data-cost-footer]" : "[data-time-footer]");
     const sand = [
       [.96, .04, .2],
       [.77, .23, .7],
@@ -64,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const index = scenes.indexOf(scene);
       if (index < 0) return;
       page.dataset.scene = String(index + 1);
+      if (isCostJourney) return;
       page.style.setProperty("--sand-top", String(sand[index][0]));
       page.style.setProperty("--sand-bottom", String(sand[index][1]));
       page.style.setProperty("--sand-stream", String(sand[index][2]));
@@ -106,13 +109,13 @@ document.addEventListener("DOMContentLoaded", () => {
       requestUpdate();
     };
     setScene(scenes[0]);
-    page.classList.add("has-time-scenes");
+    page.classList.add(isCostJourney ? "has-cost-scenes" : "has-time-scenes");
     observeScenes();
     root.addEventListener("scroll", () => {
       if (!observer) requestUpdate();
     }, { passive: true });
     root.addEventListener("focusin", (event) => {
-      const scene = event.target.closest("[data-time-scene]");
+      const scene = event.target.closest(sceneSelector);
       if (scene) setScene(scene);
       updateFooter();
     });
