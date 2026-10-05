@@ -9,8 +9,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=20261004-rutas">
-  <script src="/script.js?v=20261004-rutas" defer></script>
+  <link rel="stylesheet" href="/styles.css?v=20261005-equipo-formularios">
+  <script src="/script.js?v=20261005-equipo-formularios" defer></script>
 </head>
 <body class="personal-profile">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -26,28 +26,32 @@
         <article class="profile-detailed profile-detailed--person profile-detailed--compact" id="francisco-arias">
           <header class="profile-heading"><h1>Francisco Arias</h1><p class="person-role">Desarrollo comercial, visión financiera y apoyo legal</p></header>
           <figure class="profile-photo profile-photo--real profile-photo--francisco"><img src="/images/francisco-arias.jpg" alt="Francisco Arias, coordinación del área legal de Grindlane Consulting" loading="lazy" width="941" height="1672"></figure>
-          <div class="profile-copy profile-copy--person"><p>Francisco aporta la visión de negocio, financiera y legal del equipo. Participa en la evaluación de cada proyecto para entender su viabilidad, ordenar prioridades y asegurar que las soluciones propuestas encajen con la realidad operativa, comercial y normativa de cada cliente.</p><div class="profile-actions"><button class="button button--outline profile-contact-cta" type="button" data-contact-modal-open data-contact-name="Francisco" data-contact-source="francisco" aria-haspopup="dialog" aria-controls="profile-contact-modal">Contáctame</button><a class="profile-actions__link" href="/nosotros/#equipo">Volver al equipo</a></div></div>
+          <div class="profile-copy profile-copy--person"><p>Francisco aporta la visión de negocio, financiera y legal del equipo. Participa en la evaluación de cada proyecto para entender su viabilidad, ordenar prioridades y asegurar que las soluciones propuestas encajen con la realidad operativa, comercial y normativa de cada cliente.</p><div class="profile-actions"><button class="button button--outline profile-contact-cta" type="button" data-contact-modal-open data-contact-name="Francisco" data-contact-person="Francisco Arias" data-contact-source="francisco" aria-haspopup="dialog" aria-controls="profile-contact-modal">Contáctame</button><a class="profile-actions__link" href="/nosotros/#equipo">Volver al equipo</a></div></div>
         </article>
       </div>
     </div></section>
   </main>
-  <dialog class="contact-modal" id="profile-contact-modal" data-contact-modal aria-labelledby="profile-modal-title" aria-describedby="profile-modal-description">
+  <dialog class="contact-modal contact-modal--audit" id="profile-contact-modal" data-contact-modal aria-labelledby="profile-modal-title" aria-describedby="profile-modal-description">
     <div class="contact-modal__panel">
       <button class="contact-modal__close" type="button" data-contact-modal-close aria-label="Cerrar formulario">×</button>
       <div class="contact-modal__heading"><h2 id="profile-modal-title" data-contact-modal-title>Contactar con Francisco</h2><p id="profile-modal-description">Cuéntanos brevemente qué quieres mejorar o qué proceso te gustaría revisar.</p></div>
-      <form class="contact-form contact-form--modal" data-contact-form>
+<form class="contact-form contact-form--modal" data-contact-form data-audit-form>
         <input type="hidden" name="source" value="francisco" data-contact-source-field>
-        <input type="hidden" name="contact_person" value="Francisco" data-contact-person-field>
+        <input type="hidden" name="contact_person" value="Francisco Arias" data-contact-person-field>
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="form-honeypot">
+        <input type="hidden" name="lead_origin" value="perfil_auditoria">
+        <p class="audit-form-note">Nombre, email, empresa y mensaje son obligatorios. El resto nos ayuda a preparar la revisión.</p>
         <div class="form-grid">
           <div class="form-field"><label for="modal-nombre">Nombre</label><input id="modal-nombre" name="nombre" type="text" autocomplete="name" maxlength="120" required autofocus></div>
           <div class="form-field"><label for="modal-empresa">Empresa</label><input id="modal-empresa" name="empresa" type="text" autocomplete="organization" maxlength="160" required></div>
-          <div class="form-field form-field--full"><label for="modal-email">Email</label><input id="modal-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
-          <div class="form-field form-field--full"><label for="modal-mensaje">Mensaje</label><textarea id="modal-mensaje" name="mensaje" maxlength="5000" required></textarea></div>
+          <div class="form-field"><label for="modal-email">Email</label><input id="modal-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+          <div class="form-field"><label for="modal-telefono">Teléfono <span>(opcional)</span></label><input id="modal-telefono" name="telefono" type="tel" autocomplete="tel" maxlength="40"></div>
+<div class="form-field"><label for="modal-tipo_empresa">Tipo de empresa</label><select id="modal-tipo_empresa" name="tipo_empresa"><option value="">Selecciona una opción (opcional)</option><option>Autónomo / profesional independiente</option><option>Startup</option><option>Pyme</option><option>Empresa consolidada</option><option>Agencia / consultora</option><option>Otro</option></select></div>
+<div class="form-field"><label for="modal-conoce_automatizacion">¿Conoces la automatización?</label><select id="modal-conoce_automatizacion" name="conoce_automatizacion"><option value="">Selecciona una opción (opcional)</option><option>Sí</option><option>Algo</option><option>No, quiero que me orientéis</option></select></div>
+<div class="form-field form-field--full"><label for="modal-mensaje">¿Qué proceso quieres mejorar?</label><textarea id="modal-mensaje" name="mensaje" maxlength="4200" required></textarea></div>
         </div>
-        <p class="privacy-notice"><strong>Protección de datos:</strong> Felipe Parra y Francisco Arias tratarán tus datos para responder a tu consulta y valorar una posible relación comercial. Puedes ejercer tus derechos escribiendo a <a href="mailto:contacto@grindlaneconsulting.com">contacto@grindlaneconsulting.com</a>. Más información en nuestra <button class="privacy-link" type="button" data-privacy-open aria-haspopup="dialog" aria-controls="privacy-modal">Política de Privacidad</button>.</p>
         <label class="privacy-consent"><input type="checkbox" name="privacy" required><span>He leído y acepto la <button class="privacy-link" type="button" data-privacy-open aria-haspopup="dialog" aria-controls="privacy-modal">Política de Privacidad</button>.</span></label>
-        <div class="button-row"><button class="button" type="submit">Enviar</button></div>
+        <div class="button-row"><button class="button" type="submit">Pide tu auditoría gratis</button></div>
         <p class="form-status" data-form-status role="status" aria-live="polite"></p>
       </form>
     </div>

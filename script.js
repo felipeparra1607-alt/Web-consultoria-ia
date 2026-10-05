@@ -4,15 +4,17 @@ const FORM_ENDPOINT = "https://grindlane-form.felipe-parra1607.workers.dev";
 function buildContactPayload(formData, pageUrl) {
   let message = String(formData.get("mensaje") || "").trim();
   const leadOrigin = formData.get("lead_origin");
-  if (leadOrigin === "home_auditoria" || leadOrigin === "contacto_auditoria") {
+  if (["home_auditoria", "contacto_auditoria", "perfil_auditoria"].includes(leadOrigin)) {
     const isHome = leadOrigin === "home_auditoria";
+    const context = leadOrigin === "perfil_auditoria"
+      ? `Contactar con ${String(formData.get("contact_person") || "").trim()}`
+      : isHome ? "Home" : "Contacto";
     message = [
-      `Solicitud de auditoría gratuita — ${isHome ? "Home" : "Contacto"}`,
+      `Solicitud de auditoría gratuita — ${context}`,
       `Origen: ${leadOrigin}`,
       `Teléfono: ${String(formData.get("telefono") || "").trim() || "No indicado"}`,
       `Tipo de empresa: ${formData.get("tipo_empresa") || "No indicado"}`,
       `Conoce automatización: ${formData.get("conoce_automatizacion") || "No indicado"}`,
-      `Conoce GEO: ${formData.get("conoce_geo") || "No indicado"}`,
       "",
       "Mensaje:",
       message,
@@ -472,7 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
           sourceField.value = source;
         }
         if (contactPersonField) {
-          const contactPerson = opener.dataset.contactName || "";
+          const contactPerson = opener.dataset.contactPerson || opener.dataset.contactName || "";
           contactPersonField.setAttribute("value", contactPerson);
           contactPersonField.value = contactPerson;
         }
@@ -507,7 +509,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>Esta es una consulta rápida de nuestra política, para que puedas revisarla sin salir del formulario.</p>
         <section><h3>Responsables y contacto</h3><p>Felipe Parra y Francisco Arias son corresponsables del tratamiento en Grindlane Consulting. Puedes contactar con cualquiera de ellos a través de <a href="mailto:contacto@grindlaneconsulting.com">contacto@grindlaneconsulting.com</a>.</p></section>
         <section><h3>Para qué utilizamos tus datos</h3><p>Para responder a tu consulta, analizar las necesidades que nos comunicas, valorar posibles proyectos y mantener comunicaciones relacionadas con tu solicitud o una posible relación comercial. También para garantizar la seguridad del servicio.</p></section>
-        <section><h3>Datos que tratamos</h3><p>Nombre, empresa, email y mensaje; persona o área de contacto, página de origen y datos técnicos estrictamente necesarios para la seguridad y el funcionamiento. No incluyas información sensible innecesaria.</p>${document.querySelector("[data-audit-form]") ? "<p>En la solicitud de auditoría también tratamos, si los facilitas, tu teléfono, tipo de empresa y familiaridad con la automatización y GEO, para preparar la revisión.</p>" : ""}</section>
+        <section><h3>Datos que tratamos</h3><p>Nombre, empresa, email y mensaje; persona o área de contacto, página de origen y datos técnicos estrictamente necesarios para la seguridad y el funcionamiento. No incluyas información sensible innecesaria.</p>${document.querySelector("[data-audit-form]") ? "<p>En la solicitud de auditoría también tratamos, si los facilitas, tu teléfono, tipo de empresa y familiaridad con la automatización, para preparar la revisión.</p>" : ""}</section>
         <section><h3>Base jurídica y conservación</h3><p>Medidas precontractuales solicitadas por ti al contactar y, cuando corresponda, tu consentimiento o el cumplimiento de obligaciones legales. Conservamos los datos durante el tiempo necesario para atender la solicitud y gestionar la relación, sin perjuicio de los plazos necesarios para posibles responsabilidades legales.</p></section>
         <section><h3>Proveedores tecnológicos</h3><p>GitHub Pages aloja la web; Cloudflare presta servicios de infraestructura, seguridad y procesamiento del formulario; Resend transmite los mensajes y Zoho gestiona el correo corporativo. Solo intervienen en la medida necesaria para prestar sus servicios. No vendemos datos personales. Las transferencias internacionales, cuando existan, estarán sujetas a las garantías exigibles.</p></section>
         <section><h3>Tus derechos</h3><p>Puedes solicitar acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, y retirar tu consentimiento cuando el tratamiento se base en él. Escribe a <a href="mailto:contacto@grindlaneconsulting.com">contacto@grindlaneconsulting.com</a> indicando el derecho que deseas ejercer. También puedes reclamar ante la Agencia Española de Protección de Datos.</p></section>

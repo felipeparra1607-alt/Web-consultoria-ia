@@ -2594,6 +2594,19 @@ body.modal-open {
   border: 0;
 }
 
+/* Personal audit dialogs share the Home/Contacto form styles below. */
+.contact-modal--audit {
+  width: min(calc(100% - 40px), 860px);
+}
+
+.contact-modal--audit .contact-modal__panel {
+  padding: 0;
+}
+
+.contact-modal--audit .contact-modal__heading {
+  margin: 38px 38px 0;
+}
+
 .principles-list {
   display: grid;
   gap: 1px;
@@ -2728,6 +2741,18 @@ body.modal-open {
   border: 1px solid var(--border);
   background: var(--cream-light);
 }
+
+/* Canonical audit form: Home, Contacto and personal profiles. */
+.contact-form[data-audit-form] { background: var(--cream-light); border: 0; border-radius: 8px; padding: 38px; box-shadow: 0 14px 50px -25px rgba(34,37,35,.17); }
+.audit-form-note { font-size: .8rem; color: var(--muted); margin-bottom: 25px; }
+[data-audit-form] .form-grid { gap: 22px; }
+[data-audit-form] .form-field label { line-height: 1.4; min-height: 1.4em; }
+[data-audit-form] .form-field input, [data-audit-form] .form-field select, [data-audit-form] .form-field textarea { border: 1px solid var(--border); border-radius: 3px; background: transparent; padding: 11px 12px; }
+[data-audit-form] .form-field textarea { min-height: 110px; }
+[data-audit-form] .form-field span { font-weight: 400; }
+[data-audit-form] .privacy-consent { font-size: .9rem; }
+[data-audit-form] .button-row { margin-top: 24px; }
+[data-audit-form] .button { gap: 24px; border-radius: 4px; }
 
 .form-grid {
   display: grid;
@@ -3739,6 +3764,15 @@ body.modal-open {
   .footer-brand .brand-logo {
     width: 230px;
   }
+}
+
+@media (max-width: 700px) {
+  .contact-form[data-audit-form] { padding: 26px 20px; }
+  [data-audit-form] .form-grid { grid-template-columns: 1fr; gap: 20px; }
+  [data-audit-form] .form-field--full { grid-column: auto; }
+  [data-audit-form] .form-field select { max-width: 100%; }
+  .contact-modal--audit { width: calc(100% - 24px); }
+  .contact-modal--audit .contact-modal__heading { margin: 26px 20px 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
