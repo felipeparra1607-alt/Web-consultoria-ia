@@ -2271,6 +2271,7 @@ h3 {
 
 .team-member__photo--felipe img { object-position: center 20%; }
 .team-member__photo--daniel img { object-position: center 30%; }
+.team-member__photo--diego img { object-position: center 30%; }
 .team-member__photo--francisco img { object-position: center 35%; }
 
 .team-member__copy {
@@ -2440,6 +2441,10 @@ h3 {
 }
 
 .profile-photo--daniel img {
+  object-position: center 30%;
+}
+
+.profile-photo--diego img {
   object-position: center 30%;
 }
 

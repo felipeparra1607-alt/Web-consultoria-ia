@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   scrollToHashTarget();
   window.addEventListener("hashchange", scrollToHashTarget);
 
-  // All three people remain visible. Navigation changes their position, not their visibility.
+  // Keep three editorial cards on desktop; show every member in the mobile list.
   document.querySelectorAll("[data-team-showcase]").forEach((showcase) => {
     const members = [...showcase.querySelectorAll("[data-team-member]")];
     const controls = showcase.querySelector("[data-team-controls]");
@@ -288,6 +288,8 @@ document.addEventListener("DOMContentLoaded", () => {
       showcase.classList.toggle("is-enhanced", desktop.matches);
       controls.hidden = help.hidden = !desktop.matches;
       members.forEach((member, index) => {
+        const offset = (index - active + members.length) % members.length;
+        member.hidden = desktop.matches && offset >= 3;
         member.classList.toggle("is-active", desktop.matches && index === active);
         member.classList.toggle("is-right", desktop.matches && index === (active + 1) % members.length);
         member.classList.toggle("is-left", desktop.matches && index === (active + 2) % members.length);
