@@ -2220,28 +2220,29 @@ h3 {
 .team-showcase.is-enhanced .team-showcase__stage {
   position: relative;
   display: block;
+  overflow: hidden;
+  padding-block: 12px;
+}
+
+.team-showcase__track {
+  display: flex;
+  gap: 22px;
+  width: 100%;
+  min-width: 0;
   height: clamp(620px, 48vw, 720px);
 }
 
-.team-showcase.is-enhanced .team-member {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 34%;
+.team-showcase__track .team-member {
+  flex: 0 0 calc((100% - 44px) / 3);
   height: 100%;
-  transform: translateX(-50%) translateY(calc(var(--team-offset, 0px) + var(--team-lift, 0px))) scale(var(--team-scale, 1));
 }
 
-.team-showcase.is-enhanced .team-member.is-left {
-  left: 17%;
-  --team-scale: 0.9;
-  --team-offset: 12px;
+.team-showcase.is-enhanced .team-member {
+  transform: translateY(var(--team-lift, 0px)) scale(0.94);
 }
 
-.team-showcase.is-enhanced .team-member.is-right {
-  left: 83%;
-  --team-scale: 0.9;
-  --team-offset: 12px;
+.team-showcase.is-enhanced .team-member.is-active {
+  transform: translateY(var(--team-lift, 0px)) scale(1);
 }
 
 .team-member.is-active {
@@ -2324,6 +2325,7 @@ h3 {
 
 .team-showcase__arrow {
   position: absolute;
+  z-index: 4;
   top: 50%;
   width: 46px;
   height: 46px;
@@ -3217,9 +3219,28 @@ body.modal-open {
   .team-showcase { padding: 0; }
 
   .team-showcase__stage {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: block;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .team-showcase__track {
     gap: 28px;
+    height: clamp(530px, 100vw, 680px);
+  }
+
+  .team-showcase__track .team-member {
+    flex-basis: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .team-showcase__arrow {
+    top: 50%;
+    width: 40px;
+    height: 40px;
   }
 
   .team-member {

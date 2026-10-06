@@ -250,65 +250,141 @@ document.addEventListener("DOMContentLoaded", () => {
   scrollToHashTarget();
   window.addEventListener("hashchange", scrollToHashTarget);
 
-  // Keep three editorial cards on desktop; show every member in the mobile list.
+  // One moving track, with inert edge copies for seamless wrapping in either direction.
   document.querySelectorAll("[data-team-showcase]").forEach((showcase) => {
-    const members = [...showcase.querySelectorAll("[data-team-member]")];
+    const stage = showcase.querySelector(".team-showcase__stage");
+    const members = [...stage.querySelectorAll("[data-team-member]")];
     const controls = showcase.querySelector("[data-team-controls]");
     const help = showcase.querySelector(".team-showcase__help");
+    if (members.length < 3) return;
     const desktop = matchMedia("(min-width: 861px)");
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-    let active = 0, pointerFrame = 0;
-    let rotationTimer = 0, pointerInside = false;
+    const track = document.createElement("div");
+    track.className = "team-showcase__track";
+    const copyMember = (member) => {
+      const copy = member.cloneNode(true);
+      copy.dataset.teamCopy = "";
+      copy.removeAttribute("id");
+      copy.removeAttribute("aria-labelledby");
+      copy.setAttribute("aria-label", member.querySelector("h3").textContent);
+      copy.querySelectorAll("[id]").forEach((element) => element.removeAttribute("id"));
+      return copy;
+    };
+    const before = members.slice(-3).map(copyMember);
+    const after = members.slice(0, 3).map(copyMember);
+    track.append(...before, ...members, ...after);
+    stage.append(track);
+    const cards = [...track.children];
+    let active = 0, position = 3, pointerFrame = 0;
+    let rotationTimer = 0, pointerInside = false, animation = null;
     let inView = !("IntersectionObserver" in window);
-    const rotationDelay = 5500;
-
+    const rotationDelay = 4200;
+    const transitionDuration = 650;
     const stopRotation = () => {
       clearTimeout(rotationTimer);
       rotationTimer = 0;
     };
     const scheduleRotation = () => {
       stopRotation();
-      if (!desktop.matches || motion.matches || document.hidden || !inView ||
+      if (!desktop.matches || motion.matches || animation || document.hidden || !inView ||
           pointerInside || showcase.contains(document.activeElement)) return;
-      // One idle timer only: never queue advances or catch up after returning to the tab.
       rotationTimer = setTimeout(() => show(active + 1), rotationDelay);
     };
-
     const resetPointer = () => {
       cancelAnimationFrame(pointerFrame);
       pointerFrame = 0;
-      members.forEach((member) => {
+      cards.forEach((member) => {
         member.style.removeProperty("--team-x");
         member.style.removeProperty("--team-y");
       });
     };
+    const stepSize = () => {
+      const card = members[0];
+      return parseFloat(getComputedStyle(card).width) + parseFloat(getComputedStyle(track).columnGap);
+    };
+    const translate = (index) => `translate3d(${-index * stepSize()}px, 0, 0)`;
+    const updateCards = () => {
+      cards.forEach((card, index) => {
+        const isCopy = card.hasAttribute("data-team-copy");
+        card.hidden = !desktop.matches && isCopy;
+        const visible = !desktop.matches ? !isCopy : index >= position && index < position + 3;
+        card.inert = !visible;
+        if (visible) card.removeAttribute("aria-hidden");
+        else card.setAttribute("aria-hidden", "true");
+        card.classList.toggle("is-active", desktop.matches && index === position + 1);
+        card.classList.remove("is-left", "is-right");
+      });
+    };
+    const cancelTransition = () => {
+      if (animation) {
+        const interrupted = animation;
+        animation = null;
+        interrupted.cancel();
+      }
+    };
     const render = () => {
+      stopRotation();
+      cancelTransition();
       resetPointer();
       showcase.classList.toggle("is-enhanced", desktop.matches);
-      controls.hidden = help.hidden = !desktop.matches;
-      members.forEach((member, index) => {
-        const offset = (index - active + members.length) % members.length;
-        member.hidden = desktop.matches && offset >= 3;
-        member.classList.toggle("is-active", desktop.matches && index === active);
-        member.classList.toggle("is-right", desktop.matches && index === (active + 1) % members.length);
-        member.classList.toggle("is-left", desktop.matches && index === (active + 2) % members.length);
-      });
+      controls.hidden = false;
+      help.hidden = false;
+      help.textContent = desktop.matches
+        ? "Usa las flechas izquierda y derecha para cambiar de integrante. Inicio y Fin muestran el primero y el último."
+        : "Desliza para ver el equipo o usa las flechas. Inicio y Fin muestran el primero y el último.";
+      showcase.tabIndex = 0;
+      showcase.setAttribute("aria-roledescription", "carrusel");
+      showcase.setAttribute("aria-describedby", help.id);
+      position = 3 + active;
+      updateCards();
       if (desktop.matches) {
-        showcase.tabIndex = 0;
-        showcase.setAttribute("aria-roledescription", "carrusel");
-        showcase.setAttribute("aria-describedby", help.id);
+        stage.scrollLeft = 0;
+        track.style.transform = translate(position);
       } else {
-        showcase.removeAttribute("tabindex");
-        showcase.removeAttribute("aria-roledescription");
-        showcase.removeAttribute("aria-describedby");
+        track.style.removeProperty("transform");
+        stage.scrollLeft = active * stepSize();
       }
       scheduleRotation();
     };
     const show = (index) => {
-      if (!desktop.matches) return;
-      active = (index + members.length) % members.length;
-      render();
+      if (animation) return; // Ignore, never queue, rapid clicks during a transition.
+      stopRotation();
+      const next = (index + members.length) % members.length;
+      if (!desktop.matches) {
+        active = next;
+        stage.scrollTo({ left: active * stepSize(), behavior: motion.matches ? "instant" : "smooth" });
+        return;
+      }
+      if (next === active) { scheduleRotation(); return; }
+      const from = translate(position);
+      // Adjacent moves cross the edge copies; Home/End go directly to the requested member.
+      position = index === active + 1 ? position + 1
+        : index === active - 1 ? position - 1 : 3 + next;
+      active = next;
+      updateCards();
+      const to = translate(position);
+      track.style.transform = to;
+      const settle = () => {
+        // Wrapping must also snap the center-card styling, not animate its copy twice.
+        cards.forEach((card) => { card.style.transition = "none"; });
+        position = 3 + active;
+        track.style.transform = translate(position);
+        updateCards();
+        void track.offsetWidth;
+        cards.forEach((card) => { card.style.removeProperty("transition"); });
+        scheduleRotation();
+      };
+      if (motion.matches) { settle(); return; }
+      const running = track.animate([{ transform: from }, { transform: to }], {
+        duration: transitionDuration, easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+      });
+      animation = running;
+      running.finished.then(() => {
+        if (animation !== running) return;
+        animation = null;
+        settle();
+      }).catch(() => {}); // Resize/reduced-motion cancellation is handled by render.
     };
     showcase.querySelector("[data-team-previous]").addEventListener("click", () => show(active - 1));
     showcase.querySelector("[data-team-next]").addEventListener("click", () => show(active + 1));
@@ -319,27 +395,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     showcase.addEventListener("pointerleave", () => {
       pointerInside = false;
+      resetPointer();
       scheduleRotation();
     });
     showcase.addEventListener("focusin", stopRotation);
     showcase.addEventListener("focusout", () => requestAnimationFrame(scheduleRotation));
     showcase.addEventListener("pointerdown", stopRotation);
     showcase.addEventListener("click", scheduleRotation);
-    showcase.addEventListener("keydown", stopRotation);
     document.addEventListener("visibilitychange", scheduleRotation);
     showcase.addEventListener("keydown", (event) => {
-      if (!desktop.matches || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
       const destinations = { ArrowLeft: active - 1, ArrowRight: active + 1, Home: 0, End: members.length - 1 };
       if (!(event.key in destinations)) return;
       event.preventDefault();
       show(destinations[event.key]);
     });
-    members.forEach((member) => {
+    stage.addEventListener("scroll", () => {
+      if (!desktop.matches) active = Math.max(0, Math.min(members.length - 1, Math.round(stage.scrollLeft / stepSize())));
+    }, { passive: true });
+    cards.forEach((member) => {
       member.addEventListener("click", (event) => {
         if (!event.target.closest("a, button") && window.getSelection().isCollapsed) member.querySelector("a").click();
       });
       member.addEventListener("pointermove", (event) => {
-        if (!desktop.matches || motion.matches || !finePointer.matches || event.pointerType === "touch") return;
+        if (!desktop.matches || animation || motion.matches || !finePointer.matches || event.pointerType === "touch") return;
         const rect = member.getBoundingClientRect();
         const x = Math.max(-3, Math.min(3, ((event.clientX - rect.left) / rect.width - 0.5) * 6));
         const y = Math.max(-2, Math.min(2, ((event.clientY - rect.top) / rect.height - 0.5) * 4));
@@ -352,6 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, { passive: true });
       member.addEventListener("pointerleave", resetPointer);
     });
+    window.addEventListener("resize", render);
     desktop.addEventListener("change", render);
     motion.addEventListener("change", render);
     finePointer.addEventListener("change", resetPointer);
