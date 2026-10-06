@@ -2238,11 +2238,8 @@ h3 {
 }
 
 .team-showcase.is-enhanced .team-member {
-  transform: translateY(var(--team-lift, 0px)) scale(0.94);
-}
-
-.team-showcase.is-enhanced .team-member.is-active {
-  transform: translateY(var(--team-lift, 0px)) scale(1);
+  transform: translateY(var(--team-lift, 0px)) scale(var(--team-scale, 0.94));
+  transition: box-shadow 350ms ease, border-color 350ms ease;
 }
 
 .team-member.is-active {
@@ -2519,6 +2516,33 @@ h3 {
   padding-top: 0;
   border-top: 0;
   grid-area: body;
+}
+
+.profile-copy--person > p a {
+  color: var(--graphite-dark);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.profile-copy--person > p a:hover,
+.profile-copy--person > p a:focus-visible {
+  color: var(--terracotta);
+  text-decoration-thickness: 2px;
+}
+
+@media (min-width: 641px) {
+  .profile-detailed--francisco {
+    grid-template-columns: minmax(280px, 0.85fr) 1fr;
+  }
+
+  .profile-detailed--francisco .profile-photo--francisco {
+    height: auto;
+    min-height: 500px;
+    max-width: none;
+    aspect-ratio: 3 / 4;
+  }
 }
 
 .profile-contact-cta {

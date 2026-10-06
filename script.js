@@ -277,19 +277,22 @@ document.addEventListener("DOMContentLoaded", () => {
     stage.append(track);
     const cards = [...track.children];
     let active = 0, position = 3, pointerFrame = 0;
-    let rotationTimer = 0, pointerInside = false, animation = null;
+    let rotationFrame = 0, transitionFrame = 0, pointerInside = false, animation = null;
+    let lastFrame = 0, mobileTimer = 0, mobileMoving = false, cardStep = 0;
     let inView = !("IntersectionObserver" in window);
-    const rotationDelay = 4200;
+    const pixelsPerSecond = 28;
     const transitionDuration = 650;
+    const memberIndex = (index) => ((index - 3) % members.length + members.length) % members.length;
     const stopRotation = () => {
-      clearTimeout(rotationTimer);
-      rotationTimer = 0;
+      cancelAnimationFrame(rotationFrame);
+      rotationFrame = 0;
+      lastFrame = 0;
     };
     const scheduleRotation = () => {
       stopRotation();
       if (!desktop.matches || motion.matches || animation || document.hidden || !inView ||
           pointerInside || showcase.contains(document.activeElement)) return;
-      rotationTimer = setTimeout(() => show(active + 1), rotationDelay);
+      rotationFrame = requestAnimationFrame(advance);
     };
     const resetPointer = () => {
       cancelAnimationFrame(pointerFrame);
@@ -303,20 +306,54 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = members[0];
       return parseFloat(getComputedStyle(card).width) + parseFloat(getComputedStyle(track).columnGap);
     };
-    const translate = (index) => `translate3d(${-index * stepSize()}px, 0, 0)`;
+    const translate = (index) => `translate3d(${-index * cardStep}px, 0, 0)`;
     const updateCards = () => {
       cards.forEach((card, index) => {
         const isCopy = card.hasAttribute("data-team-copy");
-        card.hidden = !desktop.matches && isCopy;
-        const visible = !desktop.matches ? !isCopy : index >= position && index < position + 3;
+        // Mobile also needs the edge copies to move forward from Daniel to Felipe.
+        card.hidden = false;
+        const visible = desktop.matches ? index + 1 > position && index < position + 3
+          : !isCopy || index === Math.round(position);
         card.inert = !visible;
         if (visible) card.removeAttribute("aria-hidden");
         else card.setAttribute("aria-hidden", "true");
-        card.classList.toggle("is-active", desktop.matches && index === position + 1);
+        const distance = Math.abs(index - position - 1);
+        card.style.setProperty("--team-scale", String(0.94 + 0.06 * Math.max(0, 1 - distance)));
+        card.classList.toggle("is-active", desktop.matches && distance < 0.5);
         card.classList.remove("is-left", "is-right");
       });
     };
+    const normalizePosition = () => {
+      // Equivalent copies are physically one full cycle apart: reset without a visible jump.
+      while (position >= 3 + members.length) position -= members.length;
+      while (position < 3) position += members.length;
+    };
+    const paint = () => {
+      track.style.transform = translate(position);
+      updateCards();
+    };
+    const advance = (time) => {
+      rotationFrame = 0;
+      if (lastFrame) position += Math.min(time - lastFrame, 50) * pixelsPerSecond / (1000 * cardStep);
+      lastFrame = time;
+      normalizePosition();
+      active = memberIndex(Math.floor(position));
+      paint();
+      rotationFrame = requestAnimationFrame(advance);
+    };
+    const settleMobile = () => {
+      clearTimeout(mobileTimer);
+      if (desktop.matches) return;
+      position = Math.round(stage.scrollLeft / cardStep);
+      active = memberIndex(position);
+      normalizePosition();
+      mobileMoving = false;
+      stage.scrollTo({ left: position * cardStep, behavior: "instant" });
+      updateCards();
+    };
     const cancelTransition = () => {
+      cancelAnimationFrame(transitionFrame);
+      transitionFrame = 0;
       if (animation) {
         const interrupted = animation;
         animation = null;
@@ -326,6 +363,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const render = () => {
       stopRotation();
       cancelTransition();
+      clearTimeout(mobileTimer);
+      mobileMoving = false;
       resetPointer();
       showcase.classList.toggle("is-enhanced", desktop.matches);
       controls.hidden = false;
@@ -337,42 +376,45 @@ document.addEventListener("DOMContentLoaded", () => {
       showcase.setAttribute("aria-roledescription", "carrusel");
       showcase.setAttribute("aria-describedby", help.id);
       position = 3 + active;
+      cardStep = stepSize();
       updateCards();
       if (desktop.matches) {
         stage.scrollLeft = 0;
         track.style.transform = translate(position);
       } else {
         track.style.removeProperty("transform");
-        stage.scrollLeft = active * stepSize();
+        stage.scrollTo({ left: position * cardStep, behavior: "instant" });
       }
       scheduleRotation();
     };
     const show = (index) => {
-      if (animation) return; // Ignore, never queue, rapid clicks during a transition.
+      if (animation || mobileMoving) return; // Ignore, never queue, rapid clicks during a transition.
       stopRotation();
       const next = (index + members.length) % members.length;
       if (!desktop.matches) {
+        position = index === active + 1 ? Math.round(position) + 1
+          : index === active - 1 ? Math.round(position) - 1 : 3 + next;
         active = next;
-        stage.scrollTo({ left: active * stepSize(), behavior: motion.matches ? "instant" : "smooth" });
+        mobileMoving = true;
+        updateCards();
+        stage.scrollTo({ left: position * cardStep, behavior: motion.matches ? "instant" : "smooth" });
+        clearTimeout(mobileTimer);
+        mobileTimer = setTimeout(settleMobile, 180);
         return;
       }
-      if (next === active) { scheduleRotation(); return; }
+      if (next === active && Math.abs(position - (3 + next)) < 0.001) { scheduleRotation(); return; }
       const from = translate(position);
       // Adjacent moves cross the edge copies; Home/End go directly to the requested member.
-      position = index === active + 1 ? position + 1
-        : index === active - 1 ? position - 1 : 3 + next;
+      const start = position;
+      const destination = index === active + 1 ? Math.floor(position + 0.001) + 1
+        : index === active - 1 ? Math.floor(position + 0.001) - 1 : 3 + next;
       active = next;
-      updateCards();
-      const to = translate(position);
-      track.style.transform = to;
+      const to = translate(destination);
       const settle = () => {
-        // Wrapping must also snap the center-card styling, not animate its copy twice.
-        cards.forEach((card) => { card.style.transition = "none"; });
-        position = 3 + active;
-        track.style.transform = translate(position);
-        updateCards();
-        void track.offsetWidth;
-        cards.forEach((card) => { card.style.removeProperty("transition"); });
+        position = destination;
+        normalizePosition();
+        active = memberIndex(Math.round(position));
+        paint();
         scheduleRotation();
       };
       if (motion.matches) { settle(); return; }
@@ -380,9 +422,20 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: transitionDuration, easing: "cubic-bezier(0.22, 1, 0.36, 1)",
       });
       animation = running;
+      // Manual navigation uses the same fractional position as the continuous motor.
+      const followTransition = () => {
+        if (animation !== running) return;
+        const progress = running.effect.getComputedTiming().progress || 0;
+        position = start + (destination - start) * progress;
+        updateCards();
+        transitionFrame = requestAnimationFrame(followTransition);
+      };
+      transitionFrame = requestAnimationFrame(followTransition);
       running.finished.then(() => {
         if (animation !== running) return;
         animation = null;
+        cancelAnimationFrame(transitionFrame);
+        transitionFrame = 0;
         settle();
       }).catch(() => {}); // Resize/reduced-motion cancellation is handled by render.
     };
@@ -398,10 +451,9 @@ document.addEventListener("DOMContentLoaded", () => {
       resetPointer();
       scheduleRotation();
     });
-    showcase.addEventListener("focusin", stopRotation);
+    showcase.addEventListener("focusin", () => { if (!animation) stopRotation(); });
     showcase.addEventListener("focusout", () => requestAnimationFrame(scheduleRotation));
-    showcase.addEventListener("pointerdown", stopRotation);
-    showcase.addEventListener("click", scheduleRotation);
+    showcase.addEventListener("pointerdown", () => { if (!animation) stopRotation(); });
     document.addEventListener("visibilitychange", scheduleRotation);
     showcase.addEventListener("keydown", (event) => {
       if (event.altKey || event.ctrlKey || event.metaKey) return;
@@ -411,7 +463,12 @@ document.addEventListener("DOMContentLoaded", () => {
       show(destinations[event.key]);
     });
     stage.addEventListener("scroll", () => {
-      if (!desktop.matches) active = Math.max(0, Math.min(members.length - 1, Math.round(stage.scrollLeft / stepSize())));
+      if (desktop.matches) return;
+      position = stage.scrollLeft / cardStep;
+      active = memberIndex(Math.round(position));
+      updateCards();
+      clearTimeout(mobileTimer);
+      mobileTimer = setTimeout(settleMobile, 150);
     }, { passive: true });
     cards.forEach((member) => {
       member.addEventListener("click", (event) => {
