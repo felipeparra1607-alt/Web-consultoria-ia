@@ -279,10 +279,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let active = 0, position = 3, pointerFrame = 0;
     let rotationFrame = 0, transitionFrame = 0, pointerInside = false, animation = null;
     let lastFrame = 0, mobileTimer = 0, mobileMoving = false, cardStep = 0;
+    let pendingNavigation = null;
     let inView = !("IntersectionObserver" in window);
     const pixelsPerSecond = 28;
-    const transitionDuration = 650;
-    const memberIndex = (index) => ((index - 3) % members.length + members.length) % members.length;
+    const transitionDuration = 450;
+    // active identifies the center on desktop and the only visible card on mobile.
+    const leadingOffset = () => desktop.matches ? 2 : 3;
+    const memberIndex = (index) => ((index - leadingOffset()) % members.length + members.length) % members.length;
     const stopRotation = () => {
       cancelAnimationFrame(rotationFrame);
       rotationFrame = 0;
@@ -325,8 +328,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const normalizePosition = () => {
       // Equivalent copies are physically one full cycle apart: reset without a visible jump.
-      while (position >= 3 + members.length) position -= members.length;
-      while (position < 3) position += members.length;
+      while (position >= leadingOffset() + members.length) position -= members.length;
+      while (position < leadingOffset()) position += members.length;
     };
     const paint = () => {
       track.style.transform = translate(position);
@@ -350,6 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
       mobileMoving = false;
       stage.scrollTo({ left: position * cardStep, behavior: "instant" });
       updateCards();
+      finishNavigation();
     };
     const cancelTransition = () => {
       cancelAnimationFrame(transitionFrame);
@@ -365,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cancelTransition();
       clearTimeout(mobileTimer);
       mobileMoving = false;
+      pendingNavigation = null;
       resetPointer();
       showcase.classList.toggle("is-enhanced", desktop.matches);
       controls.hidden = false;
@@ -375,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showcase.tabIndex = 0;
       showcase.setAttribute("aria-roledescription", "carrusel");
       showcase.setAttribute("aria-describedby", help.id);
-      position = 3 + active;
+      position = leadingOffset() + active;
       cardStep = stepSize();
       updateCards();
       if (desktop.matches) {
@@ -388,7 +393,6 @@ document.addEventListener("DOMContentLoaded", () => {
       scheduleRotation();
     };
     const show = (index) => {
-      if (animation || mobileMoving) return; // Ignore, never queue, rapid clicks during a transition.
       stopRotation();
       const next = (index + members.length) % members.length;
       if (!desktop.matches) {
@@ -402,12 +406,12 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileTimer = setTimeout(settleMobile, 180);
         return;
       }
-      if (next === active && Math.abs(position - (3 + next)) < 0.001) { scheduleRotation(); return; }
+      if (next === active && Math.abs(position - (leadingOffset() + next)) < 0.001) { finishNavigation(); return; }
       const from = translate(position);
       // Adjacent moves cross the edge copies; Home/End go directly to the requested member.
       const start = position;
       const destination = index === active + 1 ? Math.floor(position + 0.001) + 1
-        : index === active - 1 ? Math.floor(position + 0.001) - 1 : 3 + next;
+        : index === active - 1 ? Math.floor(position + 0.001) - 1 : leadingOffset() + next;
       active = next;
       const to = translate(destination);
       const settle = () => {
@@ -415,7 +419,7 @@ document.addEventListener("DOMContentLoaded", () => {
         normalizePosition();
         active = memberIndex(Math.round(position));
         paint();
-        scheduleRotation();
+        finishNavigation();
       };
       if (motion.matches) { settle(); return; }
       const running = track.animate([{ transform: from }, { transform: to }], {
@@ -439,8 +443,23 @@ document.addEventListener("DOMContentLoaded", () => {
         settle();
       }).catch(() => {}); // Resize/reduced-motion cancellation is handled by render.
     };
-    showcase.querySelector("[data-team-previous]").addEventListener("click", () => show(active - 1));
-    showcase.querySelector("[data-team-next]").addEventListener("click", () => show(active + 1));
+    const navigate = (request) => {
+      if (animation || mobileMoving) {
+        // Keep the latest intent, not a stale index or an unbounded backlog.
+        pendingNavigation = request;
+        return;
+      }
+      show("step" in request ? active + request.step : request.index);
+    };
+    const finishNavigation = () => {
+      if (pendingNavigation) {
+        const request = pendingNavigation;
+        pendingNavigation = null;
+        navigate(request);
+      } else scheduleRotation();
+    };
+    showcase.querySelector("[data-team-previous]").addEventListener("click", () => navigate({ step: -1 }));
+    showcase.querySelector("[data-team-next]").addEventListener("click", () => navigate({ step: 1 }));
     showcase.addEventListener("pointerenter", (event) => {
       if (event.pointerType === "touch") return;
       pointerInside = true;
@@ -457,10 +476,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("visibilitychange", scheduleRotation);
     showcase.addEventListener("keydown", (event) => {
       if (event.altKey || event.ctrlKey || event.metaKey) return;
-      const destinations = { ArrowLeft: active - 1, ArrowRight: active + 1, Home: 0, End: members.length - 1 };
+      const destinations = { ArrowLeft: { step: -1 }, ArrowRight: { step: 1 }, Home: { index: 0 }, End: { index: members.length - 1 } };
       if (!(event.key in destinations)) return;
       event.preventDefault();
-      show(destinations[event.key]);
+      navigate(destinations[event.key]);
     });
     stage.addEventListener("scroll", () => {
       if (desktop.matches) return;
