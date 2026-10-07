@@ -580,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
           form.reset();
           form.elements.source.value = source;
           form.elements.contact_person.value = contactPerson;
-          updateStatus("Mensaje enviado. Nos pondremos en contacto contigo pronto.", "success");
+          updateStatus("Gracias. Hemos recibido tu solicitud. Te hemos enviado un email con tu enlace personal para reservar el diagnóstico gratuito. Puede tardar unos minutos en llegar. Revisa también la carpeta de spam, correo no deseado o promociones.", "success");
         }
       } catch (error) {
         if (contextIsCurrent()) {

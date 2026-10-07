@@ -31,6 +31,7 @@
     .booking-timezone { font-size: .85rem; color: var(--muted); margin-bottom: 18px; }
     .booking-week-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
     .booking-week-label { margin: 0; font-weight: 600; font-size: .9rem; }
+    .booking-week-controls button:disabled { opacity: .5; cursor: not-allowed; }
     .booking-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
     .booking-step { border-top: 1px solid var(--border); margin-top: 24px; padding-top: 24px; }
     .booking-choice { min-height: 48px; border: 1px solid var(--border); border-radius: 7px; background: white; color: var(--text); cursor: pointer; padding: 10px 6px; line-height: 1.4; }
@@ -108,8 +109,9 @@
         <section aria-labelledby="days-title">
           <h2 id="days-title">1. Elige un día</h2>
           <div class="booking-week-controls">
-            <!-- La navegación semanal se conectará después con backend; solo se muestran los días recibidos. -->
+            <button id="booking-days-previous" class="booking-choice" type="button" aria-label="Días anteriores" aria-controls="booking-days" disabled>←</button>
             <p id="booking-week-label" class="booking-week-label" role="status" aria-live="polite"></p>
+            <button id="booking-days-next" class="booking-choice" type="button" aria-label="Días siguientes" aria-controls="booking-days" disabled>→</button>
           </div>
           <div id="booking-days" class="booking-days" role="group" aria-labelledby="days-title"></div>
         </section>

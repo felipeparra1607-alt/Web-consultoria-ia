@@ -9,6 +9,7 @@
     ['loading', 'booking-loading'], ['error', 'booking-error'], ['errorTitle', 'error-title'],
     ['experience', 'booking-experience'], ['intro', 'booking-intro'], ['associated', 'booking-associated'],
     ['days', 'booking-days'], ['weekLabel', 'booking-week-label'], ['hoursSection', 'booking-hours-section'],
+    ['previousDays', 'booking-days-previous'], ['nextDays', 'booking-days-next'],
     ['slots', 'booking-slots'], ['dayStatus', 'booking-day-status'], ['summary', 'booking-summary'],
     ['confirm', 'booking-confirm'],
     ['status', 'booking-status'], ['successMessage', 'success-message'], ['successEndTime', 'success-end-time'],
@@ -17,7 +18,8 @@
     ['success', 'booking-success'], ['successTitle', 'success-title'], ['successDay', 'success-day'],
     ['successTime', 'success-time'], ['successDuration', 'success-duration'], ['successAttendant', 'success-attendant'],
   ].map(([name, id]) => [name, document.getElementById(id)]));
-  const state = { days: [], timezone: '', duration: null, selectedDay: null, selectedTime: null, confirmed: false, submitting: false, blocked: false };
+  const DAYS_PER_BLOCK = 7;
+  const state = { days: [], dayOffset: 0, timezone: '', duration: null, selectedDay: null, selectedTime: null, confirmed: false, submitting: false, blocked: false };
   const errorMessages = {
     missing_token: 'Enlace no válido', invalid_token: 'Este enlace no es válido.',
     inactive_token: 'Este enlace ya no está activo.', used_token: 'Este enlace ya se ha utilizado.',
@@ -176,11 +178,30 @@
     const safelyMasked = typeof maskedEmail === 'string' && /[*•…]/.test(maskedEmail);
     elements.associated.hidden = !safelyMasked;
     elements.associated.textContent = safelyMasked ? `Reserva asociada a: ${maskedEmail}` : '';
-    const first = state.days[0];
-    const last = state.days[state.days.length - 1];
-    elements.weekLabel.textContent = first
-      ? rangeDate.formatRange(calendarDate(first.date), calendarDate(last.date)) : 'No hay días disponibles por ahora.';
   }
+  function visibleDays() { return state.days.slice(state.dayOffset, state.dayOffset + DAYS_PER_BLOCK); }
+  function updateDayNavigation() {
+    const locked = state.submitting || state.confirmed || state.blocked;
+    elements.previousDays.disabled = locked || state.dayOffset === 0;
+    elements.nextDays.disabled = locked || state.dayOffset + DAYS_PER_BLOCK >= state.days.length;
+  }
+  function changeDayBlock(direction) {
+    if (state.submitting || state.confirmed || state.blocked) return;
+    const offset = state.dayOffset + direction * DAYS_PER_BLOCK;
+    if (offset < 0 || offset >= state.days.length) return;
+    state.dayOffset = offset;
+    const days = visibleDays();
+    if (!days.some((day) => day.date === state.selectedDay)) {
+      state.selectedDay = days.find((day) => day.available && day.slots.some((slot) => slot.available))?.date || null;
+      state.selectedTime = null;
+    }
+    elements.status.textContent = '';
+    renderDays();
+    renderSlots();
+    updateSummary();
+  }
+  elements.previousDays.addEventListener('click', () => changeDayBlock(-1));
+  elements.nextDays.addEventListener('click', () => changeDayBlock(1));
   function selectedDay() { return state.days.find((day) => day.date === state.selectedDay); }
   function selectedSlot() {
     const day = selectedDay();
@@ -195,8 +216,14 @@
       ? `${longDate.format(calendarDate(day.date))} · ${slot.time} (${timezoneLabel()}) · ${state.duration} minutos` : '';
   }
   function renderDays() {
+    const days = visibleDays();
+    const first = days[0];
+    const last = days[days.length - 1];
+    elements.weekLabel.textContent = first
+      ? rangeDate.formatRange(calendarDate(first.date), calendarDate(last.date)) : 'No hay días disponibles por ahora.';
+    updateDayNavigation();
     elements.days.replaceChildren();
-    for (const day of state.days) {
+    for (const day of days) {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = `booking-choice booking-day${day.available ? '' : ' booking-day--unavailable'}`;
@@ -281,6 +308,7 @@
     }
   }
   function setSelectionLocked(locked) {
+    updateDayNavigation();
     for (const button of elements.days.children) button.disabled = locked;
     for (const button of elements.slots.querySelectorAll('.booking-slot')) button.disabled = locked || button.dataset.available !== 'true';
   }
@@ -352,6 +380,11 @@
       const data = await bookingService.getOptions(token);
       applyOptions(data);
       if (!preserveDay || !selectedDay()) state.selectedDay = null;
+      const selectedIndex = state.days.findIndex((day) => day.date === state.selectedDay);
+      state.dayOffset = preserveDay
+        ? selectedIndex >= 0 ? Math.floor(selectedIndex / DAYS_PER_BLOCK) * DAYS_PER_BLOCK
+          : Math.min(state.dayOffset, Math.max(0, Math.floor((state.days.length - 1) / DAYS_PER_BLOCK) * DAYS_PER_BLOCK))
+        : 0;
       state.selectedTime = null;
       renderDays();
       renderSlots();
