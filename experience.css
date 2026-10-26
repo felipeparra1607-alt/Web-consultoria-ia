@@ -242,7 +242,7 @@
   .experience-heading h2 { margin-bottom: 24px; }
   .experience-heading p { font-size: 1rem; }
   .landing-hero { min-height: calc(100svh - var(--header-height)); }
-  .landing-hero__image { object-position: 59% center; }
+  .landing-hero__image { object-position: 82% center; }
   .landing-hero::before { background: linear-gradient(0deg, rgba(14,22,18,.88), rgba(14,22,18,.58) 65%, rgba(14,22,18,.22)); }
   .landing-hero__content { padding-block: 65px 100px; }
   .landing-hero h1 { font-size: clamp(3.3rem, 13.5vw, 5.3rem); margin-bottom: 26px; }
