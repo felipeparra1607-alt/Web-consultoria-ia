@@ -16,10 +16,10 @@
 - [x] Resto de la página intacto.
 - [x] Otras páginas intactas.
 - [x] Comprobaciones superadas.
-- [ ] Commit realizado.
-- [ ] Push realizado.
-- [ ] Despliegue correcto.
-- [ ] Página publicada verificada.
+- [x] Commit realizado.
+- [x] Push realizado.
+- [x] Despliegue correcto.
+- [x] Página publicada verificada.
 
 ## Evidencias de esta revisión
 
@@ -30,4 +30,8 @@
 - Revisión visual: 1920×1080, 1366×768, 820×1180 y 390×844. En móvil, rótulo completo visible, texto legible, Hero de 844 px en viewport de 844 y sin desbordamiento horizontal.
 - Header transparente inicialmente y fondo normal rgba(243,239,231,0.94) tras scroll; botón verificado a /nosotros/#equipo. Consola sin errores.
 - git diff --check correcto. Evidencias locales: nosotros-reception-laptop.jpg y nosotros-reception-mobile.jpg en C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/.
-- Pendiente: commit, push y producción.
+- Implementación: fdaeea9e059a7ad64d5efdddc52c4b4194ba9be7, mensaje Redesign Nosotros hero with full-screen team image. Push correcto a origin/main, sin force.
+- Despliegue de implementación correcto: https://github.com/felipeparra1607-alt/Web-consultoria-ia/actions/runs/40401279269 (completed/success).
+- Dominio verificado: https://grindlaneconsulting.com/nosotros/ . Imagen grindlane-nosotros-reception.webp cargada, naturalWidth=1896; titular original; Hero de 720 px en viewport de 720. Header transparente inicialmente y rgba(243,239,231,0.94) tras click a /nosotros/#equipo. Consola sin errores.
+- Evidencia pública: C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/nosotros-reception-production.jpg .
+- Cierre posterior del checklist: solo documentación, sin alterar el código verificado.
