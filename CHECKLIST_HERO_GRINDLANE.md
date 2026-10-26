@@ -14,10 +14,10 @@ Encargo: 26 de octubre de 2026. Cambios limitados a la Home y sus estilos exclus
 - [x] Botón conectado al flujo real de contacto existente.
 - [x] Resto de la web, formulario y funcionalidades intactos; sin dependencias nuevas.
 - [x] Comprobaciones rápidas y revisión visual superadas.
-- [ ] Commit realizado únicamente con archivos del encargo y este checklist; mensaje requerido.
-- [ ] Push sin force a la rama de producción.
-- [ ] Despliegue automático comprobado.
-- [ ] Los tres cambios verificados en https://grindlaneconsulting.com/.
+- [x] Commit realizado únicamente con archivos del encargo y este checklist; mensaje requerido.
+- [x] Push sin force a la rama de producción.
+- [x] Despliegue automático comprobado.
+- [x] Los tres cambios verificados en https://grindlaneconsulting.com/.
 
 ## Evidencias
 
@@ -28,4 +28,9 @@ Encargo: 26 de octubre de 2026. Cambios limitados a la Home y sus estilos exclus
 - CTA: texto exacto y sin párrafos adicionales; entre #por-que-grindlane y #que-automatizamos. Click verificado hacia /contacto/, que muestra el formulario existente; no se envió el formulario.
 - Validación: git diff --check y node --check en script.js y experience.js sin errores. Comparación automática de Home contra HEAD: ningún cambio fuera del titular, versión de CSS y nuevo CTA; header HTML, imagen, formulario y botones originales idénticos. Consola del navegador sin errores.
 - Capturas locales en C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/: landing-full-desktop.jpg, landing-full-tablet.jpg, landing-full-mobile.jpg y landing-cta-desktop.jpg.
-- Pendiente: commit, push y verificación de producción.
+- Commit de implementación: e46cc7e, «Improve Grindlane hero and add booking CTA». Push correcto a origin/main; únicamente index.html, experience.css y este checklist.
+- CTA comprobado visualmente también en móvil; captura landing-cta-mobile.jpg.
+- Despliegue de implementación: https://github.com/felipeparra1607-alt/Web-consultoria-ia/actions/runs/40383045432 . Trabajos build, deploy y report-build-status completados con success.
+- Dominio real verificado en navegador: https://grindlaneconsulting.com/ . Hero top=0 y altura=720 en viewport de 720 px; header rgba(243,239,231,0.82), fotografía original cargada, titular exacto y CTA exacto presente. Click público de Pide cita navega correctamente a https://grindlaneconsulting.com/contacto/ . Consola sin errores.
+- Evidencia pública: C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/landing-production-hero.jpg .
+- El cierre posterior del checklist modifica solo este documento; no altera el código ya publicado y verificado.
