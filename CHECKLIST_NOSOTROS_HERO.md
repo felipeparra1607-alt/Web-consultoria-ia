@@ -16,10 +16,10 @@
 - [x] Resto de la página intacto.
 - [x] Otras páginas intactas.
 - [x] Comprobaciones superadas.
-- [ ] Commit realizado.
-- [ ] Push realizado.
-- [ ] Despliegue correcto.
-- [ ] Página publicada verificada.
+- [x] Commit realizado.
+- [x] Push realizado.
+- [x] Despliegue correcto.
+- [x] Página publicada verificada.
 
 ## Evidencias
 
@@ -32,4 +32,9 @@
 - Comparación automática con HEAD: titular, párrafo y texto de botón idénticos; header HTML, footer y todo el contenido posterior al Hero idénticos. Home HTML idéntico. Ningún formulario cambiado.
 - node --check experience.js y git diff --check correctos. Consola sin errores.
 - Capturas locales: C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/nosotros-hero-wide.jpg y nosotros-hero-mobile.jpg.
-- Pendiente: commit, push, despliegue y dominio público.
+- Commit de implementación: 68cdd4ffd30464a8503ea4d3100ca04db2984d0d, mensaje Redesign Nosotros hero with full-screen team image. Push correcto a origin/main, sin force; solo los cinco archivos de este encargo.
+- Despliegue correcto del código: https://github.com/felipeparra1607-alt/Web-consultoria-ia/actions/runs/40396316136 (completed/success).
+- Página verificada en navegador: https://grindlaneconsulting.com/nosotros/ . Imagen WebP nueva cargada con naturalWidth=1844; Hero top=0 y altura=720 en viewport de 720; header transparente. Titular original, párrafo y botón visibles.
+- Click público a #equipo verificado: https://grindlaneconsulting.com/nosotros/#equipo . Header sticky con fondo normal rgba(243,239,231,0.94); destino visible bajo el header. Consola sin errores.
+- Evidencia pública: C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/nosotros-hero-production.jpg .
+- El cierre posterior del checklist modifica solo este documento; no altera el código publicado y verificado.
