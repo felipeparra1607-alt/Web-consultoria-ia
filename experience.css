@@ -29,16 +29,39 @@
 .landing-hero .button-row { align-items: center; gap: 30px; }
 .hero-link { color: var(--cream-light); font-size: .95rem; text-decoration: none; border-bottom: 1px solid #a6aaa3; padding-block: 12px; }
 
-/* Home only: keep the sticky header over the same continuous hero photograph. */
-.home-page .site-header { margin-bottom: calc(-1 * var(--header-height)); border-bottom: 0; box-shadow: inset 0 -1px rgba(216, 209, 197, .65); transition: background-color 220ms ease, box-shadow 220ms ease; }
-.home-page.hero-at-top:not(.menu-open) .site-header { background: transparent; backdrop-filter: none; box-shadow: none; }
-.home-page.hero-at-top:not(.menu-open) .site-header .brand-logo { filter: brightness(0) invert(1); }
-.home-page.hero-at-top:not(.menu-open) .site-header .nav-link { color: var(--cream-light); }
-.home-page.hero-at-top:not(.menu-open) .site-header .header-mail,
-.home-page.hero-at-top:not(.menu-open) .site-header .menu-toggle { color: var(--cream-light); border-color: rgba(251, 249, 245, .55); }
+/* Shared header for the photographic Home and Nosotros openings. */
+:is(.home-page, .about-hero-page) .site-header { margin-bottom: calc(-1 * var(--header-height)); border-bottom: 0; box-shadow: inset 0 -1px rgba(216, 209, 197, .65); transition: background-color 220ms ease, box-shadow 220ms ease; }
+:is(.home-page, .about-hero-page).hero-at-top:not(.menu-open) .site-header { background: transparent; backdrop-filter: none; box-shadow: none; }
+:is(.home-page, .about-hero-page).hero-at-top:not(.menu-open) .site-header .brand-logo { filter: brightness(0) invert(1); }
+:is(.home-page, .about-hero-page).hero-at-top:not(.menu-open) .site-header .nav-link { color: var(--cream-light); }
+:is(.home-page, .about-hero-page).hero-at-top:not(.menu-open) .site-header .header-mail,
+:is(.home-page, .about-hero-page).hero-at-top:not(.menu-open) .site-header .menu-toggle { color: var(--cream-light); border-color: rgba(251, 249, 245, .55); }
 .home-page .landing-hero { min-height: 100svh; padding-top: var(--header-height); }
 .home-page .landing-hero h1 { max-width: 1180px; font-size: clamp(3rem, 6.4vw, 6.2rem); }
 .home-page .grindlane-booking { margin-top: 32px; }
+
+/* Nosotros: the supplied photograph and original copy, scoped to its opening. */
+.about-hero-page .about-hero { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; min-height: 100svh; padding-top: var(--header-height); background: var(--graphite-dark); color: var(--cream-light); }
+.about-hero__image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; }
+.about-hero::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(10,17,15,.78), rgba(10,17,15,.5) 37%, rgba(10,17,15,.08) 66%), linear-gradient(180deg, rgba(10,17,15,.55), transparent 24%); }
+.about-hero__content { padding-block: 76px 100px; }
+.about-hero h1 { max-width: 650px; margin: 0 0 26px; color: inherit; font-size: clamp(3rem, 4.5vw, 5.2rem); line-height: 1.06; }
+.about-hero .lead { max-width: 550px; margin: 0 0 30px; color: inherit; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; }
+.about-hero .button--outline { color: var(--cream-light); border-color: rgba(251,249,245,.75); }
+.about-hero .button--outline:is(:hover, :focus-visible) { background: var(--cream-light); color: var(--green); }
+@media (max-width: 1000px) {
+  .about-hero-page .about-hero { align-items: flex-end; }
+  .about-hero__image { object-position: 70% center; }
+  .about-hero::before { background: linear-gradient(0deg, rgba(10,17,15,.87), rgba(10,17,15,.52) 36%, rgba(10,17,15,.04) 70%), linear-gradient(180deg, rgba(10,17,15,.58), transparent 20%); }
+  .about-hero__content { padding-block: 48svh 48px; }
+  .about-hero h1 { max-width: 550px; font-size: clamp(2.5rem, 5vw, 3.5rem); }
+}
+@media (max-width: 600px) {
+  .about-hero__image { object-position: 72% center; }
+  .about-hero__content { padding-block: 38svh 32px; }
+  .about-hero h1 { font-size: clamp(1.85rem, 7.8vw, 2.4rem); margin-bottom: 20px; }
+  .about-hero .lead { font-size: .98rem; line-height: 1.55; margin-bottom: 24px; }
+}
 
 /* Benefit mosaic: drawn symbols, alternating proportions and a growing connector. */
 .benefits-section { background: var(--cream); }

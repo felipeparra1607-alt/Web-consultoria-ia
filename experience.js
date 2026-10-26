@@ -1,13 +1,14 @@
-// This file is loaded only by Home and the automation explainer.
+// Shared photographic header; other motion runs only on .experience pages.
 document.addEventListener("DOMContentLoaded", () => {
-  const page = document.querySelector(".experience");
+  const page = document.querySelector(".experience, .about-hero-page");
   if (!page) return;
-  if (page.matches('.home-page')) {
+  if (page.matches('.home-page, .about-hero-page')) {
     const updateHeroHeader = () => page.classList.toggle('hero-at-top', window.scrollY <= 24);
     updateHeroHeader();
     window.addEventListener('scroll', updateHeroHeader, { passive: true });
     window.addEventListener('pageshow', updateHeroHeader);
   }
+  if (!page.matches('.experience')) return;
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const revealItems = [...page.querySelectorAll("[data-enter]")];
   const progressItems = [...page.querySelectorAll("[data-progress]")];
