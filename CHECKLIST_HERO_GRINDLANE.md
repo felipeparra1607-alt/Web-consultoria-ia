@@ -1,36 +1,36 @@
-# Checklist del Hero de Grindlane
+# Checklist del Hero de Grindlane — ajustes finales
 
-Encargo: 26 de octubre de 2026. Cambios limitados a la Home y sus estilos exclusivos.
+Encargo: 26 de octubre de 2026. Nueva imagen adjunta, header transparente al inicio y CTA dentro de la sección negra. Esta revisión sustituye los criterios del encargo anterior.
 
-- [x] Fotografía actual conservada.
-- [x] Mejor calidad de imagen disponible: inspeccionar dimensiones y buscar una fuente mayor, sin ampliar artificialmente.
-- [x] Hero ocupando toda la primera pantalla, incluido el header, con imagen en cover.
-- [x] Fotografía visible detrás del menú superior, sin cortes ni duplicaciones.
-- [x] Header crema translúcido, legible y superpuesto; mantener sticky, logo y navegación.
-- [x] Encuadre responsive correcto en escritorio, tablet y móvil, sin desbordamiento horizontal.
-- [x] Titular exacto: «Automatizamos procesos. Impulsamos tu negocio.».
-- [x] Párrafo y botones originales conservados, incluidos sus enlaces.
-- [x] Bloque «Pide cita» añadido inmediatamente después de «Por qué Grindlane», sin texto adicional.
-- [x] Botón conectado al flujo real de contacto existente.
-- [x] Resto de la web, formulario y funcionalidades intactos; sin dependencias nuevas.
-- [x] Comprobaciones rápidas y revisión visual superadas.
-- [x] Commit realizado únicamente con archivos del encargo y este checklist; mensaje requerido.
-- [x] Push sin force a la rama de producción.
-- [x] Despliegue automático comprobado.
-- [x] Los tres cambios verificados en https://grindlaneconsulting.com/.
+## Comprobaciones de esta revisión
 
-## Evidencias
+- [x] Imagen final adjunta instalada correctamente.
+- [x] Imagen mostrada con la máxima calidad posible, sin ampliación artificial.
+- [x] Hero usando la nueva imagen.
+- [x] Hero ocupando correctamente la primera pantalla.
+- [x] Sin franja clara visible al inicio.
+- [x] Header transparente y superpuesto al comienzo.
+- [x] Header normal reaparece al hacer scroll.
+- [x] Titular exacto conservado.
+- [x] Párrafo y botones del Hero conservados.
+- [x] Bloque crema añadido anteriormente eliminado.
+- [x] No se creó ninguna nueva sección para «Pide cita».
+- [x] Botón «Pide cita» añadido solo dentro de la sección negra existente.
+- [x] Botón enlazado correctamente.
+- [x] Resto de la web intacto.
+- [x] Responsive revisado: escritorio grande, portátil, tablet y móvil.
+- [x] Comprobación rápida sin errores.
+- [ ] Commit realizado.
+- [ ] Push realizado.
+- [ ] Despliegue y dominio verificados en producción.
 
-- Estado inicial de Git: limpio.
-- Imagen conservada: `images/grindlane-home-office-sunset.webp`, 1717 × 916 px, 95.126 bytes. El PNG original adjunto tiene las mismas dimensiones (2.012.489 bytes). No hay otra fuente de esta fotografía con mayor resolución en el proyecto; no se ha reescalado ni regenerado.
-- Implementación: `index.html` y reglas exclusivas de `.home-page` en `experience.css`. CTA a `/contacto/`; imagen, logo, navegación, formulario y scripts originales conservados.
-- Comprobaciones locales: Hero con top=0 y altura igual al viewport en 1440×900, 820×1180, 390×844 y 320×740; sin desbordamiento horizontal. Imagen en object-fit: cover; header sticky con top=0 también tras scroll. Titular legible; foto única y continua.
-- CTA: texto exacto y sin párrafos adicionales; entre #por-que-grindlane y #que-automatizamos. Click verificado hacia /contacto/, que muestra el formulario existente; no se envió el formulario.
-- Validación: git diff --check y node --check en script.js y experience.js sin errores. Comparación automática de Home contra HEAD: ningún cambio fuera del titular, versión de CSS y nuevo CTA; header HTML, imagen, formulario y botones originales idénticos. Consola del navegador sin errores.
-- Capturas locales en C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/: landing-full-desktop.jpg, landing-full-tablet.jpg, landing-full-mobile.jpg y landing-cta-desktop.jpg.
-- Commit de implementación: e46cc7e, «Improve Grindlane hero and add booking CTA». Push correcto a origin/main; únicamente index.html, experience.css y este checklist.
-- CTA comprobado visualmente también en móvil; captura landing-cta-mobile.jpg.
-- Despliegue de implementación: https://github.com/felipeparra1607-alt/Web-consultoria-ia/actions/runs/40383045432 . Trabajos build, deploy y report-build-status completados con success.
-- Dominio real verificado en navegador: https://grindlaneconsulting.com/ . Hero top=0 y altura=720 en viewport de 720 px; header rgba(243,239,231,0.82), fotografía original cargada, titular exacto y CTA exacto presente. Click público de Pide cita navega correctamente a https://grindlaneconsulting.com/contacto/ . Consola sin errores.
-- Evidencia pública: C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/landing-production-hero.jpg .
-- El cierre posterior del checklist modifica solo este documento; no altera el código ya publicado y verificado.
+## Evidencias de esta revisión
+
+- Imagen final adjunta: PNG de 1672 × 941 px y 2.352.378 bytes. WebP calidad 94, mismas dimensiones, 261.698 bytes. Sin recorte destructivo ni ampliación: images/grindlane-home-office-final.webp.
+- Header inicial medido: background rgba(0,0,0,0), sin blur ni sombra; Hero top=0 y altura igual al viewport. Logo original conservado como archivo y geometría; versión blanca mediante CSS únicamente al inicio para legibilidad.
+- Scroll comprobado a 337 px: header sticky, fondo normal rgba(243,239,231,0.94), clase inicial retirada. Menú móvil abierto: fondo normal y enlaces oscuros, manteniendo los enlaces existentes.
+- Responsive revisado visualmente: 1920×1080, 1366×768, 820×1180 y 390×844. Sin desbordamiento horizontal ni deformación de imagen.
+- CTA único dentro de #por-que-grindlane, tras el texto Seguimos a tu lado; navega a /contacto/. Eliminada la sección crema anterior y su frase; no se ha creado ninguna sección nueva.
+- Validación: node --check experience.js y git diff --check sin errores. Comparación automática de Home: titular, párrafo, botones originales, header HTML, formulario y demás secciones preservados. Consola del navegador sin errores.
+- Evidencias locales: C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/final-hero-wide.jpg, final-hero-mobile.jpg y final-black-cta-mobile.jpg.
+- Pendiente: commit, push y comprobación del dominio público.

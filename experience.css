@@ -30,11 +30,15 @@
 .hero-link { color: var(--cream-light); font-size: .95rem; text-decoration: none; border-bottom: 1px solid #a6aaa3; padding-block: 12px; }
 
 /* Home only: keep the sticky header over the same continuous hero photograph. */
-.home-page .site-header { margin-bottom: calc(-1 * var(--header-height)); border-bottom: 0; background: rgba(243, 239, 231, .82); box-shadow: inset 0 -1px rgba(216, 209, 197, .65); }
+.home-page .site-header { margin-bottom: calc(-1 * var(--header-height)); border-bottom: 0; box-shadow: inset 0 -1px rgba(216, 209, 197, .65); transition: background-color 220ms ease, box-shadow 220ms ease; }
+.home-page.hero-at-top:not(.menu-open) .site-header { background: transparent; backdrop-filter: none; box-shadow: none; }
+.home-page.hero-at-top:not(.menu-open) .site-header .brand-logo { filter: brightness(0) invert(1); }
+.home-page.hero-at-top:not(.menu-open) .site-header .nav-link { color: var(--cream-light); }
+.home-page.hero-at-top:not(.menu-open) .site-header .header-mail,
+.home-page.hero-at-top:not(.menu-open) .site-header .menu-toggle { color: var(--cream-light); border-color: rgba(251, 249, 245, .55); }
 .home-page .landing-hero { min-height: 100svh; padding-top: var(--header-height); }
 .home-page .landing-hero h1 { max-width: 1180px; font-size: clamp(3rem, 6.4vw, 6.2rem); }
-.home-page .booking-invitation { text-align: center; background: var(--soft); }
-.home-page .booking-invitation h2 { max-width: 980px; margin: 0 auto 32px; }
+.home-page .grindlane-booking { margin-top: 32px; }
 
 /* Benefit mosaic: drawn symbols, alternating proportions and a growing connector. */
 .benefits-section { background: var(--cream); }

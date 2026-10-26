@@ -2,6 +2,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const page = document.querySelector(".experience");
   if (!page) return;
+  if (page.matches('.home-page')) {
+    const updateHeroHeader = () => page.classList.toggle('hero-at-top', window.scrollY <= 24);
+    updateHeroHeader();
+    window.addEventListener('scroll', updateHeroHeader, { passive: true });
+    window.addEventListener('pageshow', updateHeroHeader);
+  }
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const revealItems = [...page.querySelectorAll("[data-enter]")];
   const progressItems = [...page.querySelectorAll("[data-progress]")];
