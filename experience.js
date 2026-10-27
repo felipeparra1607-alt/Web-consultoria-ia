@@ -1,22 +1,22 @@
 // Shared photographic header; other motion runs only on .experience pages.
 document.addEventListener("DOMContentLoaded", () => {
-  const page = document.querySelector(".experience, .about-hero-page, .solutions-hero-page");
+  const page = document.querySelector(".experience, .about-hero-page, .solutions-hero-page, .method-hero-page");
   if (!page) return;
-  if (page.matches('.home-page, .about-hero-page, .automation-hero-page, .solutions-hero-page')) {
+  if (page.matches('.home-page, .about-hero-page, .automation-hero-page, .solutions-hero-page, .method-hero-page')) {
     const updateHeroHeader = () => page.classList.toggle('hero-at-top', window.scrollY <= 24);
     updateHeroHeader();
     window.addEventListener('scroll', updateHeroHeader, { passive: true });
     window.addEventListener('pageshow', updateHeroHeader);
   }
   // Only photographic internal-page heroes opt in. Default markup stays visible without JS.
-  if (page.matches('.about-hero-page, .automation-hero-page, .solutions-hero-page')) {
-    const hero = page.querySelector('.about-hero, .insight-hero, .solutions-hero');
+  if (page.matches('.about-hero-page, .automation-hero-page, .solutions-hero-page, .method-hero-page')) {
+    const hero = page.querySelector('.about-hero, .insight-hero, .solutions-hero, .method-hero');
     const image = hero.querySelector('img');
     const title = hero.querySelector('h1');
     const originalTitle = title.textContent;
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     const splitHeroTitle = () => {
-      if (!page.matches('.about-hero-page, .solutions-hero-page')) return;
+      if (!page.matches('.about-hero-page, .solutions-hero-page, .method-hero-page')) return;
       title.textContent = originalTitle;
       const node = title.firstChild;
       const range = document.createRange();
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!preference.matches) return;
       cancelAnimationFrame(resizeFrame);
       hero.classList.remove('cinematic-ready', 'cinematic-settled');
-      if (page.matches('.about-hero-page, .solutions-hero-page')) title.textContent = originalTitle;
+      if (page.matches('.about-hero-page, .solutions-hero-page, .method-hero-page')) title.textContent = originalTitle;
     });
   }
   if (!page.matches('.experience')) return;
