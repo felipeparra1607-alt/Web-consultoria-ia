@@ -17,12 +17,12 @@
 - [x] Movimiento reducido respetado.
 - [x] Diseño responsive comprobado.
 - [x] Resto de la página intacto.
-- [ ] Otras páginas sin regresiones.
+- [x] Otras páginas sin regresiones.
 - [x] Comprobaciones superadas.
-- [ ] Commit realizado.
-- [ ] Push realizado.
-- [ ] Despliegue completado correctamente.
-- [ ] Página pública verificada.
+- [x] Commit realizado.
+- [x] Push realizado.
+- [x] Despliegue completado correctamente.
+- [x] Página pública verificada.
 
 ## Evidencias
 
@@ -35,4 +35,9 @@
 - Comparación contra HEAD: titular y párrafo exactos; header HTML, footer, enlaces y contenido posterior al Hero idénticos. Misma cantidad de secciones; no se añadió ningún botón porque el Hero original no tenía ninguno. HTML de Home, Nosotros, Por qué automatizar, Cómo trabajamos y Contacto idénticos.
 - Validaciones: node --check experience.js y git diff --check correctos. Git diff revisado: únicamente el Hero de Soluciones, extensión de selectores compartidos con la nueva clase, imagen y checklist.
 - Capturas locales en C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/: solutions-hero-wide.png, solutions-hero-mobile.png, solutions-hero-tablet.png y solutions-hero-small.png.
-- Pendiente: commit, push, despliegue, dominio real y regresión pública de las páginas previas.
+- Implementación: commit 9bba5fa261366a8e9b92d62123aa86c234c2f1eb, mensaje Redesign solutions page hero with cinematic background. Push correcto a origin/main, sin force; solo los seis archivos del encargo.
+- Despliegue de implementación correcto: https://github.com/felipeparra1607-alt/Web-consultoria-ia/actions/runs/40504788252 . Build, deploy y report-build-status completados con success.
+- https://grindlaneconsulting.com/soluciones/ verificado: grindlane-solutions-hero.webp cargada (1672 px), titular y párrafo exactos, Hero igual al viewport, header transparente, cinematic-ready activo y animación gl-hero-camera de 1.8 s. Tras scroll, header sticky con fondo normal rgba(243,239,231,0.94). Consola sin errores.
+- Regresión pública: Home conserva grindlane-home-office-final.webp y su titular; Nosotros conserva grindlane-nosotros-reception.webp y su titular; Por qué automatizar conserva grindlane-automation-hero.webp (2048 px) y sus animaciones. En las tres, header transparente y Hero a pantalla completa; consola sin errores.
+- Evidencia pública: C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/solutions-hero-production.png .
+- El cierre posterior del checklist modifica solo documentación, sin alterar el código ya verificado.
