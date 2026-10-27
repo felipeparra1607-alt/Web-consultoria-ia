@@ -2,11 +2,74 @@
 document.addEventListener("DOMContentLoaded", () => {
   const page = document.querySelector(".experience, .about-hero-page");
   if (!page) return;
-  if (page.matches('.home-page, .about-hero-page')) {
+  if (page.matches('.home-page, .about-hero-page, .automation-hero-page')) {
     const updateHeroHeader = () => page.classList.toggle('hero-at-top', window.scrollY <= 24);
     updateHeroHeader();
     window.addEventListener('scroll', updateHeroHeader, { passive: true });
     window.addEventListener('pageshow', updateHeroHeader);
+  }
+  // Only the two requested heroes opt in. Default markup stays visible without JS.
+  if (page.matches('.about-hero-page, .automation-hero-page')) {
+    const hero = page.querySelector('.about-hero, .insight-hero');
+    const image = hero.querySelector('img');
+    const title = hero.querySelector('h1');
+    const originalTitle = title.textContent;
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const splitAboutTitle = () => {
+      if (!page.matches('.about-hero-page')) return;
+      title.textContent = originalTitle;
+      const node = title.firstChild;
+      const range = document.createRange();
+      const lines = [];
+      for (const word of originalTitle.matchAll(/\S+/g)) {
+        range.setStart(node, word.index);
+        range.setEnd(node, word.index + word[0].length);
+        const top = range.getBoundingClientRect().top;
+        const last = lines[lines.length - 1];
+        if (last && Math.abs(last.top - top) < 2) last.end = word.index + word[0].length;
+        else lines.push({ top, start: word.index, end: word.index + word[0].length });
+      }
+      const fragment = document.createDocumentFragment();
+      lines.forEach((line, index) => {
+        const mask = document.createElement('span');
+        const content = document.createElement('span');
+        mask.className = 'hero-line';
+        content.className = 'hero-line__text';
+        content.style.setProperty('--hero-line-index', index);
+        content.textContent = originalTitle.slice(line.start, lines[index + 1]?.start ?? originalTitle.length);
+        mask.append(content);
+        fragment.append(mask);
+      });
+      if (lines.length) title.replaceChildren(fragment);
+      hero.style.setProperty('--hero-copy-delay', `${(0.88 + lines.length * 0.15).toFixed(2)}s`);
+    };
+    const startHeroMotion = () => {
+      if (preference.matches) return;
+      try { splitAboutTitle(); }
+      catch { title.textContent = originalTitle; }
+      hero.classList.add('cinematic-ready');
+    };
+    // Wait for the actual photograph and fonts, rather than animate an unloaded asset.
+    Promise.all([
+      document.fonts?.ready || Promise.resolve(),
+      image.decode ? image.decode().catch(() => {}) : Promise.resolve(),
+    ]).then(startHeroMotion);
+    let resizeFrame = 0;
+    window.addEventListener('resize', () => {
+      if (!hero.classList.contains('cinematic-ready') || preference.matches) return;
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() => {
+        // Reflow natural title lines without replaying the entrance on resize.
+        hero.classList.add('cinematic-settled');
+        try { splitAboutTitle(); } catch { title.textContent = originalTitle; }
+      });
+    }, { passive: true });
+    preference.addEventListener('change', () => {
+      if (!preference.matches) return;
+      cancelAnimationFrame(resizeFrame);
+      hero.classList.remove('cinematic-ready', 'cinematic-settled');
+      if (page.matches('.about-hero-page')) title.textContent = originalTitle;
+    });
   }
   if (!page.matches('.experience')) return;
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
