@@ -19,11 +19,11 @@
 - [x] Rendimiento aceptable.
 - [x] Resto de la web intacto.
 - [x] Validaciones completadas.
-- [ ] Commit realizado.
-- [ ] Push realizado.
-- [ ] Despliegue completado.
-- [ ] Ambas páginas verificadas en producción.
-- [ ] Home comprobada sin regresiones.
+- [x] Commit realizado.
+- [x] Push realizado.
+- [x] Despliegue completado.
+- [x] Ambas páginas verificadas en producción.
+- [x] Home comprobada sin regresiones.
 
 ## Evidencias
 
@@ -39,4 +39,10 @@
 - Comparación contra HEAD: titular, descripción, CTA, navegación, footer, formularios y todo el contenido posterior al Hero intactos en ambas páginas. Home HTML e imagen actual de Nosotros idénticos byte a byte.
 - Comprobaciones: node --check experience.js y git diff --check correctos; sin dependencias nuevas. Animaciones limitadas a transform y opacity; líneas medidas solo al inicio y en resize, no durante el scroll.
 - Evidencias en C:/Users/orlan/.codex/visualizations/2026/10/05/01a10c9b-d41e-7fa0-b7ad-120d96c4f084/: automation-before-v2.jpg (antes), automation-v2-wide.png, about-v2-wide.png, automation-v2-mobile.png, about-v2-mobile.png, automation-v2-small.png. El estado previo de Nosotros consta también en nosotros-reception-production.jpg.
-- Pendiente: publicación y verificación pública, incluida regresión de Home.
+- Implementación: commit 532e26489434e224433d31387efb2b891e307e22, mensaje Enhance automation and about page hero animations. Push correcto a origin/main sin force; solo los seis archivos del encargo.
+- Despliegue de implementación: https://github.com/felipeparra1607-alt/Web-consultoria-ia/actions/runs/40473750250 ; build, deploy y report-build-status completados con success.
+- Verificación pública: https://grindlaneconsulting.com/por-que-automatizar/ carga grindlane-automation-hero.webp (2048 px), Hero a pantalla completa, header transparente y gl-hero-camera de 1.8 s; CTA confirmado hacia #impacto y header sólido tras scroll.
+- Verificación pública: https://grindlaneconsulting.com/nosotros/ conserva grindlane-nosotros-reception.webp (1896 px), titular exacto, animación de imagen 1.8 s y revelado de líneas; CTA confirmado hacia #equipo. Consola de ambas páginas sin errores.
+- Home pública verificada: fotografía grindlane-home-office-final.webp cargada, titular Automatizamos procesos. Impulsamos tu negocio., CTA /contacto/, sin las clases nuevas de animación. Header transparente al inicio y sólido/sticky tras scroll. Consola sin errores.
+- Evidencias públicas: automation-v2-production.png y about-v2-production.png en la carpeta de capturas indicada arriba. Recursos CSS/JS con versión heros-v2 comprobados mediante las animaciones nuevas efectivas; sin recurrir a una copia local para afirmar publicación.
+- Simulaciones de DevTools restauradas (JavaScript, media y métricas de dispositivo). El cierre posterior del checklist solo modifica documentación, sin alterar el código publicado.
