@@ -1,9 +1,8 @@
-/* Disponibilidad y confirmación reales exclusivamente contra el Worker de prueba. */
+/* Mismo Worker público y contrato; activar el dominio propio antes de publicar. */
 (() => {
   'use strict';
-  // SOLO Worker de prueba. Revisar/cambiar este endpoint antes de publicar en producción.
-  const BOOKING_OPTIONS_URL = 'https://grindlane-form.felipe-parra1607.workers.dev/api/booking-options';
-  const CONFIRM_BOOKING_URL = 'https://grindlane-form.felipe-parra1607.workers.dev/api/confirm-booking';
+  const BOOKING_OPTIONS_URL = 'https://api.grindlaneconsulting.com/api/booking-options';
+  const CONFIRM_BOOKING_URL = 'https://api.grindlaneconsulting.com/api/confirm-booking';
   const token = new URLSearchParams(window.location.search).get('token')?.trim();
   const elements = Object.fromEntries([
     ['loading', 'booking-loading'], ['error', 'booking-error'], ['errorTitle', 'error-title'],

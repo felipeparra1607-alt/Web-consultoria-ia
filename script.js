@@ -1,4 +1,26 @@
-const FORM_ENDPOINT = "https://grindlane-form.felipe-parra1607.workers.dev";
+// Activate only after this custom domain is attached to the EXISTING grindlane-form Worker.
+const FORM_ENDPOINT = "https://api.grindlaneconsulting.com";
+
+async function sendContactPayload(payload, transport = fetch) {
+  const uncertain = { outcome: "uncertain", message: "No podemos confirmar el envío. No lo envíes otra vez todavía: comprueba tu correo o consulta con contacto@grindlaneconsulting.com para evitar duplicados." };
+  try {
+    const response = await transport(FORM_ENDPOINT, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload), signal: AbortSignal.timeout(20000),
+    });
+    const result = await response.json().catch(() => null);
+    // A lead may already exist even when delivery or the final response fails.
+    if (result?.lead_id && (!response.ok || result.ok !== true || !["sent", "sent_from_contacto", "sent_from_fallback"].includes(result.email_status?.customer_booking_link))) {
+      return { outcome: "recorded", message: "Tu solicitud está registrada, pero no hemos podido confirmar el envío del enlace por correo. No repitas el formulario; contacta con contacto@grindlaneconsulting.com." };
+    }
+    if (response.ok && result?.ok === true && ((typeof result.lead_id === "string" && result.lead_id.length > 0) || result.skipped === "honeypot")) {
+      return { outcome: "accepted", message: result.skipped === "honeypot" ? "Gracias. Hemos recibido tu solicitud." : "Gracias. Hemos recibido tu solicitud. Te hemos enviado un email con tu enlace personal para reservar el diagnóstico gratuito. Puede tardar unos minutos en llegar. Revisa también la carpeta de spam, correo no deseado o promociones." };
+    }
+    if (!result?.lead_id && result?.ok === false && response.status === 400) return { outcome: "rejected", message: "Revisa los campos del formulario y el formato del email antes de volver a enviarlo." };
+    if (!result?.lead_id && result?.ok === false && response.status === 429) return { outcome: "rejected", message: "Se han recibido demasiadas solicitudes. Espera antes de volver a intentarlo o escribe a contacto@grindlaneconsulting.com." };
+    return uncertain;
+  } catch { return uncertain; }
+}
 
 // Keep the existing Worker contract: audit context travels in the email's message.
 function buildContactPayload(formData, pageUrl) {
@@ -563,36 +585,29 @@ document.addEventListener("DOMContentLoaded", () => {
       updateStatus("Enviando el mensaje…");
 
       try {
-        const response = await fetch(FORM_ENDPOINT, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-        const result = await response.json().catch(() => null);
-
-        if (!response.ok || result?.ok !== true) {
-          throw new Error("El servicio de formularios ha rechazado el envío.");
-        }
+        const result = await sendContactPayload(payload);
+        if (["uncertain", "recorded"].includes(result.outcome)) form.dataset.submissionUncertain = "true";
 
         if (contextIsCurrent()) {
-          form.reset();
-          form.elements.source.value = source;
-          form.elements.contact_person.value = contactPerson;
-          updateStatus("Gracias. Hemos recibido tu solicitud. Te hemos enviado un email con tu enlace personal para reservar el diagnóstico gratuito. Puede tardar unos minutos en llegar. Revisa también la carpeta de spam, correo no deseado o promociones.", "success");
+          if (result.outcome === "accepted") {
+            form.reset();
+            form.elements.source.value = source;
+            form.elements.contact_person.value = contactPerson;
+          }
+          updateStatus(result.message, result.outcome === "accepted" ? "success" : "error");
         }
       } catch (error) {
+        form.dataset.submissionUncertain = "true";
         if (contextIsCurrent()) {
           updateStatus(
-            "No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos a contacto@grindlaneconsulting.com.",
+            "No podemos confirmar el envío. No lo envíes otra vez todavía; consulta con contacto@grindlaneconsulting.com para evitar duplicados.",
             "error",
           );
         }
       } finally {
-        form.dataset.submitting = "false";
+        form.dataset.submitting = form.dataset.submissionUncertain === "true" ? "true" : "false";
         form.removeAttribute("aria-busy");
-        submitButton.disabled = false;
+        submitButton.disabled = form.dataset.submissionUncertain === "true";
         submitButton.textContent = originalButtonText;
       }
     });
